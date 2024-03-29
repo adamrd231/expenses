@@ -1,20 +1,9 @@
-//
-//  CreateBudgetView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/21/24.
-//
-
 import SwiftUI
-import Foundation
 
 struct CreateBudgetView: View {
     @ObservedObject var vm: BudgetsViewModel
     @Binding var isCreatingBudget: Bool
     @State var currentIndex: Int? = 0
-    @State var newBudget = Budget()
-    @State var offset: CGPoint = .zero
-
   
     var body: some View {
         NavigationStack {
@@ -22,8 +11,8 @@ struct CreateBudgetView: View {
                 // Setup pages scroll horizontally
                 ScrollViewReader { proxy in
                     ScrollView(.horizontal) {
-                        LazyHStack(spacing: 0) {
-                            BreakDownView(newBudget: newBudget)
+                        LazyHStack(alignment: .top, spacing: 0) {
+                            BreakDownView(newBudget: vm.budgetModel)
                                 .id(0)
                                 .tag(0)
                                 .containerRelativeFrame(.horizontal)
@@ -73,8 +62,9 @@ struct CreateBudgetView: View {
                 .scrollTargetBehavior(.paging)
                 
             }
-            .navigationTitle("Budget Goals")
             CustomPageControl(numberOfPages: 7, currentPage: $currentIndex)
+                .navigationTitle("")
+                .title
         }
         .padding()
     }
@@ -82,6 +72,8 @@ struct CreateBudgetView: View {
 
 
 
-#Preview {
-    CreateBudgetView(vm: BudgetsViewModel(), isCreatingBudget: .constant(true))
+struct CreateBudgetView_Previews: PreviewProvider {
+    static var previews: some View {
+        BudgetsView(budgetVM: dev.budgetVM)
+    }
 }

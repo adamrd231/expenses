@@ -59,8 +59,10 @@ struct SetupView: View {
     @ObservedObject var vm: BudgetsViewModel
     
     var body: some View {
-        List {
-            VStack {
+        VStack {
+            Text("Range")
+                .font(.largeTitle)
+            List {
                 HStack {
                     Text("Start Date")
                     DatePicker("", selection: $vm.budgetModel.start, displayedComponents: .date)
@@ -85,9 +87,9 @@ struct SetupView: View {
                 }
             }
             .listStyle(.plain)
-
         }
     }
+        
 }
 
 #Preview {

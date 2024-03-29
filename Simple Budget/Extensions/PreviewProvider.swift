@@ -9,6 +9,7 @@ extension PreviewProvider {
 struct DeveloperPreview {
     static let instance = DeveloperPreview()
     var budgetVM = BudgetsViewModel()
+    var budget = Budget()
     
     init() {
         budgetVM.budgets = []
@@ -26,5 +27,6 @@ struct DeveloperPreview {
             wantItems: [],
             saveItems: [])
         budgetVM.budgets.append(budget)
+        budgetVM.budgetModel = budget
     }
 }

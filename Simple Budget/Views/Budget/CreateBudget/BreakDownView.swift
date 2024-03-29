@@ -13,7 +13,7 @@ struct BreakDownView: View {
     var body: some View {
         VStack(spacing: 10) {
             Text(newBudget.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
-                .font(.title)
+                .font(.largeTitle)
             VStack {
                 Text("30/30/20 recommended")
                 // TODO: Replace this link with the actual link we want here
@@ -26,14 +26,17 @@ struct BreakDownView: View {
             BreakdownSliderView(value: $newBudget.needsBudgetPercentage, type: .needs)
             BreakdownSliderView(value: $newBudget.wantsBudgetPercentage, type: .wants)
             BreakdownSliderView(value: $newBudget.saveBudgetPercentage, type: .save)
-            Spacer()
+            
         }
     }
 }
 
-#Preview {
-    BreakDownView(newBudget: Budget())
+struct BreakDownView_Previews: PreviewProvider {
+    static var previews: some View {
+        BreakDownView(newBudget: dev.budgetVM.budgetModel)
+    }
 }
+
 
 struct BreakdownSliderView: View {
     @Binding var value: Double

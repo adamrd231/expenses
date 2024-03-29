@@ -21,29 +21,19 @@ struct BudgetsView: View {
             .listStyle(.plain)
             .navigationTitle("Budgets")
             .toolbar {
-                
-                Toolbar
-                NavigationLink {
-                    CreateBudgetView(vm: budgetVM, isCreatingBudget: $isCreatingBudget)
-                } label: {
-                    Image(systemName: "plus.circle")
-                }
-
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         isCreatingBudget.toggle()
                     } label: {
-                        Image(systemName: "plus.circle")
-    
+                        NavigationLink {
+                            CreateBudgetView(vm: budgetVM, isCreatingBudget: $isCreatingBudget)
+                        } label: {
+                            Image(systemName: "plus.circle")
+                        }
                     }
                 }
             }
         }
-//        .fullScreenCover(isPresented: $isCreatingBudget, content: {
-//            CreateBudgetView(vm: budgetVM, isCreatingBudget: $isCreatingBudget)
-//        })
-        
-        
     }
 }
 
