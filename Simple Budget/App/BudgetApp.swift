@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct Simple_BudgetApp: App {
+struct BudgetApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
