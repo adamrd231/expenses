@@ -11,8 +11,8 @@ import SwiftUI
 struct CustomProgressBar: View {
     let progress: Double
     var cornerRadius: Double = 9
-    var backgroundColor: Color = .AppThemeGrayColor
-    var foregroundColor: Color = .AppBlack
+    var backgroundColor: Color = Color.theme.background
+    var foregroundColor: Color = Color.theme.text
     
     var body: some View {
         VStack {

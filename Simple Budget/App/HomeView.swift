@@ -21,7 +21,7 @@ struct HomeView: View {
             .tag(0)
                 .tabItem { Label(
                     title: { Text("Overview") },
-                    icon: { Image(systemName: "diamond") }
+                    icon: { Image(systemName: "gauge") }
                     )
                 }
                     
@@ -32,7 +32,7 @@ struct HomeView: View {
                 .tag(1)
                 .tabItem { Label(
                     title: { Text("Transactions") },
-                    icon: { Image(systemName: "diamond") }
+                    icon: { Image(systemName: "banknote") }
                     )
                 }
                     
@@ -40,7 +40,7 @@ struct HomeView: View {
                 .tag(2)
                 .tabItem { Label(
                     title: { Text("Settings") },
-                    icon: { Image(systemName: "diamond") }
+                    icon: { Image(systemName: "gear") }
                     )
                 }
         }

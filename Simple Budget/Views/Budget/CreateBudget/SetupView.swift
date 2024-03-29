@@ -59,27 +59,22 @@ struct SetupView: View {
     @ObservedObject var vm: BudgetsViewModel
     
     var body: some View {
-        VStack {
-            Text("Setup")
-                .font(.title)
+        List {
             VStack {
                 HStack {
                     Text("Start Date")
                     DatePicker("", selection: $vm.budgetModel.start, displayedComponents: .date)
                 }
-                Spacer()
                 HStack {
                     Text("End Date")
                     DatePicker("", selection: $vm.budgetModel.end, displayedComponents: .date)
                 }
-                Spacer()
                 HStack {
                     Text("Currency")
                     Spacer()
                     BorderedStringTextField(string: $vm.budgetModel.currencySymbol)
            
                 }
-                Spacer()
                 HStack {
                     Text("Start Balance")
                     Spacer()
@@ -89,7 +84,8 @@ struct SetupView: View {
 
                 }
             }
-//            .listStyle(.plain)
+            .listStyle(.plain)
+
         }
     }
 }
