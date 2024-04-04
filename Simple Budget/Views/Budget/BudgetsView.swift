@@ -26,7 +26,7 @@ struct BudgetsView: View {
                         isCreatingBudget.toggle()
                     } label: {
                         NavigationLink {
-                            CreateBudgetView(vm: budgetVM, isCreatingBudget: $isCreatingBudget)
+                            CreateBudgetView(vm: budgetVM)
                         } label: {
                             Image(systemName: "plus.circle")
                         }

@@ -22,7 +22,12 @@ struct CustomPageControl: View {
                     
             }
         }
-        .padding(.bottom, 10)
-  
+    }
+}
+
+
+struct CustomPageControl_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomPageControl(numberOfPages: 6, currentPage: .constant(1))
     }
 }

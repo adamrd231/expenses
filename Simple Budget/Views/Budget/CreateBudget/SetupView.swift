@@ -13,50 +13,13 @@ extension Binding {
     }
 }
 
-struct BorderedStringTextField: View {
-    @Binding var string: String
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(Color(.lightGray).opacity(0.2))
-
-            TextField("", text: $string)
-                .padding(5)
-                .multilineTextAlignment(.center)
-        }
-        .frame(minWidth: 125)
-        .fixedSize()
-   
-    }
-}
-
-struct BorderedDoubleTextField: View {
-    @Binding var value: Double
-    let numberFormatter  = NumberFormatter()
-    
-    init(value: Binding<Double>) {
-        self._value = value
-        numberFormatter.numberStyle = .decimal
-        
-    }
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(Color(.lightGray).opacity(0.2))
-
-            TextField("", value: $value, formatter: numberFormatter)
-                .padding(5)
-                .multilineTextAlignment(.center)
-        }
-        .frame(minWidth: 125)
-        .fixedSize()
-   
-    }
-}
-
 struct SetupView: View {
     @ObservedObject var vm: BudgetsViewModel
+    var numberFormatter = NumberFormatter()
+    init(vm: BudgetsViewModel) {
+        self.vm = vm
+        numberFormatter.numberStyle = .currency
+    }
     
     var body: some View {
         VStack {
@@ -72,24 +35,15 @@ struct SetupView: View {
                     DatePicker("", selection: $vm.budgetModel.end, displayedComponents: .date)
                 }
                 HStack {
-                    Text("Currency")
-                    Spacer()
-                    BorderedStringTextField(string: $vm.budgetModel.currencySymbol)
-           
-                }
-                HStack {
                     Text("Start Balance")
                     Spacer()
-                    Text(vm.budgetModel.currencySymbol)
-                    BorderedDoubleTextField(value: $vm.budgetModel.startBalance)
-
-
+                    TextField("", value: $vm.budgetModel.startBalance, formatter: numberFormatter)
+                        .fixedSize()
                 }
             }
             .listStyle(.plain)
         }
     }
-        
 }
 
 #Preview {
