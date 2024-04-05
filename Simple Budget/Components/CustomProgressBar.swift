@@ -1,53 +1,71 @@
-//
-//  CustomProgressBar.swift
-//  SimpleBudget
-//
-//  Created by Jaymeen Unadkat on 17/03/24.
-//
-
 import SwiftUI
 
-///`CustomProgressBar`
 struct CustomProgressBar: View {
-    let progress: Double
-    var cornerRadius: Double = 9
-    var backgroundColor: Color = Color.theme.background
-    var foregroundColor: Color = Color.theme.text
+    let title: String
+    let startDate: Date
+    let endDate: Date
+    let currentSpend: Double
+    let totalBudget: Double
+    
+    var progress: Double {
+        currentSpend / totalBudget
+    }
+    
+    var cornerRadius: Double = 25
     
     var body: some View {
-        VStack {
-            GeometryReader { geometry in
+        GeometryReader { geometry in
+            VStack {
+                HStack {
+                    Text(startDate, style: .date)
+                        .bold()
+                    Spacer()
+                    HStack {
+                        Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                        Text("Left")
+                    }
+                    .foregroundStyle(.secondary)
+                }
+                .font(.caption)
+               
                 ZStack(alignment: .leading) {
                     ZStack {
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(lineWidth: 3)
                             .frame(width: geometry.size.width)
-                            .foregroundColor(backgroundColor)
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .opacity(0.3)
-                            .foregroundColor(.clear)
-                        
+                            .foregroundColor(Color.theme.background.opacity(0.8))
+
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .stroke(lineWidth: 3)
-                            .foregroundColor(backgroundColor)
+                            .foregroundColor(Color.theme.background)
+                            .blur(radius: 1)
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .foregroundStyle(backgroundColor.opacity(0.3))
+                            .foregroundStyle(Color.theme.blue)
                     }
-                    .frame(width: geometry.size.width * progress)
+                    .frame(width: (geometry.size.width * (1 - progress)))
                 }
                 .frame(
-                    height: geometry.size.height
+                    height: geometry.size.height * 0.75
                 )
             }
         }
+        .shadow(color: Color.theme.background, radius: 6)
         .frame(height: 50)
     }
 }
 
 
-#Preview {
-    CustomProgressBar(progress: 0.2)
-        .preferredColorScheme(.dark)
+
+struct CustomProgressBar_Previews: PreviewProvider {
+    static var previews: some View {
+        CustomProgressBar(
+            title: "Income",
+            startDate: Date(),
+            endDate: Date().addingTimeInterval(1000),
+            currentSpend: 10,
+            totalBudget: 100
+           )
+
+    }
 }

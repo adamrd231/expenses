@@ -45,25 +45,50 @@ struct BudgetSetupComponentView: View {
                             getTotalBudget()
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                            Text(budgetType == .income ? "Monthly income" : "Available")
+                            switch budgetType {
+                            case .income:
+                                Text("Monthly income")
+                            case .needs:
+                                Text("Needs budget total")
+                            case .wants:
+                                Text("Wants budget total")
+                            case .save:
+                                Text("Save budget total")
+                            }
                         }
                         Spacer()
                     }
                 }
-                Section(header: getSectionTitle()) {
-           
+                Section("Overview") {
                     switch budgetType {
                     case .income: EmptyView()
-                    case .needs:  CustomProgressBar(
-                        progress: vm.budgetModel.needBudgetTotal / vm.budgetModel.needBudgetGoal
-                    ).padding(10)
-                    case .wants:  CustomProgressBar(
-                        progress: vm.budgetModel.wantsBudgetTotal / vm.budgetModel.wantsBudgeGoal
-                    ).padding(10)
-                    case .save: CustomProgressBar(
-                        progress: vm.budgetModel.saveBudgetTotal / vm.budgetModel.saveBudgetGoal
-                    ).padding(10)
+                    case .needs:  
+                        CustomProgressBar(
+                            title: "Needs",
+                            startDate: vm.budgetModel.start,
+                            endDate: vm.budgetModel.end,
+                            currentSpend: vm.budgetModel.needBudgetTotal,
+                            totalBudget: vm.budgetModel.needBudgetGoal
+                        )
+                    case .wants:
+                        CustomProgressBar(
+                            title: "Wants",
+                            startDate: vm.budgetModel.start,
+                            endDate: vm.budgetModel.end,
+                            currentSpend: vm.budgetModel.incomeItems.map({ $0.amount}).reduce(0, +),
+                            totalBudget: vm.budgetModel.wantsBudgetTotal
+                        )
+                    case .save:
+                        CustomProgressBar(
+                            title: "Save",
+                            startDate: vm.budgetModel.start,
+                            endDate: vm.budgetModel.end,
+                            currentSpend: vm.budgetModel.incomeItems.map({ $0.amount}).reduce(0, +),
+                            totalBudget: vm.budgetModel.saveBudgetTotal
+                        )
                     }
+                }
+                Section(header: getSectionTitle()) {
                        
                     switch budgetType {
                     case .income: 
