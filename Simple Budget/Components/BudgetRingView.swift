@@ -19,7 +19,7 @@ struct BudgetRingView: View {
             
             ZStack(alignment: .top) {
                 Circle()
-                    .trim(from: 0, to: progress)
+                    .trim(from: 0, to: 1 - progress)
                     .stroke(
                         AngularGradient(
                             gradient: Gradient(

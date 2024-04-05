@@ -30,5 +30,7 @@ struct DeveloperPreview {
         budgetVM.budgetModel = budget
         budgetVM.budgetModel.incomeItems.append(BudgetItem(type: .income, name: "Work", amount: 10000))
         budgetVM.budgetModel.needItems.append(BudgetItem(type: .income, name: "TV", amount: 1000))
+        budgetVM.budgetModel.wantItems.append(BudgetItem(type: .income, name: "Books", amount: 300))
+        budgetVM.budgetModel.saveItems.append(BudgetItem(type: .income, name: "Leaves", amount: 500))
     }
 }

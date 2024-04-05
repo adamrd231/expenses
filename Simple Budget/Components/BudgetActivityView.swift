@@ -11,7 +11,7 @@ struct BudgetActivityView: View {
     @ObservedObject var vm: BudgetsViewModel
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             Text("Overview")
                 .font(.title)
                 .fontWeight(.bold)
@@ -28,7 +28,7 @@ struct BudgetActivityView: View {
                         BudgetRingView(
                             progress: vm.budgetModel.wantsBudgetTotal / vm.budgetModel.wantsBudgeGoal,
                             lineWidth: geo.size.width * 0.1,
-                            ringColor: .red
+                            ringColor: .green
                         )
                         .frame(width: geo.size.width - (geo.size.width * 0.25))
         
@@ -44,6 +44,31 @@ struct BudgetActivityView: View {
                 }
             }
             .frame(width: 250, height: 250, alignment: .center)
+            
+            VStack {
+                HStack {
+                    Circle()
+                        .frame(width: 15)
+                        .foregroundStyle(Color.theme.green)
+                    Spacer()
+                    Text("Needs")
+                }
+                HStack {
+                    Circle()
+                        .frame(width: 15)
+                        .foregroundStyle(.green)
+                    Spacer()
+                    Text("Wants")
+                }
+                HStack {
+                    Circle()
+                        .frame(width: 15)
+                        .foregroundStyle(Color.theme.blue)
+                    Spacer()
+                    Text("Save")
+                }
+            }
+            .frame(maxWidth: 100)
         }
     }
 }
