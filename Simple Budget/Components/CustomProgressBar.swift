@@ -14,44 +14,58 @@ struct CustomProgressBar: View {
     var cornerRadius: Double = 25
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
+        VStack(spacing: 10) {
+            HStack {
+                Text(title)
+                    .bold()
+                Spacer()
                 HStack {
-                    Text(startDate, style: .date)
-                        .bold()
-                    Spacer()
-                    HStack {
-                        Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
-                        Text("Left")
-                    }
-                    .foregroundStyle(.secondary)
+                    Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                    Text("Left")
                 }
-                .font(.caption)
-               
+                .foregroundStyle(Color.theme.secondaryText)
+            }
+            .font(.caption)
+            
+            GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     ZStack {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .frame(width: geometry.size.width)
-                            .foregroundColor(Color.theme.background.opacity(0.8))
+                            .foregroundColor(Color.theme.background.opacity(0.85))
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .strokeBorder(Color.theme.background, lineWidth: 5)
+                            .blur(radius: 3)
 
                     }
                     ZStack {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .stroke(lineWidth: 3)
-                            .foregroundColor(Color.theme.background)
-                            .blur(radius: 1)
+                            .foregroundColor(Color.theme.blue)
+            
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .foregroundStyle(Color.theme.blue)
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [.blue, Color.theme.blue],
+                                    startPoint: .bottomTrailing,
+                                    endPoint: .topLeading
+                                )
+                            )
                     }
                     .frame(width: (geometry.size.width * (1 - progress)))
                 }
-                .frame(
-                    height: geometry.size.height * 0.75
-                )
             }
+            .fixedSize(horizontal: false, vertical: true)
+            HStack {
+                Text(startDate, style: .date)
+                    .bold()
+                Spacer()
+                Text(endDate, style: .date)
+                    .bold()
+            }
+            .foregroundStyle(Color.theme.secondaryText)
+            .font(.caption2)
         }
-        .shadow(color: Color.theme.background, radius: 6)
-        .frame(height: 50)
     }
 }
 

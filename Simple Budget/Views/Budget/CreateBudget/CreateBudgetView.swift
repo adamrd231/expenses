@@ -37,7 +37,9 @@ struct CreateBudgetView: View {
                         .id(5)
                         .tag(5)
                         .containerRelativeFrame(.horizontal)
-                    
+                    BudgetActivityView(vm: vm)
+                        .id(6).tag(6)
+                        .containerRelativeFrame(.horizontal)
                 }
                 .scrollTargetLayout()
             }

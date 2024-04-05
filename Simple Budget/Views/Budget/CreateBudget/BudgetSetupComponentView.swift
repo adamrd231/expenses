@@ -10,7 +10,7 @@ import SwiftUI
 struct BudgetSetupComponentView: View {
     @ObservedObject var vm: BudgetsViewModel
     let currentIndex: Int
-    let budgetType: BudgetCategory
+    var budgetType: BudgetCategory
     @State var isAddingNeedsItem: Bool = false
     @State private var sheetContentHeight = CGFloat(0)
     
@@ -28,7 +28,7 @@ struct BudgetSetupComponentView: View {
         var text: Double = 0
         switch budgetType {
         case .income: text = vm.budgetModel.totalBudget
-        case .needs: text = vm.budgetModel.needBudgetGoal - vm.budgetModel.needBudgetTotal
+        case .needs: text = vm.budgetModel.needBudgetGoal
         case .wants: text = vm.budgetModel.wantsBudgeGoal - vm.budgetModel.wantsBudgetTotal
         case .save: text = vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal
         }

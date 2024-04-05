@@ -20,16 +20,16 @@ struct OverviewView: View {
                         OverviewSectionView(
                             title: "Income",
                             type: .income,
-                            totalSpend: transactionVM.getActualTotalFromTransactions(type: .income),
-                            totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: .income),
+                            totalSpend: 100,
+                            totalFromBudget: 500,
                             items: budgetVM.budgets.first?.incomeItems ?? [],
                             transactions: transactionVM.transactions
                         )
                     } label: {
                         OverviewCategoryView(
                             type: .income,
-                            totalSpend: transactionVM.getActualTotalFromTransactions(type: .income),
-                            totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: .income)
+                            totalSpend: 100,
+                            totalFromBudget: 500
                         )
                     }
                    
