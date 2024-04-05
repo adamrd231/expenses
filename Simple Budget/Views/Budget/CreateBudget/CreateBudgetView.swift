@@ -8,7 +8,7 @@ struct CreateBudgetView: View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 0) {
-                    BreakDownView(newBudget: vm.budgetModel)
+                    BreakDownView(vm: vm)
                         .id(0)
                         .tag(0)
                         .containerRelativeFrame(.horizontal)
@@ -57,6 +57,7 @@ struct CreateBudgetView: View {
         .scrollIndicators(.hidden)
         .scrollTargetBehavior(.paging)
         .navigationTitle("Setup")
+        .toolbarTitleDisplayMode(.inline)
         CustomPageControl(numberOfPages: 7, currentPage: $currentIndex)
     }
     

@@ -22,30 +22,27 @@ struct SetupView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Range")
-                .font(.largeTitle)
-            List {
-                HStack {
-                    Text("Start Date")
-                    DatePicker("", selection: $vm.budgetModel.start, displayedComponents: .date)
-                }
-                HStack {
-                    Text("End Date")
-                    DatePicker("", selection: $vm.budgetModel.end, displayedComponents: .date)
-                }
-                HStack {
-                    Text("Start Balance")
-                    Spacer()
-                    TextField("", value: $vm.budgetModel.startBalance, formatter: numberFormatter)
-                        .fixedSize()
-                }
+        List {
+            Section(header: Text("Date range")) {
+                DateRangeRow(title: "Start", date: $vm.budgetModel.start)
+                DateRangeRow(title: "End", date: $vm.budgetModel.end)
             }
-            .listStyle(.plain)
         }
     }
 }
 
 #Preview {
     SetupView(vm: BudgetsViewModel())
+}
+
+struct DateRangeRow: View {
+    let title: String
+    @Binding var date: Date
+    var body: some View {
+        HStack {
+            Text(title)
+            DatePicker("", selection: $date, displayedComponents: .date)
+        }
+        .padding(10)
+    }
 }

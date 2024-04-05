@@ -8,41 +8,42 @@
 import SwiftUI
 
 struct BreakDownView: View {
-    @State var newBudget: Budget
-
+    @ObservedObject var vm: BudgetsViewModel
+    
     var body: some View {
         List {
-            Section("Planning") {
+            Section(header: Text("Planning"), footer: Text("Learn More")) {
                 HStack {
                     Text("Budget Total")
                     Spacer()
-                    Text(newBudget.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
-                       
+                    Text(vm.budgetModel.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
+                        .foregroundStyle(vm.budgetModel.totalBudgetPercentage > 1 ? .red : .primary)
+                        .fontWeight(.bold)
                 }
-                .font(.title3)
-               
-                VStack(alignment: .leading) {
-                    Text("30/30/20 recommended")
-                    // TODO: Replace this link with the actual link we want here
-                    // Option: We could unwrap the optional instead of force unwrapping, this way it would hide the button if link is not valid instead of creashing the app
-                    Link(destination: URL(string: "https://www.google.com/?client=safari")!) {
-                        Text("Tap here to learn why")
+                .padding(10)
+                SliderView(value: $vm.budgetModel.needsBudgetPercentage, type: .needs)
+                SliderView(value: $vm.budgetModel.wantsBudgetPercentage, type: .wants)
+                SliderView(value: $vm.budgetModel.saveBudgetPercentage, type: .save)
+                HStack {
+                    Text("Reset budget values")
+                    Spacer()
+                    Button {
+                        vm.budgetModel.needsBudgetPercentage = 0.5
+                        vm.budgetModel.wantsBudgetPercentage = 0.3
+                        vm.budgetModel.saveBudgetPercentage = 0.2
+                    } label: {
+                        Image(systemName: "arrow.uturn.backward.circle.fill")
                     }
                 }
-                .font(.caption)
-               
+                .padding(10)
             }
-            SliderView(value: $newBudget.needsBudgetPercentage, type: .needs)
-            SliderView(value: $newBudget.wantsBudgetPercentage, type: .wants)
-            SliderView(value: $newBudget.saveBudgetPercentage, type: .save)
-
         }
     }
 }
 
 struct BreakDownView_Previews: PreviewProvider {
     static var previews: some View {
-        BreakDownView(newBudget: dev.budgetVM.budgetModel)
+        BreakDownView(vm: dev.budgetVM)
     }
 }
 

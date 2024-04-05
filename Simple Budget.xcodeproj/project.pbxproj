@@ -122,18 +122,10 @@
 			children = (
 				6694DF0D2BBFACF500B87CAB /* SliderView.swift */,
 				6694DEB52BADF7C600B87CAB /* Buttons */,
-				644760B72BA8CAA8002F1B2D /* CustomProgress */,
+				644760B82BA8CAA8002F1B2D /* CustomProgressBar.swift */,
 				6694DEAA2BADEBC600B87CAB /* CustomPageControl.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		644760B72BA8CAA8002F1B2D /* CustomProgress */ = {
-			isa = PBXGroup;
-			children = (
-				644760B82BA8CAA8002F1B2D /* CustomProgressBar.swift */,
-			);
-			path = CustomProgress;
 			sourceTree = "<group>";
 		};
 		644760CF2BA8D352002F1B2D /* Budget */ = {
@@ -257,12 +249,12 @@
 			isa = PBXGroup;
 			children = (
 				644760B32BA8C87D002F1B2D /* App */,
+				6694DF082BB714B600B87CAB /* Extensions */,
 				CE87D5AB2BA83AD6001740A5 /* Enums */,
 				CE87D5A42BA83A84001740A5 /* Models */,
 				666BE7B92BACA948002ABF97 /* ViewModels */,
 				644760B42BA8C885002F1B2D /* Views */,
 				644760B62BA8CAA8002F1B2D /* Components */,
-				6694DF082BB714B600B87CAB /* Extensions */,
 				644760B22BA8C845002F1B2D /* Resources */,
 			);
 			path = "Simple Budget";

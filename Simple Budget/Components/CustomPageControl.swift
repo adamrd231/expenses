@@ -22,6 +22,7 @@ struct CustomPageControl: View {
                     
             }
         }
+        .padding()
     }
 }
 
