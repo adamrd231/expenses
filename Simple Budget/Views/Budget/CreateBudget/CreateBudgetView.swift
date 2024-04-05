@@ -38,17 +38,6 @@ struct CreateBudgetView: View {
                         .tag(5)
                         .containerRelativeFrame(.horizontal)
                     
-                    GraphView(vm: vm,
-                    graphData: [
-                        Entry(title: "Budget", items: [Item(value: vm.budgetModel.totalBudget, color: .black)]),
-                        Entry(title: "Needs", items: [Item(value: vm.budgetModel.totalBudget * vm.budgetModel.needsBudgetPercentage, color: .gray), Item(value: vm.budgetModel.needBudgetTotal, color: .pink)]),
-                        Entry(title: "Wants", items: [Item(value: vm.budgetModel.totalBudget * vm.budgetModel.wantsBudgetPercentage, color: .gray), Item(value: vm.budgetModel.wantsBudgetTotal, color: .orange)]),
-                        Entry(title: "Save", items: [Item(value: vm.budgetModel.totalBudget * vm.budgetModel.saveBudgetPercentage, color: .gray), Item(value: vm.budgetModel.saveBudgetTotal, color: .blue)])
-                    ]
-                    )
-                        .id(6)
-                        .tag(6)
-                        .containerRelativeFrame(.horizontal)
                 }
                 .scrollTargetLayout()
             }

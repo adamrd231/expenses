@@ -10,7 +10,7 @@ import Foundation
 /**
  `Budget` datamodel
  */
-struct Budget: Codable {
+struct Budget: Codable, Hashable {
     var id = UUID()
     var start: Date = .now
     var end: Date = .now.addingTimeInterval(60 * 60 * 24 * 30)
