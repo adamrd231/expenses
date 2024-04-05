@@ -14,11 +14,15 @@ struct BreakDownView: View {
         List {
             Section(header: Text("Planning"), footer: Text("Learn More")) {
                 HStack {
-                    Text("Budget Total")
                     Spacer()
-                    Text(vm.budgetModel.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
-                        .foregroundStyle(vm.budgetModel.totalBudgetPercentage > 1 ? .red : .primary)
-                        .fontWeight(.bold)
+                    VStack {
+                        Text(vm.budgetModel.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
+                            .foregroundStyle(vm.budgetModel.totalBudgetPercentage > 1 ? .red : .primary)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        Text("Budget Total")
+                    }
+                    Spacer()
                 }
                 .padding(10)
                 SliderView(value: $vm.budgetModel.needsBudgetPercentage, type: .needs)

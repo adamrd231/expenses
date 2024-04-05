@@ -24,25 +24,33 @@ struct BudgetSetupComponentView: View {
         }
     }
     
+    func getTotalBudget() -> Text {
+        var text: Double = 0
+        switch budgetType {
+        case .income: text = vm.budgetModel.totalBudget
+        case .needs: text = vm.budgetModel.needBudgetGoal - vm.budgetModel.needBudgetTotal
+        case .wants: text = vm.budgetModel.wantsBudgeGoal - vm.budgetModel.wantsBudgetTotal
+        case .save: text = vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal
+        }
+        return Text(text, format: .currency(code: "USD"))
+    }
+    
     var body: some View {
         NavigationStack {
             List {
-                Section(header: getSectionTitle()) {
+                Section("Total") {
                     HStack {
-                        if budgetType == .income {
-                            Text("Total income:")
-                        } else {
-                            Text("Available")
+                        Spacer()
+                        VStack(alignment: .center) {
+                            getTotalBudget()
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                            Text(budgetType == .income ? "Monthly income" : "Available")
                         }
-                        
-                        switch budgetType {
-                        case .income: Text(vm.budgetModel.totalBudget, format: .currency(code: "USD"))
-                        case .needs: Text(vm.budgetModel.needBudgetGoal - vm.budgetModel.needBudgetTotal, format: .currency(code: "USD"))
-                        case .wants: Text(vm.budgetModel.wantsBudgeGoal - vm.budgetModel.wantsBudgetTotal, format: .currency(code: "USD"))
-                        case .save: Text(vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal, format: .currency(code: "USD"))
-                        }
+                        Spacer()
                     }
-                    .padding(10)
+                }
+                Section(header: getSectionTitle()) {
            
                     switch budgetType {
                     case .income: EmptyView()
