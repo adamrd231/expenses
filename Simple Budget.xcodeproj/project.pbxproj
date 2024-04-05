@@ -149,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				666BE7B52BACA2E5002ABF97 /* CreateBudgetView.swift */,
-				6694DEB22BADF42200B87CAB /* AddBudgetItem */,
+				6694DEB32BADF42E00B87CAB /* AddBudgetItemView.swift */,
 				6694DEB82BADF80400B87CAB /* BudgetItemsTableView.swift */,
 				666BE7B72BACA8D4002ABF97 /* BreakDownView.swift */,
 				666BE7BC2BACC3CD002ABF97 /* SetupView.swift */,
@@ -166,14 +166,6 @@
 				6694DEC92BB0912700B87CAB /* TransactionsViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		6694DEB22BADF42200B87CAB /* AddBudgetItem */ = {
-			isa = PBXGroup;
-			children = (
-				6694DEB32BADF42E00B87CAB /* AddBudgetItemView.swift */,
-			);
-			path = AddBudgetItem;
 			sourceTree = "<group>";
 		};
 		6694DEB52BADF7C600B87CAB /* Buttons */ = {

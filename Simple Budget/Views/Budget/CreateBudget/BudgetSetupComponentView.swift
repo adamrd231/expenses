@@ -12,6 +12,7 @@ struct BudgetSetupComponentView: View {
     let currentIndex: Int
     let budgetType: BudgetCategory
     @State var isAddingNeedsItem: Bool = false
+    @State private var sheetContentHeight = CGFloat(0)
     
     func getSectionTitle() -> Text {
         switch currentIndex {
@@ -29,7 +30,7 @@ struct BudgetSetupComponentView: View {
                 Section(header: getSectionTitle()) {
                     HStack {
                         if budgetType == .income {
-                            Text("Total")
+                            Text("Total income:")
                         } else {
                             Text("Available")
                         }
@@ -41,26 +42,27 @@ struct BudgetSetupComponentView: View {
                         case .save: Text(vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal, format: .number)
                         }
                     }
+                    .padding(10)
            
                     switch budgetType {
                     case .income: EmptyView()
                     case .needs:  CustomProgressBar(
                         progress: vm.budgetModel.needBudgetTotal / vm.budgetModel.needBudgetGoal
-                    )
+                    ).padding(10)
                     case .wants:  CustomProgressBar(
                         progress: vm.budgetModel.wantsBudgetTotal / vm.budgetModel.wantsBudgeGoal
-                    )
+                    ).padding(10)
                     case .save: CustomProgressBar(
                         progress: vm.budgetModel.saveBudgetTotal / vm.budgetModel.saveBudgetGoal
-                    )
+                    ).padding(10)
                     }
                        
                     switch budgetType {
                     case .income: 
-                        BudgetItemsTableView(items: vm.budgetModel.incomeItems)
-                    case .needs: BudgetItemsTableView(items: vm.budgetModel.needItems)
-                    case .wants: BudgetItemsTableView(items: vm.budgetModel.wantItems)
-                    case .save: BudgetItemsTableView(items: vm.budgetModel.saveItems)
+                        BudgetItemsTableView(items: vm.budgetModel.incomeItems).padding(10)
+                    case .needs: BudgetItemsTableView(items: vm.budgetModel.needItems).padding(10)
+                    case .wants: BudgetItemsTableView(items: vm.budgetModel.wantItems).padding(10)
+                    case .save: BudgetItemsTableView(items: vm.budgetModel.saveItems).padding(10)
                     }
                 }
             }
@@ -70,7 +72,15 @@ struct BudgetSetupComponentView: View {
                     currentIndex: currentIndex,
                     isAddingBudgetItem: $isAddingNeedsItem
                 )
-                .presentationDetents([.medium])
+                .background {
+                    GeometryReader { proxy in
+                        Color.clear
+                            .task {
+                                sheetContentHeight = proxy.size.height
+                            }
+                    }
+                }
+                .presentationDetents([.height(sheetContentHeight)])
             })
             PlusButton(action: {
                 print("Toggle button")

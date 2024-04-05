@@ -13,42 +13,46 @@ struct AddBudgetItemView: View {
     @Binding var isAddingBudgetItem: Bool
 
     @State var name: String = ""
-    @State var dueDate: String = ""
     @State var cost: String = ""
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             Text("Add item")
                 .font(.title3)
                 .bold()
-            HStack {
+
                 TextField("name", text: $name)
-                if currentIndex == 3 || currentIndex == 4 {
-                    TextField("due", text: $dueDate)
-                }
-                TextField("cost", text: $cost)
-            }
+                    .padding()
+                    .background(.gray.opacity(0.1))
+                    .multilineTextAlignment(.center)
+   
+                TextField("value", text: $cost)
+                    .padding()
+                    .background(.gray.opacity(0.1))
+                    .multilineTextAlignment(.center)
+            
             Button("Add item") {
                 guard let unwrappedCost = Double(cost) else { return }
                 
                 switch currentIndex {
                 case 2:
-                    let newItem = BudgetItem(type: .income, name: name, due: Int(dueDate) ?? nil, amount: unwrappedCost)
+                    let newItem = BudgetItem(type: .income, name: name, amount: unwrappedCost)
                     vm.budgetModel.incomeItems.append(newItem)
                 case 3:
-                    let newItem = BudgetItem(type: .needs, name: name, due: Int(dueDate) ?? nil, amount: unwrappedCost)
+                    let newItem = BudgetItem(type: .needs, name: name, amount: unwrappedCost)
                     vm.budgetModel.needItems.append(newItem)
                 case 4:
-                    let newItem = BudgetItem(type: .wants, name: name, due: Int(dueDate) ?? nil, amount: unwrappedCost)
+                    let newItem = BudgetItem(type: .wants, name: name, amount: unwrappedCost)
                     vm.budgetModel.wantItems.append(newItem)
                 case 5:
-                    let newItem = BudgetItem(type: .save, name: name, due: Int(dueDate) ?? nil, amount: unwrappedCost)
+                    let newItem = BudgetItem(type: .save, name: name, amount: unwrappedCost)
                     vm.budgetModel.saveItems.append(newItem)
                 default: print("Error adding item")
                 }
                 isAddingBudgetItem = false
             }
             .buttonStyle(.borderedProminent)
+            Spacer()
         }
         .padding()
     }
