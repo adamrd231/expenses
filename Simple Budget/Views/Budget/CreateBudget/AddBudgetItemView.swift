@@ -30,6 +30,7 @@ struct AddBudgetItemView: View {
                     .padding()
                     .background(.gray.opacity(0.1))
                     .multilineTextAlignment(.center)
+                    .keyboardType(.numberPad)
             
             Button("Add item") {
                 guard let unwrappedCost = Double(cost) else { return }

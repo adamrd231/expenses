@@ -34,12 +34,12 @@ struct BudgetSetupComponentView: View {
                         } else {
                             Text("Available")
                         }
-                        Text(vm.budgetModel.currencySymbol)
+                        
                         switch budgetType {
-                        case .income: Text(vm.budgetModel.totalBudget, format: .number)
-                        case .needs: Text(vm.budgetModel.needBudgetGoal - vm.budgetModel.needBudgetTotal, format: .number)
-                        case .wants: Text(vm.budgetModel.wantsBudgeGoal - vm.budgetModel.wantsBudgetTotal, format: .number)
-                        case .save: Text(vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal, format: .number)
+                        case .income: Text(vm.budgetModel.totalBudget, format: .currency(code: "USD"))
+                        case .needs: Text(vm.budgetModel.needBudgetGoal - vm.budgetModel.needBudgetTotal, format: .currency(code: "USD"))
+                        case .wants: Text(vm.budgetModel.wantsBudgeGoal - vm.budgetModel.wantsBudgetTotal, format: .currency(code: "USD"))
+                        case .save: Text(vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal, format: .currency(code: "USD"))
                         }
                     }
                     .padding(10)

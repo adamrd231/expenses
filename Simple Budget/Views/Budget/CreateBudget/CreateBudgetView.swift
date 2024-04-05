@@ -47,6 +47,14 @@ struct CreateBudgetView: View {
         .scrollTargetBehavior(.paging)
         .navigationTitle("Setup")
         .toolbarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Create") {
+                    
+                }
+                .disabled(true)
+            }
+        }
         CustomPageControl(numberOfPages: 7, currentPage: $currentIndex)
     }
     
