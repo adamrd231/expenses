@@ -17,17 +17,17 @@ struct BudgetItemsTableView: View {
                 ForEach($items, id: \.id) { $item in
                     HStack {
                         Text(item.name)
-                            .modifier(BorderModifier())
+         
                         if let dueDate = item.due {
                             Text(dueDate, format: .number)
-                                .modifier(BorderModifier())
+           
                                 .frame(maxWidth: 66)
                         } else {
                             EmptyView()
                         }
             
                         Text(item.amount, format: .number)
-                            .modifier(BorderModifier())
+          
                         if isEditing {
                             Button {
                                 if let index = items.firstIndex(where: { $0.id == item.id }) {

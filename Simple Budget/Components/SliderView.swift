@@ -22,12 +22,10 @@ struct SliderView: View {
                 Text(value,  format: .percent.precision(.fractionLength(0)))
             }
             .bold()
-            HStack {
-                Text(0, format: .percent)
-                Slider(value: $value, in: 0...1)
-                Text(100, format: .percent)
-            }
+            Slider(value: $value, in: 0...1)
         }
+        .padding()
+
     }
 }
 

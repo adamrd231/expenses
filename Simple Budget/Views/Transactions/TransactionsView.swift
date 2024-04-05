@@ -20,18 +20,17 @@ struct TransactionsView: View {
                     VStack {
                         HStack {
                             Text(transaction.date, style: .date)
-                                .modifier(BorderModifier())
+
                             Text(transaction.amount, format: .number)
-                                .modifier(BorderModifier())
+
                         }
                         HStack {
                             Text(transaction.type.name)
-                                .modifier(BorderModifier())
+
                             Text(transaction.name)
-                                .modifier(BorderModifier())
+
                         }
                         Text(transaction.description)
-                            .modifier(BorderModifier())
                     }
                 }
                 .onDelete(perform: { indexSet in

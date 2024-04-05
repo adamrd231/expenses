@@ -23,14 +23,10 @@ struct AddBudgetItemView: View {
                 .bold()
             HStack {
                 TextField("name", text: $name)
-                    
-                    .modifier(BorderModifier())
                 if currentIndex == 3 || currentIndex == 4 {
                     TextField("due", text: $dueDate)
-                        .modifier(BorderModifier())
                 }
                 TextField("cost", text: $cost)
-                    .modifier(BorderModifier())
             }
             Button("Add item") {
                 guard let unwrappedCost = Double(cost) else { return }

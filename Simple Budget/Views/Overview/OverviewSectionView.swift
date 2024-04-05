@@ -35,19 +35,19 @@ struct OverviewSectionView: View {
                         HStack {
                             VStack {
                                 Text(item.name)
-                                    .modifier(BorderModifier())
+
                                 if let unwrappedDate = item.due {
                                     Text(unwrappedDate, format: .number)
-                                        .modifier(BorderModifier())
+
                                 }
                                 Text(item.amount, format: .number)
-                                    .modifier(BorderModifier())
+   
                             }
                             VStack {
                                 Text(getPercentageCompletedForBudgetItem(totalAmount: item.amount, name: item.name), format: .number)
-                                    .modifier(BorderModifier())
+
                                 Text(getTotalAmountSpentOnBudgetItem(name: item.name), format: .number)
-                                    .modifier(BorderModifier())
+  
                             }
                     
                         }
