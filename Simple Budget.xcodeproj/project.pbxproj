@@ -33,6 +33,7 @@
 		6694DECE2BB1D7D200B87CAB /* OverviewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6694DECD2BB1D7D200B87CAB /* OverviewSectionView.swift */; };
 		6694DF0A2BB714C400B87CAB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6694DF092BB714C400B87CAB /* Color.swift */; };
 		6694DF0C2BB7173E00B87CAB /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6694DF0B2BB7173E00B87CAB /* PreviewProvider.swift */; };
+		6694DF0E2BBFACF500B87CAB /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6694DF0D2BBFACF500B87CAB /* SliderView.swift */; };
 		CE51FB112BA8370D0053AD00 /* BudgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51FB102BA8370D0053AD00 /* BudgetApp.swift */; };
 		CE51FB172BA8370E0053AD00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE51FB162BA8370E0053AD00 /* Assets.xcassets */; };
 		CE51FB1A2BA8370E0053AD00 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE51FB192BA8370E0053AD00 /* Preview Assets.xcassets */; };
@@ -69,6 +70,7 @@
 		6694DECD2BB1D7D200B87CAB /* OverviewSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewSectionView.swift; sourceTree = "<group>"; };
 		6694DF092BB714C400B87CAB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		6694DF0B2BB7173E00B87CAB /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		6694DF0D2BBFACF500B87CAB /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		CE51FB0D2BA8370D0053AD00 /* Simple Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Simple Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE51FB102BA8370D0053AD00 /* BudgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetApp.swift; sourceTree = "<group>"; };
 		CE51FB162BA8370E0053AD00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				6694DEAD2BADEC5600B87CAB /* TabViewTitleView.swift */,
 				6694DEB82BADF80400B87CAB /* BudgetItemsTableView.swift */,
+				6694DF0D2BBFACF500B87CAB /* SliderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				666BE7B62BACA2E5002ABF97 /* CreateBudgetView.swift in Sources */,
 				CE87D5AD2BA83AD6001740A5 /* BudgetCategory.swift in Sources */,
 				6694DEB72BADF7D300B87CAB /* PlusButton.swift in Sources */,
+				6694DF0E2BBFACF500B87CAB /* SliderView.swift in Sources */,
 				CE87D5A82BA83A84001740A5 /* Budget.swift in Sources */,
 				6694DECC2BB0930900B87CAB /* AddTransactionView.swift in Sources */,
 				666BE7BB2BACA969002ABF97 /* BudgetsViewModel.swift in Sources */,
