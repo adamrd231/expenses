@@ -60,20 +60,6 @@ struct AddTransactionView: View {
             }
 
             TextField("Enter description here", text: $description)
-            
-            
-            PlusButton(action: {
-                let newTransaction = Transaction(
-                    data: date,
-                    amount: Double(amount) ?? 0,
-                    category: pickerSelection,
-                    type: typeSelection,
-                    name: name,
-                    description: description
-                )
-                transactionsVM.addNew(transaction: newTransaction)
-                dismiss()
-            })
         }
         .padding(.horizontal)
     }

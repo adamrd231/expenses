@@ -40,7 +40,6 @@ struct TransactionsView: View {
                
             }
             .listStyle(.plain)
-            PlusButton(action: { isAddingTransaction.toggle() })
             .navigationTitle("Transactions")
             .sheet(isPresented: $isAddingTransaction, content: {
                 AddTransactionView(transactionsVM: transactionsVM, budgetsVM: budgetsVM)
