@@ -44,38 +44,21 @@ struct BudgetActivityView: View {
                 }
             }
             .frame(width: 250, height: 250, alignment: .center)
-            
-            VStack {
-                HStack {
-                    Circle()
-                        .frame(width: 15)
-                        .foregroundStyle(Color.theme.green)
-                    Spacer()
-                    Text("Needs")
-                }
-                HStack {
-                    Circle()
-                        .frame(width: 15)
-                        .foregroundStyle(.green)
-                    Spacer()
-                    Text("Wants")
-                }
-                HStack {
-                    Circle()
-                        .frame(width: 15)
-                        .foregroundStyle(Color.theme.blue)
-                    Spacer()
-                    Text("Save")
-                }
-            }
-            .frame(maxWidth: 100)
+            BottomRowView(
+                category: "Needs",
+                percent: (1 - (vm.budgetModel.needBudgetTotal / vm.budgetModel.needBudgetGoal))
+            )
+            BottomRowView(
+                category: "Wants",
+                percent: (1 - (vm.budgetModel.wantsBudgetTotal / vm.budgetModel.wantsBudgeGoal))
+            )
         }
     }
 }
-
 
 struct BudgetActivityView_Previews: PreviewProvider {
     static var previews: some View {
         BudgetActivityView(vm: dev.budgetVM)
     }
 }
+

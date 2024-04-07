@@ -1,15 +1,5 @@
-//
-//  Budget.swift
-//  Simple Budget
-//
-//  Created by Eric Solberg on 2/29/24.
-//
-
 import Foundation
 
-/**
- `Budget` datamodel
- */
 struct Budget: Codable, Hashable {
     var id = UUID()
     var start: Date = .now
@@ -64,6 +54,3 @@ struct Budget: Codable, Hashable {
 }
 
 
-/**
-SwiftUI recommends using the struct over class
- */
