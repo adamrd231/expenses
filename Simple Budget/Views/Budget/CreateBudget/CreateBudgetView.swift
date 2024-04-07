@@ -2,14 +2,21 @@ import SwiftUI
 
 struct CreateBudgetView: View {
     @ObservedObject var vm: BudgetsViewModel
-    @State var currentIndex: Int? = 0
-    @State var newBudget = Budget()
+    @State var existingBudget: Budget?
+    @State var newBudget: Budget = Budget()
+    
+    @State var currentIndex: Int = 0
+    
+    init(vm: BudgetsViewModel, existingBudget: Budget? = nil) {
+        self.vm = vm
+        self.existingBudget = existingBudget
+    }
   
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 0) {
-                    BreakDownView(vm: vm, budget: $newBudget)
+                    BreakDownView(budget: $newBudget)
                         .id(0)
                         .tag(0)
                         .containerRelativeFrame(.horizontal)
@@ -44,7 +51,7 @@ struct CreateBudgetView: View {
                 }
                 .scrollTargetLayout()
             }
-            .scrollPosition(id: $currentIndex)
+//            .scrollPosition(id: $currentIndex)
         }
         .scrollIndicators(.hidden)
         .scrollTargetBehavior(.paging)
@@ -58,7 +65,10 @@ struct CreateBudgetView: View {
                 .disabled(true)
             }
         }
-        CustomPageControl(numberOfPages: 7, currentPage: $currentIndex)
+        CustomPageControl(
+            numberOfPages: 7,
+            currentPage: $currentIndex
+        )
     }
     
 }
@@ -68,8 +78,11 @@ struct CreateBudgetView: View {
 struct CreateBudgetView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CreateBudgetView(vm: dev.budgetVM)
-                .navigationTitle("Something")
+            CreateBudgetView(
+                vm: dev.budgetVM,
+                existingBudget: dev.budget
+            )
+            .navigationTitle("Something")
         }
     }
 }

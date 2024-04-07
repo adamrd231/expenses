@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CustomPageControl: View {
     let numberOfPages: Int
-    @Binding var currentPage: Int?
+    @Binding var currentPage: Int
     
-    init(numberOfPages: Int, currentPage: Binding<Int?> = Binding.constant(nil)) {
+    init(numberOfPages: Int, currentPage: Binding<Int>) {
         self.numberOfPages = numberOfPages
         self._currentPage = currentPage
     }
