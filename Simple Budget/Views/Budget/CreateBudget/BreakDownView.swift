@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BreakDownView: View {
     @ObservedObject var vm: BudgetsViewModel
+    @Binding var budget: Budget
     
     var body: some View {
         List {
@@ -25,7 +26,7 @@ struct BreakDownView: View {
                     Spacer()
                 }
                 .padding(10)
-                SliderView(value: $vm.budgetModel.needsBudgetPercentage, type: .needs)
+                SliderView(value: $budget.needsBudgetPercentage, type: .needs)
                 SliderView(value: $vm.budgetModel.wantsBudgetPercentage, type: .wants)
                 SliderView(value: $vm.budgetModel.saveBudgetPercentage, type: .save)
                 HStack {
@@ -47,7 +48,10 @@ struct BreakDownView: View {
 
 struct BreakDownView_Previews: PreviewProvider {
     static var previews: some View {
-        BreakDownView(vm: dev.budgetVM)
+        BreakDownView(
+            vm: dev.budgetVM,
+            budget: .constant(dev.budget)
+        )
     }
 }
 

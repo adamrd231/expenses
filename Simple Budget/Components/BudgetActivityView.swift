@@ -46,11 +46,18 @@ struct BudgetActivityView: View {
             .frame(width: 250, height: 250, alignment: .center)
             BottomRowView(
                 category: "Needs",
-                percent: (1 - (vm.budgetModel.needBudgetTotal / vm.budgetModel.needBudgetGoal))
+                percent: (1 - (vm.budgetModel.needBudgetTotal / vm.budgetModel.needBudgetGoal)),
+                color: Color.theme.green
             )
             BottomRowView(
                 category: "Wants",
-                percent: (1 - (vm.budgetModel.wantsBudgetTotal / vm.budgetModel.wantsBudgeGoal))
+                percent: (1 - (vm.budgetModel.wantsBudgetTotal / vm.budgetModel.wantsBudgeGoal)),
+                color: .green
+            )
+            BottomRowView(
+                category: "Save",
+                percent: (1 - (vm.budgetModel.saveBudgetTotal / vm.budgetModel.saveBudgetGoal)),
+                color: Color.theme.blue
             )
         }
     }

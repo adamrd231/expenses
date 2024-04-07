@@ -3,17 +3,18 @@ import SwiftUI
 struct CreateBudgetView: View {
     @ObservedObject var vm: BudgetsViewModel
     @State var currentIndex: Int? = 0
+    @State var newBudget = Budget()
   
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 0) {
-                    BreakDownView(vm: vm)
+                    BreakDownView(vm: vm, budget: $newBudget)
                         .id(0)
                         .tag(0)
                         .containerRelativeFrame(.horizontal)
                     
-                    SetupView(vm: vm)
+                    SetupView(vm: vm, budget: $newBudget)
                         .id(1)
                         .tag(1)
                         .containerRelativeFrame(.horizontal)

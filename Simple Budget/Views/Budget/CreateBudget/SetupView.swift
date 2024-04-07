@@ -15,24 +15,21 @@ extension Binding {
 
 struct SetupView: View {
     @ObservedObject var vm: BudgetsViewModel
-    var numberFormatter = NumberFormatter()
-    init(vm: BudgetsViewModel) {
-        self.vm = vm
-        numberFormatter.numberStyle = .currency
-    }
+    @Binding var budget: Budget
     
     var body: some View {
         List {
             Section(header: Text("Date range")) {
                 DateRangeRow(title: "Start", date: $vm.budgetModel.start)
                 DateRangeRow(title: "End", date: $vm.budgetModel.end)
+                Text(budget.needsBudgetPercentage, format: .percent)
             }
         }
     }
 }
 
 #Preview {
-    SetupView(vm: BudgetsViewModel())
+    SetupView(vm: BudgetsViewModel(), budget: .constant(Budget()))
 }
 
 struct DateRangeRow: View {
