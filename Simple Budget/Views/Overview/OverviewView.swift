@@ -17,12 +17,13 @@ struct OverviewView: View {
             ScrollView {
                 VStack(spacing: 25) {
                     ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
-                        OverviewCategoryView(
-                            type: category,
-                            totalSpend: transactionVM.getActualTotalFromTransactions(type: category),
-                            totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: category)
+                        CustomProgressBar(
+                            title: category.description,
+                            startDate: Date(),
+                            endDate: Date().addingTimeInterval(1000),
+                            currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
+                            totalBudget:  budgetVM.getExpectedTotalFromBudgets(type: category)
                         )
-                        
                     }
                 }
                 .padding(.horizontal)

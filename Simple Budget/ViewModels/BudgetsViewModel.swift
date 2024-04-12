@@ -98,13 +98,18 @@ class BudgetsViewModel: ObservableObject {
         budgets.append(budgetModel)
     }
     
+    
+    
     func getExpectedTotalFromBudgets(type: BudgetCategory) -> Double {
         // filter out any budgets not within date range
         let today = Date()
         let filteredByDate = budgets.filter({ $0.start <= today && $0.end >= today })
         switch type {
         case .income: return filteredByDate.map({ $0.incomeItems.map({ $0.amount }).reduce(0,+)}).reduce(0,+)
-        case .needs: return filteredByDate.map({ $0.needItems.map({ $0.amount }).reduce(0,+)}).reduce(0,+)
+        case .needs:
+            let budgetTotalAgainstPercentage = filteredByDate.map({ $0.incomeItems.map({ $0.amount }).reduce(0,+) * $0.needsBudgetPercentage }).reduce(0,+)
+            return budgetTotalAgainstPercentage
+//            filteredByDate.map({ $0.needItems.map(({ $0.amount }).reduce(0, +)) * $0.needsBudgetPercentage)})
         case .wants: return filteredByDate.map({ $0.wantItems.map({ $0.amount }).reduce(0,+)}).reduce(0,+)
         case .save: return filteredByDate.map({ $0.saveItems.map({ $0.amount }).reduce(0,+)}).reduce(0,+)
         }

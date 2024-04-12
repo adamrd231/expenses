@@ -59,7 +59,7 @@ struct CreateBudgetView: View {
                         .id(4)
                         .tag(4)
                         .containerRelativeFrame(.horizontal)
-                    BudgetActivityView(vm: vm)
+                    BudgetActivityView(budget: newBudget)
                         .id(5)
                         .tag(5)
                         .containerRelativeFrame(.horizontal)
