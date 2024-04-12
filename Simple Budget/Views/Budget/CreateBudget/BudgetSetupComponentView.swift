@@ -83,8 +83,7 @@ struct BudgetSetupComponentView: View {
                     if let value = newItemValue {
                         let newItem = BudgetItem(name: newItemName, amount: value)
                         items.append(newItem)
-                        nameIsFocused = false
-                        valueIsFocused = false
+                        focusedField = nil
                         newItemName = ""
                         newItemValue = nil
                     }
