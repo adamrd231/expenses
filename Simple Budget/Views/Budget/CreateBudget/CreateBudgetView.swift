@@ -3,7 +3,7 @@ import SwiftUI
 struct CreateBudgetView: View {
     @ObservedObject var vm: BudgetsViewModel
     @State var newBudget: Budget = Budget()
-    @State var currentIndex: Int = 0
+    @State var currentIndex: Int? = 0
     @Environment(\.dismiss) var dismiss
   
     var body: some View {
@@ -25,7 +25,6 @@ struct CreateBudgetView: View {
                     .id(1)
                     .tag(1)
                     .containerRelativeFrame(.horizontal)
-                    .scrollDisabled(true)
 
                     BudgetSetupComponentView(
                         items: $newBudget.needItems,
@@ -65,7 +64,10 @@ struct CreateBudgetView: View {
                         .containerRelativeFrame(.horizontal)
                 }
                 .scrollTargetLayout()
+               
             }
+            .scrollPosition(id: $currentIndex)
+            
         }
         .scrollTargetBehavior(.paging)
         .navigationTitle("Setup")
@@ -76,6 +78,7 @@ struct CreateBudgetView: View {
                     vm.budgets.append(newBudget)
                     dismiss()
                 }
+                .disabled(currentIndex != 5)
             }
 
         }
