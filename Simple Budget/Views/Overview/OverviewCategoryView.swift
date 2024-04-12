@@ -22,7 +22,7 @@ struct OverviewCategoryView: View {
     var body: some View {
         ZStack { 
             CustomProgressBar(
-                title: "Category",
+                title: type.description,
                 startDate: Date(),
                 endDate: Date().addingTimeInterval(1000),
                 currentSpend: totalSpend,

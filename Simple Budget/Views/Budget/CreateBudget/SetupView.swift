@@ -57,6 +57,5 @@ struct DateRangeRow: View {
             Text(title)
             DatePicker("", selection: $date, displayedComponents: .date)
         }
-        .padding(5)
     }
 }

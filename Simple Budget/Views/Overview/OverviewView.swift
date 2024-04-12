@@ -16,38 +16,14 @@ struct OverviewView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 25) {
-                    NavigationLink {
-                        OverviewSectionView(
-                            title: "Income",
-                            type: .income,
-                            totalSpend: 100,
-                            totalFromBudget: 500,
-                            items: budgetVM.budgets.first?.incomeItems ?? [],
-                            transactions: transactionVM.transactions
-                        )
-                    } label: {
+                    ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
                         OverviewCategoryView(
-                            type: .income,
-                            totalSpend: 100,
-                            totalFromBudget: 500
+                            type: category,
+                            totalSpend: transactionVM.getActualTotalFromTransactions(type: category),
+                            totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: category)
                         )
+                        
                     }
-                   
-                    OverviewCategoryView(
-                        type: .needs,
-                        totalSpend: transactionVM.getActualTotalFromTransactions(type: .needs),
-                        totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: .needs)
-                    )
-                    OverviewCategoryView(
-                        type: .wants,
-                        totalSpend: transactionVM.getActualTotalFromTransactions(type: .wants),
-                        totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: .wants)
-                    )
-                    OverviewCategoryView(
-                        type: .save,
-                        totalSpend: transactionVM.getActualTotalFromTransactions(type: .save),
-                        totalFromBudget: budgetVM.getExpectedTotalFromBudgets(type: .save)
-                    )
                 }
                 .padding(.horizontal)
             }
