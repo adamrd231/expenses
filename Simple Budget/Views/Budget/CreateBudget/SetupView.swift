@@ -18,30 +18,25 @@ struct SetupView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Goals")) {
-                HStack {
-                    Spacer()
-                    VStack {
-                        Text(budget.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
-                            .foregroundStyle(budget.totalBudgetPercentage > 1 ? .red : .primary)
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                        Text("Budget Total")
-                    }
-                    Spacer()
+            HStack {
+                Spacer()
+                VStack {
+                    Text(budget.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
+                        .foregroundStyle(budget.totalBudgetPercentage > 1 ? .red : .primary)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    Text("Budget Total")
                 }
-                .padding(10)
-                SliderView(value: $budget.needsBudgetPercentage, type: .needs)
-                SliderView(value: $budget.wantsBudgetPercentage, type: .wants)
-                SliderView(value: $budget.saveBudgetPercentage, type: .save)
-                
+                Spacer()
             }
-            Section(header: Text("Date range")) {
-                DateRangeRow(title: "Start", date: $budget.start)
-                DateRangeRow(title: "End", date: $budget.end)
-            }
-            
+            .padding(10)
+            SliderView(value: $budget.needsBudgetPercentage, type: .needs)
+            SliderView(value: $budget.wantsBudgetPercentage, type: .wants)
+            SliderView(value: $budget.saveBudgetPercentage, type: .save)
+            DateRangeRow(title: "Start Date", date: $budget.start)
+            DateRangeRow(title: "End Date", date: $budget.end)
         }
+        .listStyle(.plain)
     }
 }
 
