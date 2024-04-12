@@ -50,10 +50,11 @@ struct BudgetItemsTableView: View {
 }
 
 #Preview {
-    BudgetItemsTableView(items: [
-            BudgetItem(type: .income, name: "Banana", amount: 1.20),
-            BudgetItem(type: .income, name: "Pickle", amount: 3.50),
-            BudgetItem(type: .income, name: "Burger", amount: 15)
+    BudgetItemsTableView(
+        items: [
+            BudgetItem(name: "Banana", amount: 1.20),
+            BudgetItem(name: "Pickle", amount: 3.50),
+            BudgetItem(name: "Burger", amount: 15)
         ]
     )
 }

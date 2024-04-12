@@ -17,7 +17,6 @@ struct DeveloperPreview {
             id: UUID(),
             start: Date(),
             end: Date().addingTimeInterval(10000),
-            currencySymbol: "$",
             startBalance: 0,
             needsBudgetPercentage: 0.5,
             wantsBudgetPercentage: 0.3,
@@ -28,9 +27,9 @@ struct DeveloperPreview {
             saveItems: [])
         budgetVM.budgets.append(budget)
         budgetVM.budgetModel = budget
-        budgetVM.budgetModel.incomeItems.append(BudgetItem(type: .income, name: "Work", amount: 10000))
-        budgetVM.budgetModel.needItems.append(BudgetItem(type: .income, name: "TV", amount: 1000))
-        budgetVM.budgetModel.wantItems.append(BudgetItem(type: .income, name: "Books", amount: 300))
-        budgetVM.budgetModel.saveItems.append(BudgetItem(type: .income, name: "Leaves", amount: 500))
+        budgetVM.budgetModel.incomeItems.append(BudgetItem(name: "Work", amount: 10000))
+        budgetVM.budgetModel.needItems.append(BudgetItem(name: "TV", amount: 1000))
+        budgetVM.budgetModel.wantItems.append(BudgetItem(name: "Books", amount: 300))
+        budgetVM.budgetModel.saveItems.append(BudgetItem(name: "Leaves", amount: 500))
     }
 }

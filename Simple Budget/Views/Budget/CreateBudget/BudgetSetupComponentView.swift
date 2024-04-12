@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct BudgetSetupComponentView: View {
-    let budgetType: BudgetCategory
     @Binding var items: [BudgetItem]
-    let currentIndex: Int
+    let budgetType: BudgetCategory
+    let totalBudgetGoal: Double
+    let startDate: Date
+    let endDate: Date
 
     @State var isAddingNeedsItem: Bool = false
     @State private var sheetContentHeight = CGFloat(0)
@@ -22,7 +24,7 @@ struct BudgetSetupComponentView: View {
                     HStack {
                         Spacer()
                         VStack(alignment: .center) {
-                            getTotalBudget()
+                            Text(items.map({$0.amount}).reduce(0, +), format: .number)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                             switch budgetType {
@@ -39,46 +41,18 @@ struct BudgetSetupComponentView: View {
                         Spacer()
                     }
                 }
-                if budgetType != .income {
-                    Section("Overview") {
-                        switch budgetType {
-                        case .income: EmptyView()
-                        case .needs:
-                            CustomProgressBar(
-                                title: "Needs",
-                                startDate: vm.budgetModel.start,
-                                endDate: vm.budgetModel.end,
-                                currentSpend: vm.budgetModel.needBudgetTotal,
-                                totalBudget: vm.budgetModel.needBudgetGoal
-                            )
-                        case .wants:
-                            CustomProgressBar(
-                                title: "Wants",
-                                startDate: vm.budgetModel.start,
-                                endDate: vm.budgetModel.end,
-                                currentSpend: vm.budgetModel.incomeItems.map({ $0.amount}).reduce(0, +),
-                                totalBudget: vm.budgetModel.wantsBudgetTotal
-                            )
-                        case .save:
-                            CustomProgressBar(
-                                title: "Save",
-                                startDate: vm.budgetModel.start,
-                                endDate: vm.budgetModel.end,
-                                currentSpend: vm.budgetModel.incomeItems.map({ $0.amount}).reduce(0, +),
-                                totalBudget: vm.budgetModel.saveBudgetTotal
-                            )
-                        }
-                    }
-                }
+                
+                CustomProgressBar(
+                    title: budgetType.description,
+                    startDate: startDate,
+                    endDate: endDate,
+                    currentSpend: items.map({$0.amount}).reduce(0, +),
+                    totalBudget: totalBudgetGoal
+                )
                 
                 Section {
-                    switch budgetType {
-                    case .income: 
-                        BudgetItemsTableView(items: vm.budgetModel.incomeItems).padding(10)
-                    case .needs: BudgetItemsTableView(items: vm.budgetModel.needItems).padding(10)
-                    case .wants: BudgetItemsTableView(items: vm.budgetModel.wantItems).padding(10)
-                    case .save: BudgetItemsTableView(items: vm.budgetModel.saveItems).padding(10)
-                    }
+                    BudgetItemsTableView(items: items).padding(10)
+                    
                     HStack {
                         Button {
                             isAddingNeedsItem.toggle()
@@ -94,9 +68,8 @@ struct BudgetSetupComponentView: View {
             }
             .sheet(isPresented: $isAddingNeedsItem, content: {
                 AddBudgetItemView(
-                    vm: vm,
-                    currentIndex: currentIndex,
-                    isAddingBudgetItem: $isAddingNeedsItem
+                    items: $items,
+                    budgetType: budgetType
                 )
                 .background {
                     GeometryReader { proxy in
@@ -113,5 +86,14 @@ struct BudgetSetupComponentView: View {
 }
 
 #Preview {
-    BudgetSetupComponentView(vm: BudgetsViewModel(), currentIndex: 2, budgetType: .income)
+    BudgetSetupComponentView(
+        items: .constant(
+            [
+                BudgetItem(name: "App Store", amount: 100)
+            ]),
+        budgetType: .income,
+        totalBudgetGoal: 10_000,
+        startDate: Date(),
+        endDate: Date().addingTimeInterval(10_000)
+    )
 }

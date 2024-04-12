@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct AddBudgetItemView: View {
-    @ObservedObject var vm: BudgetsViewModel
-    let currentIndex: Int
-    @Binding var isAddingBudgetItem: Bool
-
+    @Binding var items: [BudgetItem]
+    let budgetType: BudgetCategory
+    @Environment(\.dismiss) var dismiss
     @State var name: String = ""
     @State var cost: String = ""
     
@@ -34,23 +33,8 @@ struct AddBudgetItemView: View {
             
             Button("Add item") {
                 guard let unwrappedCost = Double(cost) else { return }
-                
-                switch currentIndex {
-                case 2:
-                    let newItem = BudgetItem(type: .income, name: name, amount: unwrappedCost)
-                    vm.budgetModel.incomeItems.append(newItem)
-                case 3:
-                    let newItem = BudgetItem(type: .needs, name: name, amount: unwrappedCost)
-                    vm.budgetModel.needItems.append(newItem)
-                case 4:
-                    let newItem = BudgetItem(type: .wants, name: name, amount: unwrappedCost)
-                    vm.budgetModel.wantItems.append(newItem)
-                case 5:
-                    let newItem = BudgetItem(type: .save, name: name, amount: unwrappedCost)
-                    vm.budgetModel.saveItems.append(newItem)
-                default: print("Error adding item")
-                }
-                isAddingBudgetItem = false
+                let newItem = BudgetItem(name: name, amount: unwrappedCost)
+                dismiss()
             }
             .buttonStyle(.borderedProminent)
             Spacer()
@@ -60,5 +44,8 @@ struct AddBudgetItemView: View {
 }
 
 #Preview {
-    AddBudgetItemView(vm: BudgetsViewModel(), currentIndex: 0, isAddingBudgetItem: .constant(true))
+    AddBudgetItemView(
+        items: .constant([]),
+        budgetType: .income
+    )
 }

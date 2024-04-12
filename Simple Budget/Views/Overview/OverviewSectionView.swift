@@ -35,24 +35,17 @@ struct OverviewSectionView: View {
                         HStack {
                             VStack {
                                 Text(item.name)
-
                                 if let unwrappedDate = item.due {
-                                    Text(unwrappedDate, format: .number)
-
+                                    Text(unwrappedDate, format: .dateTime)
                                 }
                                 Text(item.amount, format: .number)
-   
                             }
                             VStack {
                                 Text(getPercentageCompletedForBudgetItem(totalAmount: item.amount, name: item.name), format: .number)
-
                                 Text(getTotalAmountSpentOnBudgetItem(name: item.name), format: .number)
   
                             }
-                    
                         }
-                      
-                       
                     }
                 }
             }
@@ -69,10 +62,14 @@ struct OverviewSectionView: View {
         totalSpend: 1000,
         totalFromBudget: 2000,
         items: [
-            BudgetItem(type: .needs, name: "Rent", amount: 900)
+            BudgetItem(name: "Rent", amount: 900)
         ],
         transactions: [
-            Transaction(data: Date(), amount: 100, category: .needs, type: TransactionCategory(name: "Upwork"), name: "Rent", description: "Paid rent")
+            Transaction(
+                data: Date(),
+                amount: 100,
+                category: .needs,
+                type: TransactionCategory(name: "Upwork"), name: "Rent", description: "Paid rent")
         ]
     )
 }

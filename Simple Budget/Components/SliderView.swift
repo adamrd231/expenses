@@ -24,7 +24,7 @@ struct SliderView: View {
             .bold()
             Slider(value: $value, in: 0...1)
         }
-        .padding(10)
+        .padding(5)
 
     }
 }

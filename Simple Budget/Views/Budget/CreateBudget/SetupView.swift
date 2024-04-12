@@ -14,22 +14,39 @@ extension Binding {
 }
 
 struct SetupView: View {
-    @ObservedObject var vm: BudgetsViewModel
     @Binding var budget: Budget
     
     var body: some View {
         List {
-            Section(header: Text("Date range")) {
-                DateRangeRow(title: "Start", date: $vm.budgetModel.start)
-                DateRangeRow(title: "End", date: $vm.budgetModel.end)
-                Text(budget.needsBudgetPercentage, format: .percent)
+            Section(header: Text("Goals")) {
+                HStack {
+                    Spacer()
+                    VStack {
+                        Text(budget.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
+                            .foregroundStyle(budget.totalBudgetPercentage > 1 ? .red : .primary)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        Text("Budget Total")
+                    }
+                    Spacer()
+                }
+                .padding(10)
+                SliderView(value: $budget.needsBudgetPercentage, type: .needs)
+                SliderView(value: $budget.wantsBudgetPercentage, type: .wants)
+                SliderView(value: $budget.saveBudgetPercentage, type: .save)
+                
             }
+            Section(header: Text("Date range")) {
+                DateRangeRow(title: "Start", date: $budget.start)
+                DateRangeRow(title: "End", date: $budget.end)
+            }
+            
         }
     }
 }
 
 #Preview {
-    SetupView(vm: BudgetsViewModel(), budget: .constant(Budget()))
+    SetupView(budget: .constant(Budget()))
 }
 
 struct DateRangeRow: View {
@@ -40,6 +57,6 @@ struct DateRangeRow: View {
             Text(title)
             DatePicker("", selection: $date, displayedComponents: .date)
         }
-        .padding(10)
+        .padding(5)
     }
 }

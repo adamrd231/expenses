@@ -9,37 +9,59 @@ struct CreateBudgetView: View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 HStack(alignment: .top, spacing: 0) {
-                    BreakDownView(budget: $newBudget)
+                    SetupView(budget: $newBudget)
                         .id(0)
                         .tag(0)
                         .containerRelativeFrame(.horizontal)
                     
-                    SetupView(vm: vm, budget: $newBudget)
+                    ForEach(newBudget.budgets, id: \.budgetCategory) { index in
+                        BudgetSetupComponentView(
+                            items: $newBudget.incomeItems,
+                            budgetType: .income,
+                            totalBudgetGoal: newBudget.totalBudget,
+                            startDate: newBudget.start,
+                            endDate: newBudget.end
+                        )
                         .id(1)
                         .tag(1)
                         .containerRelativeFrame(.horizontal)
+                    }
 
-                    BudgetSetupComponentView(vm: vm, currentIndex: 2, budgetType: .income)
-                        .id(2)
-                        .tag(2)
-                        .containerRelativeFrame(.horizontal)
+                    BudgetSetupComponentView(
+                        items: $newBudget.needItems,
+                        budgetType: .needs,
+                        totalBudgetGoal: newBudget.needBudgetGoal,
+                        startDate: newBudget.start,
+                        endDate: newBudget.end
+                    )
+                    .id(2)
+                    .tag(2)
+                    .containerRelativeFrame(.horizontal)
                     
-                    BudgetSetupComponentView(vm: vm, currentIndex: 3, budgetType: .needs)
-                        .id(3)
-                        .tag(3)
-                        .containerRelativeFrame(.horizontal)
+                    BudgetSetupComponentView(
+                        items: $newBudget.wantItems,
+                        budgetType: .wants,
+                        totalBudgetGoal: newBudget.wantsBudgeGoal,
+                        startDate: newBudget.start,
+                        endDate: newBudget.end
+                    )
+                    .id(3)
+                    .tag(3)
+                    .containerRelativeFrame(.horizontal)
                     
-                    BudgetSetupComponentView(vm: vm, currentIndex: 4, budgetType: .wants)
+                    BudgetSetupComponentView(
+                        items: $newBudget.saveItems,
+                        budgetType: .save,
+                        totalBudgetGoal: newBudget.saveBudgetGoal,
+                        startDate: newBudget.start,
+                        endDate: newBudget.end
+                    )
                         .id(4)
                         .tag(4)
                         .containerRelativeFrame(.horizontal)
-                    
-                    BudgetSetupComponentView(vm: vm, currentIndex: 5, budgetType: .save)
+                    BudgetActivityView(vm: vm)
                         .id(5)
                         .tag(5)
-                        .containerRelativeFrame(.horizontal)
-                    BudgetActivityView(vm: vm)
-                        .id(6).tag(6)
                         .containerRelativeFrame(.horizontal)
                 }
                 .scrollTargetLayout()
@@ -59,7 +81,7 @@ struct CreateBudgetView: View {
             }
         }
         CustomPageControl(
-            numberOfPages: 7,
+            numberOfPages: 6,
             currentPage: $currentIndex
         )
     }
@@ -72,8 +94,7 @@ struct CreateBudgetView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             CreateBudgetView(
-                vm: dev.budgetVM,
-                existingBudget: dev.budget
+                vm: dev.budgetVM
             )
             .navigationTitle("Something")
         }
