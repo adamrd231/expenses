@@ -16,71 +16,81 @@ struct BudgetSetupComponentView: View {
 
     @State var isAddingNeedsItem: Bool = false
     @State private var sheetContentHeight = CGFloat(0)
+    @State var newItemName: String = ""
+    @State var newItemValue: Double? = nil
+    @FocusState private var nameIsFocused: Bool
+
     
     var body: some View {
         NavigationStack {
-            List {
-                Section("Total") {
-                    HStack {
-                        Spacer()
-                        VStack(alignment: .center) {
-                            Text(items.map({$0.amount}).reduce(0, +), format: .number)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            switch budgetType {
-                            case .income:
-                                Text("Monthly income")
-                            case .needs:
-                                Text("Needs budget total")
-                            case .wants:
-                                Text("Wants budget total")
-                            case .save:
-                                Text("Save budget total")
-                            }
+            VStack(spacing: 15) {
+                HStack {
+                    Spacer()
+                    VStack(alignment: .center) {
+                        Text(totalBudgetGoal, format: .currency(code: "USD"))
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        switch budgetType {
+                        case .income: Text("Monthly income")
+                        case .needs: Text("Needs budget total")
+                        case .wants: Text("Wants budget total")
+                        case .save: Text("Save budget total")
                         }
-                        Spacer()
                     }
+                    Spacer()
+                }
+                .padding(.top)
+                
+                if budgetType != .income {
+                    CustomProgressBar(
+                        title: budgetType.description,
+                        startDate: startDate,
+                        endDate: endDate,
+                        currentSpend: items.map({$0.amount}).reduce(0, +),
+                        totalBudget: totalBudgetGoal
+                    )
+                    .padding(.horizontal)
                 }
                 
-                CustomProgressBar(
-                    title: budgetType.description,
-                    startDate: startDate,
-                    endDate: endDate,
-                    currentSpend: items.map({$0.amount}).reduce(0, +),
-                    totalBudget: totalBudgetGoal
-                )
+                BudgetItemsTableView(items: $items)
+                    .listStyle(.plain)
                 
-                Section {
-                    BudgetItemsTableView(items: items).padding(10)
-                    
-                    HStack {
-                        Button {
-                            isAddingNeedsItem.toggle()
-                        } label: {
-                            Image(systemName: "plus.circle")
-                        }
-                        Text("Add item")
-                            .font(.callout)
-                            .fontWeight(.light)
+            }
+            VStack {
+                TextField("Name", text: $newItemName)
+                    .multilineTextAlignment(.leading)
+                    .textFieldStyle(.roundedBorder)
+                    .focused($nameIsFocused)
+
+                TextField("Amount", value: $newItemValue, format: .number)
+                    .multilineTextAlignment(.leading)
+                    .textFieldStyle(.roundedBorder)
+                    .keyboardType(.decimalPad)
+                    .focused($nameIsFocused)
+                Button {
+                    if let value = newItemValue {
+                        let newItem = BudgetItem(name: newItemName, amount: value)
+                        items.append(newItem)
+                        nameIsFocused = false
+                        newItemName = ""
+                        newItemValue = nil
                     }
-                   
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                        HStack {
+                            Image(systemName: "plus.circle")
+                            Text("Add item")
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundStyle(.white)
+                    }
+                    .fixedSize(horizontal: false, vertical: true)
                 }
             }
-            .sheet(isPresented: $isAddingNeedsItem, content: {
-                AddBudgetItemView(
-                    items: $items,
-                    budgetType: budgetType
-                )
-                .background {
-                    GeometryReader { proxy in
-                        Color.clear
-                            .task {
-                                sheetContentHeight = proxy.size.height
-                            }
-                    }
-                }
-                .presentationDetents([.height(sheetContentHeight)])
-            })
+            .padding()
         }
     }
 }

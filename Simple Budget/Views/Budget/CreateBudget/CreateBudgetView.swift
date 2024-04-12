@@ -14,18 +14,17 @@ struct CreateBudgetView: View {
                         .tag(0)
                         .containerRelativeFrame(.horizontal)
                     
-                    ForEach(newBudget.budgets, id: \.budgetCategory) { index in
-                        BudgetSetupComponentView(
-                            items: $newBudget.incomeItems,
-                            budgetType: .income,
-                            totalBudgetGoal: newBudget.totalBudget,
-                            startDate: newBudget.start,
-                            endDate: newBudget.end
-                        )
-                        .id(1)
-                        .tag(1)
-                        .containerRelativeFrame(.horizontal)
-                    }
+                    BudgetSetupComponentView(
+                        items: $newBudget.incomeItems,
+                        budgetType: .income,
+                        totalBudgetGoal: newBudget.totalBudget,
+                        startDate: newBudget.start,
+                        endDate: newBudget.end
+                    )
+                    .id(1)
+                    .tag(1)
+                    .containerRelativeFrame(.horizontal)
+                    .scrollDisabled(true)
 
                     BudgetSetupComponentView(
                         items: $newBudget.needItems,
@@ -68,7 +67,7 @@ struct CreateBudgetView: View {
             }
 //            .scrollPosition(id: $currentIndex)
         }
-        .scrollIndicators(.hidden)
+//        .scrollIndicators(.hidden)
         .scrollTargetBehavior(.paging)
         .navigationTitle("Setup")
         .toolbarTitleDisplayMode(.inline)
@@ -80,12 +79,7 @@ struct CreateBudgetView: View {
                 .disabled(true)
             }
         }
-        CustomPageControl(
-            numberOfPages: 6,
-            currentPage: $currentIndex
-        )
     }
-    
 }
 
 
