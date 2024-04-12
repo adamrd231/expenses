@@ -34,7 +34,7 @@ struct BudgetItemsTableView: View {
                         Text("-")
                             .font(.caption)
                             .frame(minWidth: 10)
-                        Text(item.name)
+                        Text(item.name.name)
                         Spacer()
                         Text(item.amount, format: .currency(code: "USD"))
                     }
@@ -44,18 +44,23 @@ struct BudgetItemsTableView: View {
                 })
             }
             .toolbar {
-                EditButton()
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
             }
         }
     }
 }
 
 #Preview {
-    BudgetItemsTableView(
-        items: .constant([
-            BudgetItem(name: "Banana", amount: 1.20),
-            BudgetItem(name: "Pickle", amount: 3.50),
-            BudgetItem(name: "Burger", amount: 15)
-        ])
-    )
+    NavigationView {
+        BudgetItemsTableView(
+            items: .constant([
+                BudgetItem(name: BudgetName(name: "Apple"), amount: 1.20),
+                BudgetItem(name: BudgetName(name: "Pickle"), amount: 3.50),
+                BudgetItem(name: BudgetName(name: "Burger"), amount: 15)
+            ])
+        )
+    }
+   
 }

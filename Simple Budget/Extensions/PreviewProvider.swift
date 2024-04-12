@@ -27,9 +27,9 @@ struct DeveloperPreview {
             saveItems: [])
         budgetVM.budgets.append(budget)
         budgetVM.budgetModel = budget
-        budgetVM.budgetModel.incomeItems.append(BudgetItem(name: "Work", amount: 10000))
-        budgetVM.budgetModel.needItems.append(BudgetItem(name: "TV", amount: 1000))
-        budgetVM.budgetModel.wantItems.append(BudgetItem(name: "Books", amount: 300))
-        budgetVM.budgetModel.saveItems.append(BudgetItem(name: "Leaves", amount: 500))
+        budgetVM.budgetModel.incomeItems.append(BudgetItem(name: BudgetName(name: "Something"), amount: 10000))
+        budgetVM.budgetModel.needItems.append(BudgetItem(name:  BudgetName(name: "TV"), amount: 1000))
+        budgetVM.budgetModel.wantItems.append(BudgetItem(name:  BudgetName(name: "Books"), amount: 300))
+        budgetVM.budgetModel.saveItems.append(BudgetItem(name:  BudgetName(name: "Leaves"), amount: 500))
     }
 }

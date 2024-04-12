@@ -1,10 +1,3 @@
-//
-//  BudgetCategory.swift
-//  Simple Budget
-//
-//  Created by Eric Solberg on 3/1/24.
-//
-
 import Foundation
 
 enum BudgetCategory: String, Equatable, CaseIterable, Codable {

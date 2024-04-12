@@ -12,32 +12,29 @@ struct TransactionsView: View {
     @ObservedObject var budgetsVM: BudgetsViewModel
     @State var isAddingTransaction: Bool = false
 
-    
     var body: some View {
         NavigationStack {
             List {
+                HStack {
+                    Text("name")
+                    Spacer()
+                    Text("date")
+                    Text("amount")
+                }
+                .font(.caption)
+                .foregroundStyle(Color.theme.secondaryText)
+
                 ForEach(transactionsVM.transactions, id: \.id) { transaction in
-                    VStack {
-                        HStack {
-                            Text(transaction.date, style: .date)
-
-                            Text(transaction.amount, format: .number)
-
-                        }
-                        HStack {
-                            Text(transaction.type.name)
-
-                            Text(transaction.name)
-
-                        }
-                        Text(transaction.description)
+                    HStack {
+                        Text(transaction.name)
+                        Spacer()
+                        Text(transaction.date, style: .date)
+                        Text(transaction.amount, format: .number)
                     }
                 }
                 .onDelete(perform: { indexSet in
                     transactionsVM.transactions.remove(atOffsets: indexSet)
                 })
-
-               
             }
             .listStyle(.plain)
             .navigationTitle("Transactions")
@@ -45,6 +42,15 @@ struct TransactionsView: View {
                 AddTransactionView(transactionsVM: transactionsVM, budgetsVM: budgetsVM)
                     .presentationDetents([.medium])
             })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        isAddingTransaction.toggle()
+                    } label: {
+                        Image(systemName: "plus.circle")
+                    }
+                }
+            }
         }
     }
 }

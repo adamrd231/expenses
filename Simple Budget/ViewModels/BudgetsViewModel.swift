@@ -15,47 +15,10 @@ class BudgetsViewModel: ObservableObject {
     @Published var budgetCategoryTypes: [TransactionCategory] = []
     // Load persisted budgets when view model is created
     // Subscribe to budgets, and manage persistence any time the array changes
+
     init() {
         retrieveBudgets()
         addSubscribers()
-    }
-
-   func updateBudgetCategories() {
-       print("Update budget")
-        var categories:[TransactionCategory] = []
-       for singleBudget in budgets {
-           // Get income
-           for budget in singleBudget.incomeItems {
-               print("first")
-               if categories.contains(where: { $0.name == budget.name}) {
-                   print("Contained")
-               } else {
-                   print("Added")
-                   let newCategory = TransactionCategory(name: budget.name)
-                   categories.append(newCategory)
-               }
-           }
-           for budget in singleBudget.needItems {
-               if categories.contains(where: { $0.name == budget.name}) {
-                   print("Contained")
-               } else {
-                   print("Added")
-                   let newCategory = TransactionCategory(name: budget.name)
-                   categories.append(newCategory)
-               }
-           }
-           for budget in singleBudget.wantItems {
-               if categories.contains(where: { $0.name == budget.name}) {
-                   print("Contained")
-               } else {
-                   print("Added")
-                   let newCategory = TransactionCategory(name: budget.name)
-                   categories.append(newCategory)
-               }
-           }
-       }
-        
-        budgetCategoryTypes = categories
     }
      
     func addSubscribers() {
@@ -73,7 +36,6 @@ class BudgetsViewModel: ObservableObject {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(budgetArray) {
             UserDefaults.standard.set(encoded, forKey: "user_budgets")
-            updateBudgetCategories()
         } else {
             print("Error persisting user budgets")
         }
@@ -85,7 +47,6 @@ class BudgetsViewModel: ObservableObject {
             let decoder = JSONDecoder()
             if let decoded = try? decoder.decode([Budget].self, from: budgetsData) {
                budgets = decoded
-            updateBudgetCategories()
             } else {
                 print("Error retrieving budgets: decoding budgets")
             }
@@ -97,8 +58,6 @@ class BudgetsViewModel: ObservableObject {
     func addBudgetItemToBudgetArray() {
         budgets.append(budgetModel)
     }
-    
-    
     
     func getExpectedTotalFromBudgets(type: BudgetCategory) -> Double {
         // filter out any budgets not within date range

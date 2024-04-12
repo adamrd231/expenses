@@ -26,13 +26,6 @@ struct Budget: Codable {
     var wantItems: [BudgetItem] = []
     var saveItems: [BudgetItem] = []
     
-    var budgets: [Budgets] = [
-        Budgets(budgetCategory: .income, items: []),
-        Budgets(budgetCategory: .needs, items: []),
-        Budgets(budgetCategory: .wants, items: []),
-        Budgets(budgetCategory: .save, items: [])
-    ]
-    
     // Computed variables for showing in UI
     var totalBudget: Double {
         return incomeItems.map({ $0.amount }).reduce(0, +)

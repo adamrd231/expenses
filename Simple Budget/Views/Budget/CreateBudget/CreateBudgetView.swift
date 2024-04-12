@@ -80,7 +80,13 @@ struct CreateBudgetView: View {
                 }
                 .disabled(currentIndex != 5)
             }
-
+            ToolbarItemGroup(placement: .keyboard) {
+                Button {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                } label: {
+                    Text("Done")
+                }
+            }
         }
     }
 }
