@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum Field {
+    case name
+    case value
+}
+
 struct BudgetSetupComponentView: View {
     @Binding var items: [BudgetItem]
     let budgetType: BudgetCategory
@@ -19,6 +24,8 @@ struct BudgetSetupComponentView: View {
     @State var newItemName: String = ""
     @State var newItemValue: Double? = nil
     @FocusState private var nameIsFocused: Bool
+    @FocusState private var valueIsFocused: Bool
+    @FocusState private var focusedField: Field?
 
     
     var body: some View {
@@ -60,18 +67,24 @@ struct BudgetSetupComponentView: View {
                 TextField("Name", text: $newItemName)
                     .multilineTextAlignment(.leading)
                     .textFieldStyle(.roundedBorder)
-                    .focused($nameIsFocused)
+                    .focused($focusedField, equals: .name)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .value
+                    }
 
                 TextField("Amount", value: $newItemValue, format: .number)
                     .multilineTextAlignment(.leading)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.decimalPad)
-                    .focused($nameIsFocused)
+                    .focused($focusedField, equals: .value)
+         
                 Button {
                     if let value = newItemValue {
                         let newItem = BudgetItem(name: newItemName, amount: value)
                         items.append(newItem)
                         nameIsFocused = false
+                        valueIsFocused = false
                         newItemName = ""
                         newItemValue = nil
                     }
@@ -89,6 +102,7 @@ struct BudgetSetupComponentView: View {
                     }
                     .fixedSize(horizontal: false, vertical: true)
                 }
+                .disabled(newItemName == "" || newItemValue == nil)
             }
             .padding()
         }
