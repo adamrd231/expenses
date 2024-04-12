@@ -24,12 +24,20 @@ struct HomeView: View {
                     icon: { Image(systemName: "gauge") }
                     )
                 }
+            
+            BudgetsView(budgetVM: budgetVM)
+                .tag(1)
+                .tabItem { Label(
+                    title: { Text("Budgets") },
+                    icon: { Image(systemName: "note.text") }
+                    )
+                }
                     
             TransactionsView(
                 transactionsVM: transactionsVM,
                 budgetsVM: budgetVM
             )
-                .tag(1)
+                .tag(2)
                 .tabItem { Label(
                     title: { Text("Transactions") },
                     icon: { Image(systemName: "banknote") }
@@ -37,7 +45,7 @@ struct HomeView: View {
                 }
                     
             SettingsView()
-                .tag(2)
+                .tag(3)
                 .tabItem { Label(
                     title: { Text("Settings") },
                     icon: { Image(systemName: "gear") }

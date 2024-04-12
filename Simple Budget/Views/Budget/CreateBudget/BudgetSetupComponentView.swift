@@ -8,32 +8,12 @@
 import SwiftUI
 
 struct BudgetSetupComponentView: View {
-    @ObservedObject var vm: BudgetsViewModel
+    let budgetType: BudgetCategory
+    @Binding var items: [BudgetItem]
     let currentIndex: Int
-    var budgetType: BudgetCategory
+
     @State var isAddingNeedsItem: Bool = false
     @State private var sheetContentHeight = CGFloat(0)
-    
-    func getSectionTitle() -> Text {
-        switch currentIndex {
-        case 2: Text("Income")
-        case 3: Text("Needs")
-        case 4: Text("Wants")
-        case 5: Text("Save")
-        default: Text("Summary")
-        }
-    }
-    
-    func getTotalBudget() -> Text {
-        var text: Double = 0
-        switch budgetType {
-        case .income: text = vm.budgetModel.totalBudget
-        case .needs: text = vm.budgetModel.needBudgetGoal
-        case .wants: text = vm.budgetModel.wantsBudgeGoal - vm.budgetModel.wantsBudgetTotal
-        case .save: text = vm.budgetModel.saveBudgetGoal - vm.budgetModel.saveBudgetTotal
-        }
-        return Text(text, format: .currency(code: "USD"))
-    }
     
     var body: some View {
         NavigationStack {
@@ -91,7 +71,7 @@ struct BudgetSetupComponentView: View {
                     }
                 }
                 
-                Section(header: getSectionTitle()) {
+                Section {
                     switch budgetType {
                     case .income: 
                         BudgetItemsTableView(items: vm.budgetModel.incomeItems).padding(10)

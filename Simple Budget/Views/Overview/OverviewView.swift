@@ -51,13 +51,6 @@ struct OverviewView: View {
                 }
                 .padding(.horizontal)
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(destination: BudgetsView(budgetVM: budgetVM)) {
-                        Text("Budgets")
-                    }
-                }
-            }
             .navigationTitle("Overview")
         }
     }

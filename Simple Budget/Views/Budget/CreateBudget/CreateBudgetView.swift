@@ -2,15 +2,8 @@ import SwiftUI
 
 struct CreateBudgetView: View {
     @ObservedObject var vm: BudgetsViewModel
-    @State var existingBudget: Budget?
     @State var newBudget: Budget = Budget()
-    
     @State var currentIndex: Int = 0
-    
-    init(vm: BudgetsViewModel, existingBudget: Budget? = nil) {
-        self.vm = vm
-        self.existingBudget = existingBudget
-    }
   
     var body: some View {
         ScrollViewReader { proxy in
