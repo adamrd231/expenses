@@ -4,6 +4,7 @@ struct CreateBudgetView: View {
     @ObservedObject var vm: BudgetsViewModel
     @State var newBudget: Budget = Budget()
     @State var currentIndex: Int = 0
+    @Environment(\.dismiss) var dismiss
   
     var body: some View {
         ScrollViewReader { proxy in
@@ -65,19 +66,18 @@ struct CreateBudgetView: View {
                 }
                 .scrollTargetLayout()
             }
-//            .scrollPosition(id: $currentIndex)
         }
-//        .scrollIndicators(.hidden)
         .scrollTargetBehavior(.paging)
         .navigationTitle("Setup")
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Create") {
-                    
+                    vm.budgets.append(newBudget)
+                    dismiss()
                 }
-                .disabled(true)
             }
+
         }
     }
 }

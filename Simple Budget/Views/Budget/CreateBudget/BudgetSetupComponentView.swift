@@ -22,7 +22,7 @@ struct BudgetSetupComponentView: View {
 
     
     var body: some View {
-        NavigationStack {
+        VStack {
             VStack(spacing: 15) {
                 HStack {
                     Spacer()
@@ -51,11 +51,11 @@ struct BudgetSetupComponentView: View {
                     )
                     .padding(.horizontal)
                 }
-                
-                BudgetItemsTableView(items: $items)
-                    .listStyle(.plain)
-                
             }
+            
+            BudgetItemsTableView(items: $items)
+                .listStyle(.plain)
+            
             VStack {
                 TextField("Name", text: $newItemName)
                     .multilineTextAlignment(.leading)
