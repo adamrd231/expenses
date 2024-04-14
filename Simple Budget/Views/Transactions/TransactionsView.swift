@@ -18,12 +18,18 @@ struct TransactionsView: View {
                 .foregroundStyle(Color.theme.secondaryText)
 
                 ForEach(transactionsVM.transactions, id: \.id) { transaction in
-                    HStack {
-                        Text(transaction.name)
-                        Spacer()
-                        Text(transaction.date, style: .date)
-                        Text(transaction.amount, format: .number)
+                    NavigationLink {
+                        IndividualTransactionView(transaction: transaction)
+                    } label: {
+                        HStack {
+                            Text(transaction.name)
+                            Spacer()
+                            Text(transaction.date, style: .date)
+                            Text(transaction.amount, format: .number)
+                        }
                     }
+
+                    
                 }
                 .onDelete(perform: { indexSet in
                     transactionsVM.transactions.remove(atOffsets: indexSet)
@@ -50,10 +56,11 @@ struct TransactionsView: View {
     }
 }
 
-#Preview {
-    TransactionsView(
-        transactionsVM: TransactionsViewModel(),
-        budgetsVM: BudgetsViewModel()
-    )
+struct TransactionsView_Previews: PreviewProvider {
+    static var previews: some View {
+        TransactionsView(
+            transactionsVM: dev.transactionVM,
+            budgetsVM: BudgetsViewModel()
+        )
+    }
 }
-

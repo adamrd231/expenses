@@ -10,8 +10,15 @@ struct DeveloperPreview {
     static let instance = DeveloperPreview()
     var budgetVM = BudgetsViewModel()
     var budget = Budget()
+    var transactionVM = TransactionsViewModel()
+    var transaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), name: "Yard work", description: "For lawncare and lanscaping")
     
     init() {
+        
+        let newTransaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), name: "Yard work", description: "For lawncare and lanscaping")
+        
+        transactionVM.transactions.append(newTransaction)
+        
         budgetVM.budgets = []
         
         var budget = Budget(
