@@ -1,10 +1,3 @@
-//
-//  Transaction.swift
-//  Simple Budget
-//
-//  Created by Eric Solberg on 3/17/24.
-//
-
 import Foundation
 
 struct Transaction: Codable {

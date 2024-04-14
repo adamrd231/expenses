@@ -1,10 +1,3 @@
-//
-//  NeedsView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/22/24.
-//
-
 import SwiftUI
 
 enum Field {

@@ -1,25 +1,20 @@
-//
-//  AddTransactionView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/24/24.
-//
-
 import SwiftUI
 
 struct AddTransactionView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
     @ObservedObject var budgetsVM: BudgetsViewModel
+//    let categories: [BudgetCategory]
     @State var date = Date()
     @State var amount = ""
     @State var name = ""
     @State var description = ""
-    @State var typeSelection: TransactionCategory = TransactionCategory(name: "Blank")
-    @State var pickerSelection: BudgetCategory = .income
+    @State var typeSelection: BudgetName? = nil
+    
+    @State var pickerSelection: BudgetCategory? = nil
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
+        List {
             HStack {
                 Text("Date")
                 DatePicker("", selection: $date, displayedComponents: .date)
@@ -34,9 +29,7 @@ struct AddTransactionView: View {
                     .fixedSize()
             }
             HStack {
-                Text("Type")
-                Spacer()
-                Picker("Category", selection: $pickerSelection) {
+                Picker("Type", selection: $pickerSelection) {
                     ForEach(BudgetCategory.allCases, id: \.self) { value in
                         Text(value.description.description)
                             .tag(value)
@@ -44,19 +37,20 @@ struct AddTransactionView: View {
                 }
             }
             HStack {
-                Text("Category")
-                Spacer()
                 Picker("Category", selection: $typeSelection) {
-                    ForEach(budgetsVM.budgetCategoryTypes, id: \.id) { category in
+                    ForEach(budgetsVM.budgetNames, id: \.id) { category in
                         Text(category.name)
-                            .tag(category)
+                            .tag(category.id)
                     }
+                    Text(BudgetName(name: "Other").name)
+                        .tag("other")
                 }
             }
             HStack {
                 Text("Name")
                 Spacer()
                 TextField("Ex: Rent", text: $name)
+                    .fixedSize()
             }
 
             TextField("Enter description here", text: $description)
@@ -70,4 +64,13 @@ struct AddTransactionView: View {
         transactionsVM: TransactionsViewModel(),
         budgetsVM: BudgetsViewModel()
     )
+}
+
+struct AddTransactionView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddTransactionView(
+            transactionsVM: TransactionsViewModel(),
+            budgetsVM: dev.budgetVM
+        )
+    }
 }

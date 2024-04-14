@@ -1,10 +1,3 @@
-//
-//  HomeView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/20/24.
-//
-
 import SwiftUI
 
 struct HomeView: View {

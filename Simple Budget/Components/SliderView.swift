@@ -1,10 +1,3 @@
-//
-//  SliderView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 4/4/24.
-//
-
 import SwiftUI
 
 struct SliderView: View {

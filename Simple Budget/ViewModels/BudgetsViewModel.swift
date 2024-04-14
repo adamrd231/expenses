@@ -1,10 +1,3 @@
-//
-//  BudgetsViewModel.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/21/24.
-//
-
 import Foundation
 import Combine
 
@@ -15,7 +8,24 @@ class BudgetsViewModel: ObservableObject {
     @Published var budgetCategoryTypes: [TransactionCategory] = []
     // Load persisted budgets when view model is created
     // Subscribe to budgets, and manage persistence any time the array changes
-
+    
+    // TODO: OMG Rename this, this and budgetCategories are too similar and this name sucks
+    var budgetNames: [BudgetName] {
+        var array:[BudgetName] = []
+        for budget in budgets {
+            for incomeItem in budget.incomeItems {
+                array.append(incomeItem.name)
+            }
+            for incomeItem in budget.needItems {
+                array.append(incomeItem.name)
+            }
+            for incomeItem in budget.wantItems {
+                array.append(incomeItem.name)
+            }
+        }
+        return array
+    }
+    
     init() {
         retrieveBudgets()
         addSubscribers()

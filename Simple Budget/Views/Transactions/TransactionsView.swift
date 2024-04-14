@@ -1,10 +1,3 @@
-//
-//  TransactionsView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/24/24.
-//
-
 import SwiftUI
 
 struct TransactionsView: View {
@@ -40,7 +33,6 @@ struct TransactionsView: View {
             .navigationTitle("Transactions")
             .sheet(isPresented: $isAddingTransaction, content: {
                 AddTransactionView(transactionsVM: transactionsVM, budgetsVM: budgetsVM)
-                    .presentationDetents([.medium])
             })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

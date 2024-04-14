@@ -1,10 +1,3 @@
-//
-//  SetupView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/21/24.
-//
-
 import SwiftUI
 
 extension Binding {

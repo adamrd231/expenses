@@ -1,10 +1,3 @@
-//
-//  TransactionsViewModel.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/24/24.
-//
-
 import Foundation
 import Combine
 

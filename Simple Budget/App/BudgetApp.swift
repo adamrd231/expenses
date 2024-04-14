@@ -1,9 +1,10 @@
 //
-//  Simple_BudgetApp.swift
-//  Simple Budget
+//  BudgetApp.swift
+//  -----------------
 //
-//  Created by Eric Solberg on 3/18/24.
+//  Created by Adam Reed on 3/20/24.
 //
+
 
 import SwiftUI
 import SwiftData

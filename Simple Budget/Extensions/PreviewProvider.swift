@@ -13,7 +13,8 @@ struct DeveloperPreview {
     
     init() {
         budgetVM.budgets = []
-        let budget = Budget(
+        
+        var budget = Budget(
             id: UUID(),
             start: Date(),
             end: Date().addingTimeInterval(10000),
@@ -24,7 +25,11 @@ struct DeveloperPreview {
             incomeItems: [],
             needItems: [],
             wantItems: [],
-            saveItems: [])
+            saveItems: []
+        )
+        
+        budget.incomeItems.append(BudgetItem(name: BudgetName(name: "Something"), amount: 10000))
+        
         budgetVM.budgets.append(budget)
         budgetVM.budgetModel = budget
         budgetVM.budgetModel.incomeItems.append(BudgetItem(name: BudgetName(name: "Something"), amount: 10000))
@@ -32,4 +37,5 @@ struct DeveloperPreview {
         budgetVM.budgetModel.wantItems.append(BudgetItem(name:  BudgetName(name: "Books"), amount: 300))
         budgetVM.budgetModel.saveItems.append(BudgetItem(name:  BudgetName(name: "Leaves"), amount: 500))
     }
+    
 }

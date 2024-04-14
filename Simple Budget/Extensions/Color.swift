@@ -1,10 +1,3 @@
-//
-//  Color.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 3/29/24.
-//
-
 import Foundation
 import SwiftUI
 

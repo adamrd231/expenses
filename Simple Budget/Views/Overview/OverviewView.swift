@@ -1,10 +1,3 @@
-//
-//  OverviewView.swift
-//  SimpleBudget
-//
-//  Created by Jaymeen Unadkat on 17/03/24.
-//
-
 import SwiftUI
 
 struct OverviewView: View {
