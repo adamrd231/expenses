@@ -11,7 +11,7 @@ class BudgetsViewModel: ObservableObject {
     
     // TODO: OMG Rename this, this and budgetCategories are too similar and this name sucks
     var budgetNames: [BudgetName] {
-        var array:[BudgetName] = []
+        var array:[BudgetName] = [BudgetName(name: "Other")]
         for budget in budgets {
             for incomeItem in budget.incomeItems {
                 array.append(incomeItem.name)

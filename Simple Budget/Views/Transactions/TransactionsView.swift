@@ -32,7 +32,10 @@ struct TransactionsView: View {
             .listStyle(.plain)
             .navigationTitle("Transactions")
             .sheet(isPresented: $isAddingTransaction, content: {
-                AddTransactionView(transactionsVM: transactionsVM, budgetsVM: budgetsVM)
+                AddTransactionView(
+                    transactionsVM: transactionsVM,
+                    categories: budgetsVM.budgetNames
+                )
             })
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

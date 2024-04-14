@@ -2,8 +2,7 @@ import SwiftUI
 
 struct AddTransactionView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
-    @ObservedObject var budgetsVM: BudgetsViewModel
-//    let categories: [BudgetCategory]
+    let categories: [BudgetName]
     @State var date = Date()
     @State var amount: Double? = nil
     @State var name = ""
@@ -45,12 +44,10 @@ struct AddTransactionView: View {
                     }
                     HStack {
                         Picker("Category", selection: $typeSelection) {
-                            ForEach(budgetsVM.budgetNames, id: \.id) { category in
+                            ForEach(categories, id: \.id) { category in
                                 Text(category.name)
                                     .tag(category)
                             }
-                            Text(BudgetName(name: "Other").name)
-                                .tag("other")
                         }
                     }
                 }
@@ -89,7 +86,7 @@ struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
         AddTransactionView(
             transactionsVM: TransactionsViewModel(),
-            budgetsVM: dev.budgetVM
+            categories: [BudgetName(name: "First")]
         )
     }
 }
