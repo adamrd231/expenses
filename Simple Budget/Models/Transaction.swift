@@ -5,11 +5,11 @@ struct Transaction: Codable {
     var date: Date
     var amount: Double
     var category: BudgetCategory
-    var type: TransactionCategory
+    var type: BudgetName
     var name: String
     var description: String
     
-    init(data: Date, amount: Double, category: BudgetCategory, type: TransactionCategory, name: String, description: String) {
+    init(data: Date, amount: Double, category: BudgetCategory, type: BudgetName, name: String, description: String) {
         self.date = data
         self.amount = amount
         self.category = category

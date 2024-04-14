@@ -5,65 +5,84 @@ struct AddTransactionView: View {
     @ObservedObject var budgetsVM: BudgetsViewModel
 //    let categories: [BudgetCategory]
     @State var date = Date()
-    @State var amount = ""
+    @State var amount: Double? = nil
     @State var name = ""
     @State var description = ""
-    @State var typeSelection: BudgetName? = nil
+    @State var pickerSelection: BudgetCategory = .income
+    @State var typeSelection: BudgetName = BudgetName(name: "Other")
     
-    @State var pickerSelection: BudgetCategory? = nil
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        List {
-            HStack {
-                Text("Date")
-                DatePicker("", selection: $date, displayedComponents: .date)
-            }
-            .onAppear {
-                print("Budget categories \(budgetsVM.budgetCategoryTypes)")
-            }
-            HStack {
-                Text("Amount")
-                Spacer()
-                TextField("Ex: $500.00", text: $amount)
-                    .fixedSize()
-            }
-            HStack {
-                Picker("Type", selection: $pickerSelection) {
-                    ForEach(BudgetCategory.allCases, id: \.self) { value in
-                        Text(value.description.description)
-                            .tag(value)
+        VStack {
+            List {
+                Section(header: Text("New Transaction")) {
+                    HStack {
+                        Text("Date")
+                        DatePicker("", selection: $date, displayedComponents: .date)
+                    }
+                    HStack {
+                        Text("Amount")
+                        Spacer()
+                        TextField("Ex: $500.00", value: $amount, format: .number)
+                            .fixedSize()
+                    }
+                    HStack {
+                        Text("Name")
+                        Spacer()
+                        TextField("Ex: Rent", text: $name)
+                            .fixedSize()
+                    }
+                    TextField("Enter description here", text: $description)
+                    
+                    HStack {
+                        Picker("Type", selection: $pickerSelection) {
+                            ForEach(BudgetCategory.allCases, id: \.self) { value in
+                                Text(value.description)
+                                    .tag(value) // Use the enum value as the tag
+                            }
+                        }
+                    }
+                    HStack {
+                        Picker("Category", selection: $typeSelection) {
+                            ForEach(budgetsVM.budgetNames, id: \.id) { category in
+                                Text(category.name)
+                                    .tag(category)
+                            }
+                            Text(BudgetName(name: "Other").name)
+                                .tag("other")
+                        }
                     }
                 }
             }
-            HStack {
-                Picker("Category", selection: $typeSelection) {
-                    ForEach(budgetsVM.budgetNames, id: \.id) { category in
-                        Text(category.name)
-                            .tag(category.id)
-                    }
-                    Text(BudgetName(name: "Other").name)
-                        .tag("other")
+            Button {
+                // TODO: Add new transaction here
+                if let unwrappedAmount = amount {
+                    var newTransaction = Transaction(
+                        data: date,
+                        amount: unwrappedAmount,
+                        category: pickerSelection,
+                        type: typeSelection,
+                        name: name,
+                        description: description
+                    )
+                    transactionsVM.transactions.append(newTransaction)
                 }
+                
+               
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundStyle(Color.theme.blue)
+                    Text("Create")
+                        .foregroundStyle(.white)
+                        .padding()
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
             }
-            HStack {
-                Text("Name")
-                Spacer()
-                TextField("Ex: Rent", text: $name)
-                    .fixedSize()
-            }
-
-            TextField("Enter description here", text: $description)
         }
-        .padding(.horizontal)
     }
-}
-
-#Preview {
-    AddTransactionView(
-        transactionsVM: TransactionsViewModel(),
-        budgetsVM: BudgetsViewModel()
-    )
 }
 
 struct AddTransactionView_Previews: PreviewProvider {
