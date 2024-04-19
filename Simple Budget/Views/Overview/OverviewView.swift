@@ -15,7 +15,8 @@ struct OverviewView: View {
                             startDate: Date(),
                             endDate: Date().addingTimeInterval(1000),
                             currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
-                            totalBudget:  budgetVM.getExpectedTotalFromBudgets(type: category)
+                            totalBudget:  budgetVM.getExpectedTotalFromBudgets(type: category),
+                            isShrinking: category == .wants || category == .needs
                         )
                     }
                 }

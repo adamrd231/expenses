@@ -11,22 +11,30 @@ struct TransactionsView: View {
                 HStack {
                     Text("name")
                     Spacer()
-                    Text("date")
+                    Text("category")
+                    Spacer()
+                    Text("Type")
+                    Spacer()
                     Text("amount")
                 }
                 .font(.caption)
                 .foregroundStyle(Color.theme.secondaryText)
 
-                ForEach(transactionsVM.transactions, id: \.id) { transaction in
+                ForEach(Array(zip(transactionsVM.transactions, transactionsVM.transactions.indices)), id: \.1) { transaction, index in
                     NavigationLink {
                         IndividualTransactionView(transaction: transaction)
                     } label: {
                         HStack {
+                            Text(index + 1, format: .number).font(.caption)
                             Text(transaction.name)
                             Spacer()
-                            Text(transaction.date, style: .date)
-                            Text(transaction.amount, format: .number)
+                            Text(transaction.category.description)
+                            Spacer()
+                            Text(transaction.type.name)
+                            Spacer()
+                            Text(transaction.amount, format: .currency(code: "USD"))
                         }
+                        .font(.callout)
                     }
 
                     

@@ -47,7 +47,8 @@ struct BudgetSetupComponentView: View {
                         startDate: startDate,
                         endDate: endDate,
                         currentSpend: items.map({$0.amount}).reduce(0, +),
-                        totalBudget: totalBudgetGoal
+                        totalBudget: totalBudgetGoal,
+                        isShrinking: false
                     )
                     .padding(.horizontal)
                 }

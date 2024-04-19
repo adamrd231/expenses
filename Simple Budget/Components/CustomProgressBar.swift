@@ -6,6 +6,7 @@ struct CustomProgressBar: View {
     let endDate: Date
     let currentSpend: Double
     let totalBudget: Double
+    let isShrinking: Bool
     
     var progress: Double {
         currentSpend / totalBudget
@@ -52,7 +53,7 @@ struct CustomProgressBar: View {
                                 )
                             )
                     }
-                    .frame(width: (geometry.size.width * (1 - progress)))
+                    .frame(width: isShrinking ? (geometry.size.width * (1 - progress)) : geometry.size.width * progress)
                 }
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -78,7 +79,8 @@ struct CustomProgressBar_Previews: PreviewProvider {
             startDate: Date(),
             endDate: Date().addingTimeInterval(1000),
             currentSpend: 10,
-            totalBudget: 100
+            totalBudget: 100,
+            isShrinking: true
            )
 
     }
