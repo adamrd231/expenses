@@ -67,7 +67,7 @@ struct CreateBudgetView: View {
                
             }
             .scrollPosition(id: $currentIndex)
-            
+            .scrollIndicators(.visible)
         }
         .scrollTargetBehavior(.paging)
         .navigationTitle("Setup")
