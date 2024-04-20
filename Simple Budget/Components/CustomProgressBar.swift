@@ -42,12 +42,12 @@ struct CustomProgressBar: View {
                     ZStack {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .stroke(lineWidth: 3)
-                            .foregroundColor(Color.theme.blue)
+                            .foregroundColor(Color.theme.green)
             
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .foregroundStyle(
                                 LinearGradient(
-                                    colors: [.blue, Color.theme.blue],
+                                    colors: [.green, Color.theme.green],
                                     startPoint: .bottomTrailing,
                                     endPoint: .topLeading
                                 )

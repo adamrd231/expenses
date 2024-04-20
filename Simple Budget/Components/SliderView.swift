@@ -16,6 +16,7 @@ struct SliderView: View {
             }
             .bold()
             Slider(value: $value, in: 0...1)
+                .tint(Color.theme.green)
         }
     }
 }
