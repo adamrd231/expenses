@@ -13,8 +13,8 @@ struct TransactionTableviewView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .foregroundStyle(Color.theme.background)
-                .shadow(color: Color.theme.text, radius: 10)
+                .foregroundStyle(Color.theme.lightBackground)
+                .shadow(color: Color.theme.background, radius: 10)
             HStack {
                 Text(index, format: .number).font(.caption)
                 VStack(alignment: .leading) {
@@ -33,11 +33,11 @@ struct TransactionTableviewView: View {
                 Spacer()
             
                 Text(transaction.amount, format: .currency(code: "USD"))
-                    .foregroundStyle(transaction.category == .income ? Color.theme.gray : Color.theme.green)
+                    .foregroundStyle(transaction.category == .income ? Color.theme.text : Color.theme.green)
             }
             .padding(10)
         }
-        .fixedSize(horizontal: false, vertical: true)
+//        .fixedSize(horizontal: false, vertical: true)
         .font(.callout)
     }
 }
