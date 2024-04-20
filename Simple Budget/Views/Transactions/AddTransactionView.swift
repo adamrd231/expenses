@@ -38,7 +38,7 @@ struct AddTransactionView: View {
                         Picker("Type", selection: $pickerSelection) {
                             ForEach(BudgetCategory.allCases, id: \.self) { value in
                                 Text(value.description)
-                                    .tag(value) // Use the enum value as the tag
+                                    .tag(value)
                             }
                         }
                     }

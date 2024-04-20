@@ -15,7 +15,7 @@ struct BudgetRowView: View {
             RoundedRectangle(cornerRadius: 10)
                 .foregroundStyle(Color.theme.lightBackground)
                 .shadow(color: Color.theme.background, radius: 10)
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text(budget.start, style: .date)
                     Text("-")
@@ -23,36 +23,39 @@ struct BudgetRowView: View {
                     Spacer()
                 }
                 .font(.caption)
-                HStack {
-                    Text("Total Income")
-                    Spacer()
-                    Text(budget.totalBudget, format: .currency(code: "USD"))
-                }
-                HStack {
-                    Text("Needs budget")
-                    Text(budget.needsBudgetPercentage, format: .percent)
-                    Spacer()
-                    Text(budget.needBudgetGoal, format: .currency(code: "USD"))
-                }
-                HStack {
-                    Text("Want budget")
-                    Text(budget.wantsBudgetPercentage, format: .percent)
-                    Spacer()
-                    Text(budget.wantsBudgeGoal, format: .currency(code: "USD"))
-                }
-                HStack {
-                    Text("Save budget")
-                    Text(budget.saveBudgetPercentage, format: .percent)
-                    Spacer()
-                    Text(budget.saveBudgetGoal, format: .currency(code: "USD"))
-                }
+
+                BudgetTypeRowView(type: .income, percentage: budget.totalBudgetPercentage, goal: budget.totalBudget)
+                BudgetTypeRowView(type: .needs, percentage: budget.needsBudgetPercentage, goal: budget.needBudgetGoal)
+                BudgetTypeRowView(type: .wants, percentage: budget.wantsBudgetPercentage, goal: budget.wantsBudgeGoal)
+                BudgetTypeRowView(type: .save, percentage: budget.saveBudgetPercentage, goal: budget.saveBudgetGoal)
             }
+            .padding()
         }
     }
 }
 
 struct BudgetTypeRowView: View {
+    let type: BudgetCategory
+    let percentage: Double
+    let goal: Double
     var body: some View {
+        HStack {
+            if type == .income {
+                Text("Budget based on income")
+                    .bold()
+            } else {
+                HStack(spacing: 5) {
+                    Text(type.rawValue)
+                    Text("budget")
+                    
+                }
+                Text(percentage, format: .percent)
+            }
+            Spacer()
+            Text(goal, format: .currency(code: "USD"))
+                
+        }
+        .font(.callout)
         
     }
 }
