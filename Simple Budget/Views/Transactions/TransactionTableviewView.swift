@@ -1,10 +1,3 @@
-//
-//  TransactionTableviewView.swift
-//  Simple Budget
-//
-//  Created by Adam Reed on 4/20/24.
-//
-
 import SwiftUI
 
 struct TransactionTableviewView: View {
@@ -37,7 +30,6 @@ struct TransactionTableviewView: View {
             }
             .padding(10)
         }
-//        .fixedSize(horizontal: false, vertical: true)
         .font(.callout)
     }
 }
