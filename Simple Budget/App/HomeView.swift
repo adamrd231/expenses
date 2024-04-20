@@ -9,14 +9,15 @@ struct HomeView: View {
         TabView(selection: $selectedTab) {
             OverviewView(
                 budgetVM: budgetVM,
-                transactionVM: transactionsVM
+                transactionVM: transactionsVM,
+                selectedTab: $selectedTab
             )
             .tag(0)
-                .tabItem { Label(
-                    title: { Text("Overview") },
-                    icon: { Image(systemName: "gauge") }
-                    )
-                }
+            .tabItem { Label(
+                title: { Text("Overview") },
+                icon: { Image(systemName: "gauge") }
+                )
+            }
             
             BudgetsView(budgetVM: budgetVM)
                 .tag(1)
@@ -30,12 +31,12 @@ struct HomeView: View {
                 transactionsVM: transactionsVM,
                 budgetsVM: budgetVM
             )
-                .tag(2)
-                .tabItem { Label(
-                    title: { Text("Transactions") },
-                    icon: { Image(systemName: "banknote") }
-                    )
-                }
+            .tag(2)
+            .tabItem { Label(
+                title: { Text("Transactions") },
+                icon: { Image(systemName: "banknote") }
+                )
+            }
                     
             SettingsView()
                 .tag(3)

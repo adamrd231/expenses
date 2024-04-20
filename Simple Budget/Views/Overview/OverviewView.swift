@@ -3,6 +3,7 @@ import SwiftUI
 struct OverviewView: View {
     @ObservedObject var budgetVM: BudgetsViewModel
     @ObservedObject var transactionVM: TransactionsViewModel
+    @Binding var selectedTab: Int
     @State var isShowingDetailView: Bool = false
 
     var body: some View {
@@ -23,6 +24,26 @@ struct OverviewView: View {
                 .padding(.horizontal)
             }
             .navigationTitle("Overview")
+            if budgetVM.budgets.isEmpty {
+                Button {
+                    selectedTab = 1
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(Color.theme.green)
+                        HStack {
+                            Image(systemName: "plus.circle")
+                            Text("Create budget")
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .foregroundStyle(.white)
+                    }
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding()
+            }
         }
     }
 }
@@ -30,7 +51,8 @@ struct OverviewView: View {
 #Preview {
     OverviewView(
         budgetVM: BudgetsViewModel(),
-        transactionVM: TransactionsViewModel()
+        transactionVM: TransactionsViewModel(),
+        selectedTab: .constant(0)
     )
 }
 
