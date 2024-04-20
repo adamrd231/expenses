@@ -11,16 +11,13 @@ struct BudgetsView: View {
 //                    NavigationLink {
 //                        Text("Destination")
 //                    } label: {
-                        HStack {
-                            Text(budget.start, style: .date)
-                            Text("-")
-                            Text(budget.end, style: .date)
-                        }
+                        BudgetRowView(budget: budget)
 //                    }
                 }
                 .onDelete(perform: { indexSet in
                     budgetVM.budgets.remove(atOffsets: indexSet)
                 })
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle("Budgets")

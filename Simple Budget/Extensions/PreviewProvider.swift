@@ -29,13 +29,16 @@ struct DeveloperPreview {
             needsBudgetPercentage: 0.5,
             wantsBudgetPercentage: 0.3,
             saveBudgetPercentage: 0.2,
-            incomeItems: [],
-            needItems: [],
-            wantItems: [],
-            saveItems: []
+            incomeItems: [BudgetItem(name: BudgetName(name: "Something"), amount: 10000)],
+            needItems: [BudgetItem(name: BudgetName(name: "Something"), amount: 10000)],
+            wantItems: [BudgetItem(name: BudgetName(name: "Something"), amount: 10000)],
+            saveItems: [BudgetItem(name: BudgetName(name: "Something"), amount: 10000)]
         )
         
         budget.incomeItems.append(BudgetItem(name: BudgetName(name: "Something"), amount: 10000))
+        budget.needItems.append(BudgetItem(name: BudgetName(name:"Needs"), amount: 1000))
+        budget.wantItems.append(BudgetItem(name: BudgetName(name:"Wants"), amount: 1000))
+        budget.saveItems.append(BudgetItem(name: BudgetName(name:"Save"), amount: 1000))
         
         budgetVM.budgets.append(budget)
         budgetVM.budgetModel = budget
