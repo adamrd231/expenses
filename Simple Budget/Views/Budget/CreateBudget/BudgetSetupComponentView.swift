@@ -84,6 +84,7 @@ struct BudgetSetupComponentView: View {
                 } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(Color.theme.green)
                         HStack {
                             Image(systemName: "plus.circle")
                             Text("Add item")
