@@ -8,40 +8,17 @@ struct TransactionsView: View {
     var body: some View {
         NavigationStack {
             List {
-                HStack {
-                    Text("name")
-                    Spacer()
-                    Text("category")
-                    Spacer()
-                    Text("Type")
-                    Spacer()
-                    Text("amount")
-                }
-                .font(.caption)
-                .foregroundStyle(Color.theme.secondaryText)
-
                 ForEach(Array(zip(transactionsVM.transactions, transactionsVM.transactions.indices)), id: \.1) { transaction, index in
                     NavigationLink {
                         IndividualTransactionView(transaction: transaction)
                     } label: {
-                        HStack {
-                            Text(index + 1, format: .number).font(.caption)
-                            Text(transaction.name)
-                            Spacer()
-                            Text(transaction.category.description)
-                            Spacer()
-                            Text(transaction.type.name)
-                            Spacer()
-                            Text(transaction.amount, format: .currency(code: "USD"))
-                        }
-                        .font(.callout)
+                        TransactionTableviewView(index: index + 1, transaction: transaction)
                     }
-
-                    
                 }
                 .onDelete(perform: { indexSet in
                     transactionsVM.transactions.remove(atOffsets: indexSet)
                 })
+                .listRowSeparator(.hidden)
             }
             .listStyle(.plain)
             .navigationTitle("Transactions")
