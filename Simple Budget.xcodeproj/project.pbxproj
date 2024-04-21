@@ -29,6 +29,7 @@
 		66F69D4F2BCC930000F2FE02 /* IndividualTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F69D4E2BCC930000F2FE02 /* IndividualTransactionView.swift */; };
 		66F69D512BD4515200F2FE02 /* TransactionTableviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F69D502BD4515200F2FE02 /* TransactionTableviewView.swift */; };
 		66F69D532BD485C800F2FE02 /* BudgetRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F69D522BD485C800F2FE02 /* BudgetRowView.swift */; };
+		66F69D562BD5CAD800F2FE02 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66F69D552BD5CAD800F2FE02 /* ProgressBarView.swift */; };
 		CE51FB112BA8370D0053AD00 /* BudgetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE51FB102BA8370D0053AD00 /* BudgetApp.swift */; };
 		CE51FB172BA8370E0053AD00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE51FB162BA8370E0053AD00 /* Assets.xcassets */; };
 		CE51FB1A2BA8370E0053AD00 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE51FB192BA8370E0053AD00 /* Preview Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		66F69D4E2BCC930000F2FE02 /* IndividualTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualTransactionView.swift; sourceTree = "<group>"; };
 		66F69D502BD4515200F2FE02 /* TransactionTableviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableviewView.swift; sourceTree = "<group>"; };
 		66F69D522BD485C800F2FE02 /* BudgetRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetRowView.swift; sourceTree = "<group>"; };
+		66F69D552BD5CAD800F2FE02 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		CE51FB0D2BA8370D0053AD00 /* Simple Budget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Simple Budget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE51FB102BA8370D0053AD00 /* BudgetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetApp.swift; sourceTree = "<group>"; };
 		CE51FB162BA8370E0053AD00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,7 +116,7 @@
 		644760B62BA8CAA8002F1B2D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				644760B82BA8CAA8002F1B2D /* CustomProgressBar.swift */,
+				66F69D542BD5CAC600F2FE02 /* ProgressBar */,
 				6694DF0F2BC0817300B87CAB /* BudgetActivityView.swift */,
 				6694DF112BC083AD00B87CAB /* BudgetRingView.swift */,
 				6694DF132BC2656C00B87CAB /* BottomRowView.swift */,
@@ -187,6 +189,15 @@
 				6694DF0B2BB7173E00B87CAB /* PreviewProvider.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		66F69D542BD5CAC600F2FE02 /* ProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				644760B82BA8CAA8002F1B2D /* CustomProgressBar.swift */,
+				66F69D552BD5CAD800F2FE02 /* ProgressBarView.swift */,
+			);
+			path = ProgressBar;
 			sourceTree = "<group>";
 		};
 		CE51FB042BA8370D0053AD00 = {
@@ -329,6 +340,7 @@
 				66F69D4D2BCB7B7500F2FE02 /* SliderView.swift in Sources */,
 				6694DECA2BB0912700B87CAB /* TransactionsViewModel.swift in Sources */,
 				6694DF0C2BB7173E00B87CAB /* PreviewProvider.swift in Sources */,
+				66F69D562BD5CAD800F2FE02 /* ProgressBarView.swift in Sources */,
 				666BE7AF2BAB87B2002ABF97 /* HomeView.swift in Sources */,
 				6694DEC82BB0911300B87CAB /* TransactionsView.swift in Sources */,
 				CE51FB112BA8370D0053AD00 /* BudgetApp.swift in Sources */,
