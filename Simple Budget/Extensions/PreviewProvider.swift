@@ -24,7 +24,7 @@ struct DeveloperPreview {
         var budget = Budget(
             id: UUID(),
             start: Date(),
-            end: Date().addingTimeInterval(10000),
+            end: Date().addingTimeInterval(100_000),
             startBalance: 0,
             needsBudgetPercentage: 0.5,
             wantsBudgetPercentage: 0.3,
