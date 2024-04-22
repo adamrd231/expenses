@@ -11,7 +11,7 @@ struct OverviewView: View {
             List {
                 Section("Budget Info") {
                     HStack {
-                        Text("Current Budgets")
+                        Text("Budgets created")
                         Spacer()
                         Text(budgetVM.budgets.count, format: .number)
                     }
@@ -19,17 +19,24 @@ struct OverviewView: View {
                         VStack(alignment: .leading) {
                             Text("Starting date")
                                 .font(.caption)
+                                .bold()
+                                .foregroundStyle(Color.theme.secondaryText)
                             let sortedBudgets = budgetVM.budgets.sorted(by: { $0.start > $1.start})
                             Text(sortedBudgets.first?.start ?? Date(), style: .date)
+                                .font(.callout)
                         }
                         Spacer()
                         VStack(alignment: .leading) {
                             Text("Ending date")
                                 .font(.caption)
+                                .bold()
+                                .foregroundStyle(Color.theme.secondaryText)
                             let sortedBudgets = budgetVM.budgets.sorted(by: { $0.end > $1.end})
                             Text(sortedBudgets.first?.start ?? Date(), style: .date)
+                                .font(.callout)
                         }
                     }
+                    .padding(.top, 5)
                 }
                 Section("Overview") {
                     VStack(spacing: 25) {
@@ -43,7 +50,6 @@ struct OverviewView: View {
                             )
                         }
                     }
-                    .padding(.horizontal)
                 }
             }
             

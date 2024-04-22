@@ -15,11 +15,14 @@ struct DeveloperPreview {
     
     init() {
         
+        transactionVM.transactions = []
+        budgetVM.budgets = []
+        
         let newTransaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), name: "Yard work", description: "For lawncare and lanscaping")
         
         transactionVM.transactions.append(newTransaction)
         
-        budgetVM.budgets = []
+
         
         var budget = Budget(
             id: UUID(),
@@ -42,7 +45,7 @@ struct DeveloperPreview {
         
         budgetVM.budgets.append(budget)
         budgetVM.budgetModel = budget
-        budgetVM.budgetModel.incomeItems.append(BudgetItem(name: BudgetName(name: "Something"), amount: 10000))
+        budgetVM.budgetModel.incomeItems.append(BudgetItem(name: BudgetName(name: "Something"), amount: 1000))
         budgetVM.budgetModel.needItems.append(BudgetItem(name:  BudgetName(name: "TV"), amount: 1000))
         budgetVM.budgetModel.wantItems.append(BudgetItem(name:  BudgetName(name: "Books"), amount: 300))
         budgetVM.budgetModel.saveItems.append(BudgetItem(name:  BudgetName(name: "Leaves"), amount: 500))
