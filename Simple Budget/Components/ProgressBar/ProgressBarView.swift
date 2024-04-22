@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProgressBarView: View {
-    let isShrinking: Bool
     let progress: Double
     var cornerRadius: Double = 25
     var body: some View {
@@ -37,7 +36,7 @@ struct ProgressBarView: View {
                             )
                         )
                 }
-                .frame(width: isShrinking ? (geometry.size.width * (1 - progress)) : geometry.size.width * progress)
+                .frame(width: geometry.size.width * progress)
             }
         }
         .fixedSize(horizontal: false, vertical: true)
@@ -47,9 +46,10 @@ struct ProgressBarView: View {
 
 struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBarView(
-            isShrinking: true, progress: 0.4
-        )
+        ProgressBarView(progress: 0.4)
         .preferredColorScheme(.dark)
+        ProgressBarView(progress: 0.4)
+        .preferredColorScheme(.light)
     }
+    
 }

@@ -1,12 +1,11 @@
 import SwiftUI
 
 struct CustomProgressBar: View {
-    let title: String
     let startDate: Date
     let endDate: Date
     let currentSpend: Double
     let totalBudget: Double
-    let isShrinking: Bool
+    let type: BudgetCategory
     
     var progress: Double {
         currentSpend / totalBudget
@@ -16,25 +15,25 @@ struct CustomProgressBar: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            HStack {
-                Text(title)
+            HStack(spacing: 5) {
+                Text(type.description)
                     .bold()
                 Spacer()
-                HStack {
-                    Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
-                    Text("Left")
-                }
-                .foregroundStyle(Color.theme.secondaryText)
+                Text(totalBudget, format: .currency(code: "USD"))
+                    .foregroundStyle(Color.theme.secondaryText)
+                Text("Total")
+                    .foregroundStyle(Color.theme.secondaryText)
             }
             .font(.caption)
             
-            ProgressBarView(isShrinking: isShrinking, progress: progress)
-            HStack {
-                Text(startDate, style: .date)
-                    .bold()
+            ProgressBarView(progress: progress)
+            HStack(spacing: 5) {
+                Text(currentSpend, format: .currency(code: "USD"))
+                Text(type == .income || type == .save ? "Earned" : "Spent")
                 Spacer()
-                Text(endDate, style: .date)
-                    .bold()
+
+                Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                Text("Left")
             }
             .foregroundStyle(Color.theme.secondaryText)
             .font(.caption2)
@@ -47,12 +46,11 @@ struct CustomProgressBar: View {
 struct CustomProgressBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomProgressBar(
-            title: "Income",
             startDate: Date(),
             endDate: Date().addingTimeInterval(1000),
             currentSpend: 10,
             totalBudget: 100,
-            isShrinking: true
+            type: .income
            )
 
     }
