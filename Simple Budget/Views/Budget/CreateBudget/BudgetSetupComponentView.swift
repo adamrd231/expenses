@@ -31,6 +31,7 @@ struct BudgetSetupComponentView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         switch budgetType {
+                        case .all: EmptyView()
                         case .income: Text("Monthly income")
                         case .needs: Text("Needs budget total")
                         case .wants: Text("Wants budget total")

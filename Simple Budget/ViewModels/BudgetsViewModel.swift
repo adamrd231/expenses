@@ -74,6 +74,7 @@ class BudgetsViewModel: ObservableObject {
         let today = Date()
         let filteredByDate = budgets.filter({ $0.start <= today && $0.end >= today })
         switch type {
+        case .all: return 42
         case .income: return filteredByDate.map({ $0.incomeItems.map({ $0.amount }).reduce(0,+)}).reduce(0,+)
         case .needs:
             let budgetTotalAgainstPercentage = filteredByDate.map({ $0.incomeItems.map({ $0.amount }).reduce(0,+) * $0.needsBudgetPercentage }).reduce(0,+)

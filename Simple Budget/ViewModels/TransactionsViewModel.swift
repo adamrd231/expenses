@@ -3,8 +3,16 @@ import Combine
 
 class TransactionsViewModel: ObservableObject {
     @Published var transactions: [Transaction] = []
+    var filteredTransactions: [Transaction] {
+        if searchText.isEmpty {
+            return transactions
+        } else {
+            return transactions.filter({ $0.name.contains(searchText ) })
+        }
+    }
     @Published var newTransaction: Transaction? = nil
     @Published private var cancellable = Set<AnyCancellable>()
+    @Published var searchText: String = ""
     
     init() {
         retrieveTransactions()

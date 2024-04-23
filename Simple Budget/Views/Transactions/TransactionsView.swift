@@ -4,32 +4,36 @@ struct TransactionsView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
     @ObservedObject var budgetsVM: BudgetsViewModel
     @State var isAddingTransaction: Bool = false
-    @State var categoryPickerSelection: BudgetCategory = .income
+    @State var categoryPickerSelection: BudgetCategory = .all
     @State var searchText: String = ""
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundStyle(Color.theme.lightBackground)
-                    .shadow(color: Color.theme.background, radius: 10)
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search Transactions", text: $searchText)
-                }
-                .padding(10)
-                Picker("", selection: <#T##Binding<Hashable>#>, content: <#T##() -> View#>)
-                Picker(BudgetCategory.allCases, id: \.self) { category in
+//            ZStack {
+//                RoundedRectangle(cornerRadius: 10)
+//                    .foregroundStyle(Color.theme.lightBackground)
+//                    .shadow(color: Color.theme.background, radius: 10)
+//                HStack {
+//                    Image(systemName: "magnifyingglass")
+//                    TextField("Search Transactions", text: $transactionsVM.searchText)
+//                }
+//                .padding(10)
+//               
+//            }
+//            .fixedSize(horizontal: false, vertical: true)
+//            .padding(.horizontal)
+            
+            Picker("", selection: $categoryPickerSelection) {
+                ForEach(BudgetCategory.allCases, id: \.self) { category in
                     Text(category.description)
                         .tag(category)
                 }
             }
-            .fixedSize(horizontal: false, vertical: true)
+            .pickerStyle(.segmented)
             .padding(.horizontal)
             
-            
             List {
-                ForEach(Array(zip(transactionsVM.transactions, transactionsVM.transactions.indices)), id: \.1) { transaction, index in
+                ForEach(Array(zip(transactionsVM.filteredTransactions, transactionsVM.filteredTransactions.indices)), id: \.1) { transaction, index in
                     NavigationLink {
                         IndividualTransactionView(transaction: transaction)
                     } label: {
@@ -41,6 +45,7 @@ struct TransactionsView: View {
                 })
                 .listRowSeparator(.hidden)
             }
+            .searchable(text: $transactionsVM.searchText)
             .listStyle(.plain)
             .navigationTitle("Transactions")
             .sheet(isPresented: $isAddingTransaction, content: {
