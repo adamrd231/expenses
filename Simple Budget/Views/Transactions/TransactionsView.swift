@@ -9,30 +9,15 @@ struct TransactionsView: View {
 
     var body: some View {
         NavigationStack {
-//            ZStack {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .foregroundStyle(Color.theme.lightBackground)
-//                    .shadow(color: Color.theme.background, radius: 10)
-//                HStack {
-//                    Image(systemName: "magnifyingglass")
-//                    TextField("Search Transactions", text: $transactionsVM.searchText)
-//                }
-//                .padding(10)
-//               
-//            }
-//            .fixedSize(horizontal: false, vertical: true)
-//            .padding(.horizontal)
-            
-            Picker("", selection: $categoryPickerSelection) {
-                ForEach(BudgetCategory.allCases, id: \.self) { category in
-                    Text(category.description)
-                        .tag(category)
-                }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-            
             List {
+                Picker("", selection: $transactionsVM.categoryPickerSelection) {
+                    ForEach(BudgetCategory.allCases, id: \.self) { category in
+                        Text(category.description)
+                            .tag(category)
+                    }
+                }
+                .pickerStyle(.segmented)
+                
                 ForEach(Array(zip(transactionsVM.filteredTransactions, transactionsVM.filteredTransactions.indices)), id: \.1) { transaction, index in
                     NavigationLink {
                         IndividualTransactionView(transaction: transaction)
@@ -45,15 +30,12 @@ struct TransactionsView: View {
                 })
                 .listRowSeparator(.hidden)
             }
-            .searchable(text: $transactionsVM.searchText)
+            
             .listStyle(.plain)
             .navigationTitle("Transactions")
-            .sheet(isPresented: $isAddingTransaction, content: {
-                AddTransactionView(
-                    transactionsVM: transactionsVM,
-                    categories: budgetsVM.budgetNames
-                )
-            })
+            // Searchable Protocol
+            .searchable(text: $transactionsVM.searchText)
+            // Toolbar button item
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -63,6 +45,13 @@ struct TransactionsView: View {
                     }
                 }
             }
+            // Present sheet for adding new items
+            .sheet(isPresented: $isAddingTransaction, content: {
+                AddTransactionView(
+                    transactionsVM: transactionsVM,
+                    categories: budgetsVM.budgetNames
+                )
+            })
         }
     }
 }
