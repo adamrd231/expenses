@@ -1,13 +1,15 @@
 import Foundation
 
 enum BudgetCategory: String, Equatable, CaseIterable, Codable {
-    case income = "Income"
-    case needs = "Needs"
-    case wants = "Wants"
-    case save = "Save"
+    case all = "all"
+    case income = "income"
+    case needs = "needs"
+    case wants = "wants"
+    case save = "save"
     
     var description: String {
         switch self {
+        case .all: return "All"
         case .income: return "Income"
         case .needs: return "Needs"
         case .wants: return "Wants"

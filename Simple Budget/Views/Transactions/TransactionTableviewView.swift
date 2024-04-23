@@ -28,12 +28,16 @@ struct TransactionTableviewView: View {
                 Text(transaction.amount, format: .currency(code: "USD"))
                     .foregroundStyle(transaction.category == .income ? Color.theme.text : Color.theme.green)
             }
-            .padding(10)
+            .padding(5)
         }
         .font(.callout)
     }
 }
 
 #Preview {
-    TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Stuff"), name: "Things", description: "The description for things"))
+    NavigationLink {
+        Text("Placeholder")
+    } label: {
+        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Stuff"), name: "Things", description: "The description for things"))
+    }
 }

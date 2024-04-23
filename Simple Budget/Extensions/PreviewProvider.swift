@@ -19,8 +19,10 @@ struct DeveloperPreview {
         budgetVM.budgets = []
         
         let newTransaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), name: "Yard work", description: "For lawncare and lanscaping")
+        let secondTransaction = Transaction(data: Date(), amount: 910, category: .income, type: BudgetName(name: "Other Work"), name: "Yard work", description: "For lawncare and lanscaping")
         
         transactionVM.transactions.append(newTransaction)
+        transactionVM.transactions.append(secondTransaction)
         
 
         
