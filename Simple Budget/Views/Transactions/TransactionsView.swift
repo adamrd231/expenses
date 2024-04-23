@@ -4,7 +4,7 @@ struct TransactionsView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
     @ObservedObject var budgetsVM: BudgetsViewModel
     @State var isAddingTransaction: Bool = false
-    @State var categoryPickerSelection: BudgetCategory = .all
+    @State var categoryPickerSelection: BudgetCategory = .income
     @State var searchText: String = ""
 
     var body: some View {

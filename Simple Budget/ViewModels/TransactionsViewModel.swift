@@ -6,23 +6,16 @@ class TransactionsViewModel: ObservableObject {
     @Published var newTransaction: Transaction? = nil
     @Published private var cancellable = Set<AnyCancellable>()
     @Published var searchText: String = ""
-    @Published var categoryPickerSelection: BudgetCategory = .all
+    @Published var categoryPickerSelection: BudgetCategory = .income
     
     var filteredTransactions: [Transaction] {
         if searchText.isEmpty {
-            if categoryPickerSelection == .all {
-                return transactions
-            } else {
-                return transactions.filter({ $0.category == categoryPickerSelection })
-            }
-            
+            return transactions.filter({ $0.category == categoryPickerSelection })
+
         } else {
             let searchTextFilteredTransactions =  transactions.filter({ $0.name.contains(searchText ) })
-            if categoryPickerSelection == .all {
-                return searchTextFilteredTransactions
-            } else {
-                return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection })
-            }
+            return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection })
+            
         }
     }
     

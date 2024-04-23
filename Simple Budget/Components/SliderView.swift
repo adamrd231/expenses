@@ -7,7 +7,6 @@ struct SliderView: View {
         VStack(alignment: .leading) {
             HStack {
                 switch type {
-                case .all: EmptyView()
                 case .needs: Text("Needs")
                 case .wants: Text("Wants")
                 case .save: Text("Save")
