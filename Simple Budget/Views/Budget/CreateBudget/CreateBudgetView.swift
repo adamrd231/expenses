@@ -70,15 +70,23 @@ struct CreateBudgetView: View {
             .scrollIndicators(.visible)
         }
         .scrollTargetBehavior(.paging)
-        .navigationTitle("Setup")
+        .navigationTitle("Setup (\(((currentIndex ?? 0) + 1).description) of 6)")
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Create") {
-                    vm.budgets.append(newBudget)
-                    dismiss()
+                if currentIndex != 5 {
+                    Button("Next") {
+                        if let index = currentIndex {
+                            currentIndex = index + 1
+                        }
+                        
+                    }
+                } else {
+                    Button("Create") {
+                        vm.budgets.append(newBudget)
+                        dismiss()
+                    }
                 }
-                .disabled(currentIndex != 5)
             }
             ToolbarItemGroup(placement: .keyboard) {
                 HStack {
