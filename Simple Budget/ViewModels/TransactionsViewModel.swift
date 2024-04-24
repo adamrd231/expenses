@@ -14,7 +14,7 @@ class TransactionsViewModel: ObservableObject {
             if categorySelection == "All" {
                 return transactions
             } else {
-                let categoryName = BudgetCategory.allCases.first(where: { $0.description == categorySelection })
+                let categoryName = BudgetCategory.allCases.first(where: { $0.rawValue == categorySelection })
                 if let unwrappedCategoryName = categoryName {
                     return transactions.filter({ $0.category == unwrappedCategoryName })
                 } else {
