@@ -4,16 +4,16 @@ struct TransactionsView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
     @ObservedObject var budgetsVM: BudgetsViewModel
     @State var isAddingTransaction: Bool = false
-    @State var categoryPickerSelection: BudgetCategory = .income
-    @State var searchText: String = ""
 
     var body: some View {
         NavigationStack {
             List {
-                Picker("", selection: $transactionsVM.categoryPickerSelection) {
+                Picker("", selection: $transactionsVM.categorySelection) {
+                    Text("All")
+                        .tag("All")
                     ForEach(BudgetCategory.allCases, id: \.self) { category in
                         Text(category.description)
-                            .tag(category)
+                            .tag(category.rawValue)
                     }
                 }
                 .pickerStyle(.segmented)

@@ -7,14 +7,28 @@ class TransactionsViewModel: ObservableObject {
     @Published private var cancellable = Set<AnyCancellable>()
     @Published var searchText: String = ""
     @Published var categoryPickerSelection: BudgetCategory = .income
+    @Published var categorySelection: String = "All"
     
     var filteredTransactions: [Transaction] {
         if searchText.isEmpty {
-            return transactions.filter({ $0.category == categoryPickerSelection })
-
+            if categorySelection == "All" {
+                return transactions
+            } else {
+                let categoryName = BudgetCategory.allCases.first(where: { $0.description == categorySelection })
+                if let unwrappedCategoryName = categoryName {
+                    return transactions.filter({ $0.category == unwrappedCategoryName })
+                } else {
+                    return transactions
+                }
+            }
         } else {
             let searchTextFilteredTransactions =  transactions.filter({ $0.name.contains(searchText ) })
-            return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection })
+            if categorySelection == "All" {
+                return searchTextFilteredTransactions
+            } else {
+                return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection })
+            }
+           
             
         }
     }
