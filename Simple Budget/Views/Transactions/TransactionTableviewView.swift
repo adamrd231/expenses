@@ -29,6 +29,7 @@ struct TransactionTableviewView: View {
                     .foregroundStyle(transaction.category == .income ? Color.theme.text : Color.theme.green)
             }
             .padding(5)
+            .padding(.horizontal)
         }
         .font(.callout)
     }
