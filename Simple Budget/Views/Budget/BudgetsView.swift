@@ -8,11 +8,11 @@ struct BudgetsView: View {
         NavigationStack {
             List {
                 ForEach(budgetVM.budgets, id: \.id) { budget in
-//                    NavigationLink {
-//                        Text("Destination")
-//                    } label: {
+                    NavigationLink {
+                        IndividualBudgetView(budget: budget)
+                    } label: {
                         BudgetRowView(budget: budget)
-//                    }
+                    }
                 }
                 .onDelete(perform: { indexSet in
                     budgetVM.budgets.remove(atOffsets: indexSet)

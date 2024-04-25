@@ -41,18 +41,19 @@ struct BudgetTypeRowView: View {
     var body: some View {
         HStack {
             if type == .income {
-                Text("Budget based on income")
+                Text("Income")
                     .bold()
             } else {
                 HStack(spacing: 5) {
                     Text(type.rawValue)
-                    Text("budget")
-                    
+                    Text(percentage, format: .percent)
                 }
-                Text(percentage, format: .percent)
+                .font(.subheadline)
+                
             }
             Spacer()
             Text(goal, format: .currency(code: "USD"))
+                .font(.subheadline)
                 
         }
         .font(.callout)
