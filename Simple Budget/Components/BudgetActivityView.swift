@@ -11,7 +11,7 @@ struct BudgetActivityView: View {
     let budget: Budget
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(alignment: .center, spacing: 15) {
             Text("Overview")
                 .font(.title)
                 .fontWeight(.bold)

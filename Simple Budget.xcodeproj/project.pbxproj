@@ -132,8 +132,8 @@
 			children = (
 				666BE7B22BACA126002ABF97 /* BudgetsView.swift */,
 				66F69D522BD485C800F2FE02 /* BudgetRowView.swift */,
-				666BE7B42BACA2C7002ABF97 /* CreateBudget */,
 				66F69D5A2BDAD79800F2FE02 /* IndividualBudgetView.swift */,
+				666BE7B42BACA2C7002ABF97 /* CreateBudget */,
 			);
 			path = Budget;
 			sourceTree = "<group>";
