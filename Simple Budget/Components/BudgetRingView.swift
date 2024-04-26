@@ -19,11 +19,11 @@ struct BudgetRingView: View {
             
             ZStack(alignment: .top) {
                 Circle()
-                    .trim(from: 0, to: 1 - progress)
+                    .trim(from: 0, to: 1 - progress.truncatingRemainder(dividingBy: 1))
                     .stroke(
                         AngularGradient(
                             gradient: Gradient(
-                                colors: [ringColor, ringColor]
+                                colors: progress <= 1 ? [ringColor, ringColor] : [.red, .orange]
                             ),
                             center: .center,
                             startAngle: .degrees(0),
@@ -35,7 +35,7 @@ struct BudgetRingView: View {
                     .rotationEffect(.degrees(-90))
                 Circle()
                     .frame(width: lineWidth, height: lineWidth)
-                    .foregroundColor(ringColor)
+                    .foregroundColor(progress <= 1 ? ringColor : .red)
             }
             
        
@@ -45,7 +45,7 @@ struct BudgetRingView: View {
 
 #Preview {
     BudgetRingView(
-        progress: 0.4,
+        progress: 1.24,
         lineWidth: 50,
         ringColor: .blue
     )
