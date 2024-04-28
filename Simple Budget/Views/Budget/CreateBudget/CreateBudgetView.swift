@@ -26,38 +26,38 @@ struct CreateBudgetView: View {
                     .tag(1)
                     .containerRelativeFrame(.horizontal)
 
-                    BudgetSetupComponentView(
-                        items: $newBudget.needItems,
-                        budgetType: .needs,
-                        totalBudgetGoal: newBudget.needBudgetGoal,
-                        startDate: newBudget.start,
-                        endDate: newBudget.end
-                    )
-                    .id(2)
-                    .tag(2)
-                    .containerRelativeFrame(.horizontal)
+//                    BudgetSetupComponentView(
+//                        items: $newBudget.needItems,
+//                        budgetType: .needs,
+//                        totalBudgetGoal: newBudget.needBudgetGoal,
+//                        startDate: newBudget.start,
+//                        endDate: newBudget.end
+//                    )
+//                    .id(2)
+//                    .tag(2)
+//                    .containerRelativeFrame(.horizontal)
                     
-                    BudgetSetupComponentView(
-                        items: $newBudget.wantItems,
-                        budgetType: .wants,
-                        totalBudgetGoal: newBudget.wantsBudgeGoal,
-                        startDate: newBudget.start,
-                        endDate: newBudget.end
-                    )
-                    .id(3)
-                    .tag(3)
-                    .containerRelativeFrame(.horizontal)
-                    
-                    BudgetSetupComponentView(
-                        items: $newBudget.saveItems,
-                        budgetType: .save,
-                        totalBudgetGoal: newBudget.saveBudgetGoal,
-                        startDate: newBudget.start,
-                        endDate: newBudget.end
-                    )
-                        .id(4)
-                        .tag(4)
-                        .containerRelativeFrame(.horizontal)
+//                    BudgetSetupComponentView(
+//                        items: $newBudget.wantItems,
+//                        budgetType: .wants,
+//                        totalBudgetGoal: newBudget.wantsBudgeGoal,
+//                        startDate: newBudget.start,
+//                        endDate: newBudget.end
+//                    )
+//                    .id(3)
+//                    .tag(3)
+//                    .containerRelativeFrame(.horizontal)
+//                    
+//                    BudgetSetupComponentView(
+//                        items: $newBudget.saveItems,
+//                        budgetType: .save,
+//                        totalBudgetGoal: newBudget.saveBudgetGoal,
+//                        startDate: newBudget.start,
+//                        endDate: newBudget.end
+//                    )
+//                        .id(4)
+//                        .tag(4)
+//                        .containerRelativeFrame(.horizontal)
                     BudgetActivityView(budget: newBudget)
                         .id(5)
                         .tag(5)

@@ -12,7 +12,7 @@ struct BudgetOverviewRowView: View {
     let budgetGoal: Double
     let budgetItemTotal: Double
     var body: some View {
-        GridRow {
+        HStack {
             Text(type.description)
                 .bold()
     

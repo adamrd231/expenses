@@ -24,10 +24,10 @@ struct BudgetRowView: View {
                 }
                 .font(.caption)
 
-                BudgetTypeRowView(type: .income, percentage: budget.totalBudgetPercentage, goal: budget.totalBudget)
-                BudgetTypeRowView(type: .needs, percentage: budget.needsBudgetPercentage, goal: budget.needBudgetGoal)
-                BudgetTypeRowView(type: .wants, percentage: budget.wantsBudgetPercentage, goal: budget.wantsBudgeGoal)
-                BudgetTypeRowView(type: .save, percentage: budget.saveBudgetPercentage, goal: budget.saveBudgetGoal)
+//                BudgetTypeRowView(type: .income, percentage: budget.totalBudgetPercentage, goal: budget.totalBudget)
+//                BudgetTypeRowView(type: .needs, percentage: budget.needsBudgetPercentage, goal: budget.needBudgetGoal)
+//                BudgetTypeRowView(type: .wants, percentage: budget.wantsBudgetPercentage, goal: budget.wantsBudgeGoal)
+//                BudgetTypeRowView(type: .save, percentage: budget.saveBudgetPercentage, goal: budget.saveBudgetGoal)
             }
             .padding()
         }

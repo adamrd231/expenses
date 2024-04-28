@@ -14,8 +14,8 @@ struct SetupView: View {
             HStack {
                 Spacer()
                 VStack {
-                    Text(budget.totalBudgetPercentage, format: .percent.precision(.fractionLength(0)))
-                        .foregroundStyle(budget.totalBudgetPercentage > 1 ? .red : .primary)
+                    Text(budget.budgetItems.map({ $0.budgetPercentage }).reduce(0, +), format: .percent.precision(.fractionLength(0)))
+                        .foregroundStyle(budget.budgetItems.map({ $0.budgetPercentage }).reduce(0, +) > 1 ? .red : .primary)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     Text("Budget Total")
@@ -23,9 +23,9 @@ struct SetupView: View {
                 Spacer()
             }
             .padding(10)
-            SliderView(value: $budget.needsBudgetPercentage, type: .needs)
-            SliderView(value: $budget.wantsBudgetPercentage, type: .wants)
-            SliderView(value: $budget.saveBudgetPercentage, type: .save)
+            ForEach($budget.budgetItems, id: \.self) { $budgetItem in
+                SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
+            }
             DateRangeRow(title: "Start Date", date: $budget.start)
             DateRangeRow(title: "End Date", date: $budget.end)
         }
