@@ -20,6 +20,15 @@ struct Budget: Codable {
         return needsBudgetPercentage + wantsBudgetPercentage + saveBudgetPercentage
     }
 
+    // I want an object to access which contains all of the budget items in a way that can be iterated with
+    
+    var budgetItems: [BudgetItems] = [
+        BudgetItems(budgetCategory: .income, items: []),
+        BudgetItems(budgetCategory: .wants,items: []),
+        BudgetItems(budgetCategory: .needs,items: []),
+        BudgetItems(budgetCategory: .save,items: [])
+    ]
+    
     // Storage inside budget to add BudgetItems to each category
     var incomeItems: [BudgetItem] = []
     var needItems: [BudgetItem] = []
@@ -53,6 +62,16 @@ struct Budget: Codable {
     
     var saveBudgetGoal: Double {
         return totalBudget * saveBudgetPercentage
+    }
+}
+
+struct BudgetItems: Codable {
+    var id = UUID()
+    let budgetCategory: BudgetCategory
+    var items: [BudgetItem] = []
+    
+    var totalBudget: Double {
+        return items.map({ $0.amount }).reduce(0, +)
     }
 }
 
