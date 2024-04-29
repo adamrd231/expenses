@@ -13,21 +13,6 @@ struct CreateBudgetView: View {
                 DateRangeRow(title: "Ending", date: $newBudget.end)
             }
             
-//            Section("Percentages") {
-//                HStack {
-//                    Text("Total")
-//                    Spacer()
-//                    Text(newBudget.budgetItems.map({ $0.budgetPercentage}).reduce(0, +),
-//                         format: .percent.precision(.fractionLength(0))
-//                    )
-//                }
-//                .font(.title3)
-//                .bold()
-//                ForEach($newBudget.budgetItems, id: \.self) { $budgetItem in
-//                    SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
-//                }
-//            }
-            
             Section("Add income") {
                 NavigationLink {
                     BudgetSetupComponentView(
@@ -78,13 +63,6 @@ struct CreateBudgetView: View {
                         }
                     }
                 }
-            }
-            
-            Section("Overview") {
-                BudgetActivityView(budget: newBudget)
-                    .id(5)
-                    .tag(5)
-                    .containerRelativeFrame(.horizontal)
             }
         }
         .navigationTitle("Setup")
