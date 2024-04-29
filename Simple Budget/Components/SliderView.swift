@@ -12,9 +12,9 @@ struct SliderView: View {
                 case .save: Text("Save")
                 case .income: Text("Income")
                 }
+                Spacer()
                 Text(value,  format: .percent.precision(.fractionLength(0)))
             }
-            .bold()
             Slider(value: $value, in: 0...1)
                 .tint(Color.theme.green)
         }

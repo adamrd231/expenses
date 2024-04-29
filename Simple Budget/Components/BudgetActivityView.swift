@@ -12,38 +12,35 @@ struct BudgetActivityView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 15) {
-            Text("Overview")
-                .font(.title)
-                .fontWeight(.bold)
-            VStack {
-                GeometryReader { geo in
-                    ZStack {
+
+            GeometryReader { geo in
+                ZStack {
 //                        BudgetRingView(
 //                            progress: budget.needBudgetTotal / budget.needBudgetGoal,
 //                            lineWidth: geo.size.width * 0.1,
 //                            ringColor: Color.theme.green
 //                        )
 //                        .frame(width: geo.size.width)
-//                        
+//
 //                        BudgetRingView(
 //                            progress: budget.wantsBudgetTotal / budget.wantsBudgeGoal,
 //                            lineWidth: geo.size.width * 0.1,
 //                            ringColor: .green
 //                        )
 //                        .frame(width: geo.size.width - (geo.size.width * 0.25))
-//        
+//
 //                        BudgetRingView(
 //                            progress: budget.saveBudgetTotal / budget.saveBudgetGoal,
 //                            lineWidth: geo.size.width * 0.1,
 //                            ringColor: Color.theme.blue
 //                        )
 //                        .frame(width: geo.size.width - (geo.size.width * 0.5))
-        
-                    }
-                    .frame(width: geo.size.width)
+    
                 }
+                .frame(width: geo.size.width)
             }
-            .frame(width: 250, height: 250, alignment: .center)
+        }
+        .frame(width: 250, height: 250, alignment: .center)
 //            BottomRowView(
 //                category: "Needs",
 //                percent: (1 - (budget.needBudgetTotal / budget.needBudgetGoal)),
@@ -59,7 +56,6 @@ struct BudgetActivityView: View {
 //                percent: (1 - (budget.saveBudgetTotal / budget.saveBudgetGoal)),
 //                color: Color.theme.blue
 //            )
-        }
     }
 }
 
