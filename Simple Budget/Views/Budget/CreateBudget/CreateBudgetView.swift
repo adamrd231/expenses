@@ -14,6 +14,13 @@ struct CreateBudgetView: View {
             }
             
             Section("Add income") {
+                HStack {
+                    Image(systemName: newBudget.incomeItems.isEmpty ? "checkmark.circle.trianglebadge.exclamationmark" : "checkmark.circle.fill")
+                        .foregroundStyle(newBudget.incomeItems.isEmpty ? Color.theme.red : Color.theme.green)
+                    Text("Income")
+                    Spacer()
+                    Text(newBudget.totalBudget, format: .currency(code: "USD"))
+                }
                 NavigationLink {
                     BudgetSetupComponentView(
                         items: $newBudget.incomeItems,
@@ -23,11 +30,11 @@ struct CreateBudgetView: View {
                         endDate: newBudget.end
                     )
                 } label: {
-                    HStack {
-                        Text("Income")
-                        Spacer()
-                        Text(newBudget.totalBudget, format: .currency(code: "USD"))
+                    VStack(alignment: .leading) {
+                        Text(newBudget.incomeItems.isEmpty ? "Add items" : "Items: \(newBudget.incomeItems.count)")
+                            .font(.caption)
                     }
+                   
                 }
             }
             
@@ -122,6 +129,7 @@ struct CreateBudgetView: View {
                 Button("Create") {
                     // TODO: Create budget hereg
                 }
+                .disabled(true)
             }
         }
     }
