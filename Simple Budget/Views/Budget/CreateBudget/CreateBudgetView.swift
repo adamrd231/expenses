@@ -9,11 +9,9 @@ struct CreateBudgetView: View {
     var body: some View {
         List {
             Section("Dates") {
-                DateRangeRow(title: "Start Date", date: $newBudget.start)
-                DateRangeRow(title: "End Date", date: $newBudget.end)
+                DateRangeRow(title: "Starting", date: $newBudget.start)
+                DateRangeRow(title: "Ending", date: $newBudget.end)
             }
-            
-            
             
             Section("Percentages") {
                 HStack {
