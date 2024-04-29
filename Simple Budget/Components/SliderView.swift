@@ -2,21 +2,15 @@ import SwiftUI
 
 struct SliderView: View {
     @Binding var value: Double
+    @State var width: CGFloat = 0
     let type: BudgetCategory
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                switch type {
-                case .needs: Text("Needs")
-                case .wants: Text("Wants")
-                case .save: Text("Save")
-                case .income: Text("Income")
-                }
-                Spacer()
-                Text(value,  format: .percent.precision(.fractionLength(0)))
-            }
+        HStack(spacing: 10) {
+            Text(value,  format: .percent.precision(.fractionLength(0)))
+                    .offset(x: value)
             Slider(value: $value, in: 0...1)
                 .tint(Color.theme.green)
+           
         }
     }
 }

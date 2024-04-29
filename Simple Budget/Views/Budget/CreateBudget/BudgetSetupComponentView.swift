@@ -22,7 +22,7 @@ struct BudgetSetupComponentView: View {
 
     
     var body: some View {
-        VStack {
+        NavigationStack {
             VStack(spacing: 15) {
                 HStack {
                     Spacer()
@@ -98,19 +98,26 @@ struct BudgetSetupComponentView: View {
                 .disabled(newItemName == "" || newItemValue == nil)
             }
             .padding()
+            .navigationTitle("Add \(budgetType.description)")
+            .navigationBarTitleDisplayMode(.inline)
         }
+
     }
 }
 
 #Preview {
-    BudgetSetupComponentView(
-        items: .constant(
-            [
-                BudgetItem(name: BudgetName(name: "String"), amount: 100)
-            ]),
-        budgetType: .income,
-        totalBudgetGoal: 10_000,
-        startDate: Date(),
-        endDate: Date().addingTimeInterval(10_000)
-    )
+    NavigationStack {
+        BudgetSetupComponentView(
+            items: .constant(
+                [
+                    BudgetItem(name: BudgetName(name: "String"), amount: 100)
+                ]),
+            budgetType: .income,
+            totalBudgetGoal: 10_000,
+            startDate: Date(),
+            endDate: Date().addingTimeInterval(10_000)
+        )
+        .navigationTitle("Add items")
+    }
+    
 }

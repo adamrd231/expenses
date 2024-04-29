@@ -13,20 +13,20 @@ struct CreateBudgetView: View {
                 DateRangeRow(title: "Ending", date: $newBudget.end)
             }
             
-            Section("Percentages") {
-                HStack {
-                    Text("Total")
-                    Spacer()
-                    Text(newBudget.budgetItems.map({ $0.budgetPercentage}).reduce(0, +),
-                         format: .percent.precision(.fractionLength(0))
-                    )
-                }
-                .font(.title3)
-                .bold()
-                ForEach($newBudget.budgetItems, id: \.self) { $budgetItem in
-                    SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
-                }
-            }
+//            Section("Percentages") {
+//                HStack {
+//                    Text("Total")
+//                    Spacer()
+//                    Text(newBudget.budgetItems.map({ $0.budgetPercentage}).reduce(0, +),
+//                         format: .percent.precision(.fractionLength(0))
+//                    )
+//                }
+//                .font(.title3)
+//                .bold()
+//                ForEach($newBudget.budgetItems, id: \.self) { $budgetItem in
+//                    SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
+//                }
+//            }
             
             Section("Add income") {
                 NavigationLink {
@@ -58,7 +58,11 @@ struct CreateBudgetView: View {
                         )
                     } label: {
                         VStack(alignment: .leading) {
-                            Text(budgetItem.budgetCategory.description)
+                            HStack {
+                                Text(budgetItem.budgetCategory.description)
+                                SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
+                            }
+                            
                             HStack {
                                 Text("Goal")
                                 Spacer()
