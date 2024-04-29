@@ -31,7 +31,33 @@ struct CreateBudgetView: View {
                 }
             }
             
-            Section("Budget Items") {
+            Section("50/30/20 Budgeting") {
+                HStack {
+                   Text("Budget Breakdown")
+                        .bold()
+                    Spacer()
+                    Text(newBudget.budgetItems.map({ $0.budgetPercentage }).reduce(0, +), format: .percent.precision(.fractionLength(0)))
+                        .foregroundStyle(newBudget.budgetItems.map({ $0.budgetPercentage }).reduce(0, +) > 1 ? Color.theme.red : Color.theme.text)
+                    
+                }
+                HStack {
+                    Text("Reset")
+                    Spacer()
+                    Button {
+                        for index in newBudget.budgetItems.indices {
+                            newBudget.budgetItems[index].budgetPercentage = 0.5
+                            if index == 0 {
+                                newBudget.budgetItems[index].budgetPercentage = 0.5
+                            } else if index == 1 {
+                                newBudget.budgetItems[index].budgetPercentage = 0.3
+                            } else if index == 2 {
+                                newBudget.budgetItems[index].budgetPercentage = 0.2
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "arrow.uturn.left.circle.fill")
+                    }
+                }
                 ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
                     NavigationLink {
                         BudgetSetupComponentView(
@@ -43,6 +69,7 @@ struct CreateBudgetView: View {
                         )
                     } label: {
                         VStack(alignment: .leading, spacing: 5) {
+                       
                             HStack {
                                 Text(budgetItem.budgetCategory.description)
                                     .font(.callout)
