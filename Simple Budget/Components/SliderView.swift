@@ -6,11 +6,9 @@ struct SliderView: View {
     let type: BudgetCategory
     var body: some View {
         HStack(spacing: 10) {
-            Text(value,  format: .percent.precision(.fractionLength(0)))
-                    .offset(x: value)
             Slider(value: $value, in: 0...1)
                 .tint(Color.theme.green)
-           
+            Text(value, format: .percent.precision(.fractionLength(0)))
         }
     }
 }

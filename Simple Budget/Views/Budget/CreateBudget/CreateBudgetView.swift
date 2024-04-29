@@ -42,30 +42,61 @@ struct CreateBudgetView: View {
                             endDate: newBudget.end
                         )
                     } label: {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 5) {
                             HStack {
                                 Text(budgetItem.budgetCategory.description)
+                                    .font(.callout)
+                                    .bold()
+                                Divider()
                                 SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
+                                
                             }
                             
                             HStack {
-                                Text("Goal")
+                                VStack {
+                                    Text("GOAL")
+                                        .bold()
+                                        .foregroundStyle(Color.theme.secondaryText)
+                                        .fontWeight(.bold)
+                                        .font(.caption2)
+                                    
+                                    Text(newBudget.totalBudget * budgetItem.budgetPercentage, format: .currency(code: "USD"))
+                                }
                                 Spacer()
-                                Text(newBudget.totalBudget * budgetItem.budgetPercentage, format: .currency(code: "USD"))
-                            }
-                            .font(.caption)
-                            HStack {
-                                Text("Allocated")
+                                VStack {
+                                    Text("ALLOCATED")
+                                        .bold()
+                                        .foregroundStyle(Color.theme.secondaryText)
+                                        .fontWeight(.bold)
+                                        .font(.caption2)
+                                    Text(budgetItem.totalSpend, format: .currency(code: "USD"))
+                                }
                                 Spacer()
-                                Text(budgetItem.totalSpend, format: .currency(code: "USD"))
+                                VStack {
+                                   
+                                    Text("AVAILABLE")
+                                        .bold()
+                                        .foregroundStyle(Color.theme.secondaryText)
+                                        .fontWeight(.bold)
+                                        .font(.caption2)
+                                    Text((newBudget.totalBudget * budgetItem.budgetPercentage) - budgetItem.totalSpend, format: .currency(code: "USD"))
+                                }
                             }
                             .font(.caption)
                         }
+                        .padding(.bottom)
                     }
                 }
             }
         }
         .navigationTitle("Setup")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Create") {
+                    // TODO: Create budget hereg
+                }
+            }
+        }
     }
 }
 
