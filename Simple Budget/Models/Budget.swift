@@ -5,6 +5,7 @@ struct Budget: Codable {
         lhs.start < rhs.start
     }
     var id = UUID()
+    var name: String = "New Budget"
     var start: Date = .now
     var end: Date = .now.addingTimeInterval(60 * 60 * 24 * 30)
     var startBalance: Double = 0.0

@@ -16,6 +16,9 @@ struct BudgetRowView: View {
                 .foregroundStyle(Color.theme.lightBackground)
                 .shadow(color: Color.theme.background, radius: 10)
             VStack(alignment: .leading, spacing: 10) {
+                Text(budget.name)
+                    .font(.callout)
+                    .fontWeight(.bold)
                 HStack {
                     Text(budget.start, style: .date)
                     Text("-")

@@ -15,6 +15,9 @@ struct CreateBudgetView: View {
   
     var body: some View {
         List {
+            Section("Info") {
+                TextField("Budget Name", text: $newBudget.name)
+            }
             Section("Dates") {
                 DateRangeRow(title: "Starting", date: $newBudget.start)
                 DateRangeRow(title: "Ending", date: $newBudget.end)
