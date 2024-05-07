@@ -9,7 +9,16 @@ struct BudgetsView: View {
             List {
                 ForEach(budgetVM.budgets, id: \.id) { budget in
                     NavigationLink {
-                        IndividualBudgetView(budget: budget)
+                        CreateBudgetView(
+                            budget: budget,
+                            function: { [weak budgetVM] budget in
+                                let budgetIndex = budgetVM?.budgets.firstIndex(where: { $0.id == budget.id })
+                                // Replace array item instead of adding
+                                // Check to make sure array isnt emtpy
+                               
+                            },
+                            isNewBudget: false
+                        )
                     } label: {
                         BudgetRowView(budget: budget)
                     }
@@ -27,7 +36,12 @@ struct BudgetsView: View {
                         isCreatingBudget.toggle()
                     } label: {
                         NavigationLink {
-                            CreateBudgetView(vm: budgetVM)
+                            CreateBudgetView(
+                                function: { [weak budgetVM] budget in
+                                    budgetVM?.budgets.append(budget)
+                                },
+                                isNewBudget: true
+                            )
                         } label: {
                             Image(systemName: "plus.circle")
                         }
