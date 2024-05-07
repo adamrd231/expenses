@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct CreateBudgetView: View {
+    // This could be a function to either add new budget, or replace existing one
     @ObservedObject var vm: BudgetsViewModel
+    var function: (Budget) -> Void
+    
+    // This needs to be able to accept a budget passed in, and if no budget is passed in, then create a new budget object
     @State var newBudget: Budget = Budget()
-    @State var currentIndex: Int? = 0
     @Environment(\.dismiss) var dismiss
   
     var body: some View {
@@ -127,9 +130,11 @@ struct CreateBudgetView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Create") {
-                    // TODO: Create budget hereg
+                    // TODO: Create budget here
+//                    vm.budgets.append(newBudget)
+                    function(newBudget)
                 }
-                .disabled(true)
+//                .disabled(true)
             }
         }
     }
@@ -139,7 +144,8 @@ struct CreateBudgetView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             CreateBudgetView(
-                vm: dev.budgetVM
+                vm: dev.budgetVM,
+                function: { _ in }
             )
             .navigationTitle("Setup")
         }
