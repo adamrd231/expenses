@@ -1,9 +1,7 @@
 import Foundation
 
-struct Budget: Codable {
-    static func == (lhs: Budget, rhs: Budget) -> Bool {
-        lhs.start < rhs.start
-    }
+struct Budget: Codable, Equatable {
+
     var id = UUID()
     var name: String = "New Budget"
     var start: Date = .now
@@ -32,6 +30,15 @@ struct Budget: Codable {
         )
     ]
     
+    public static func == (lhs: Budget, rhs: Budget) -> Bool {
+        return
+            lhs.name == rhs.name &&
+            lhs.start == rhs.start &&
+            lhs.end == rhs.end &&
+            lhs.incomeItems == rhs.incomeItems &&
+            lhs.budgetItems == rhs.budgetItems &&
+            lhs.startBalance == rhs.startBalance
+    }
 }
 
 struct BudgetItems: Codable, Hashable, Identifiable {

@@ -6,12 +6,25 @@ struct CreateBudgetView: View {
     @State var newBudget: Budget
     let isNewBudget: Bool
     
+    let compareBudget: Budget
+    
+    @State var showingAlert = false
+    
     @Environment(\.dismiss) var dismiss
     
     init(budget: Budget? = nil, function: @escaping (Budget) -> Void, isNewBudget: Bool) {
         self._newBudget = State(initialValue: budget ?? Budget())
         self.function = function
         self.isNewBudget = isNewBudget
+        self.compareBudget = budget ?? Budget()
+    }
+    
+    var hasChanged: Bool {
+        if compareBudget == newBudget {
+            return false
+        } else {
+            return true
+        }
     }
   
     var body: some View {
@@ -113,6 +126,16 @@ struct CreateBudgetView: View {
                     }
                 }
             }
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("Are you sure?"),
+                    message: Text("Save before going back?"),
+                    primaryButton: .default(Text("Continue"), action: {
+                      dismiss()
+                    }),
+                    secondaryButton: .cancel()
+                )
+            }
         }
         .navigationTitle(isNewBudget ? "Setup" : "Edit")
         .toolbar {
@@ -121,7 +144,19 @@ struct CreateBudgetView: View {
                     function(newBudget)
                 }
             }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Back") {
+                    if hasChanged {
+                        showingAlert = true
+                    } else {
+                        dismiss()
+                    }
+                }
+               
+            }
         }
+        .navigationBarBackButtonHidden()
+        
     }
 }
 
