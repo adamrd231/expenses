@@ -43,8 +43,6 @@ struct BudgetSetupComponentView: View {
                 
                 if budgetType != .income {
                     CustomProgressBar(
-                        startDate: startDate,
-                        endDate: endDate,
                         currentSpend: items.map({$0.amount}).reduce(0, +),
                         totalBudget: totalBudgetGoal,
                         type: budgetType

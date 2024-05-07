@@ -10,34 +10,45 @@ import SwiftUI
 struct BudgetActivityView: View {
     let budget: Budget
     
+    func getRingColor(_ index: Int) -> Color {
+        if index == 0 {
+            return Color.theme.green
+        }
+        if index == 1 {
+            return Color.theme.gray
+        }
+        if index == 2 {
+            return Color.theme.blue
+        }
+        return Color.theme.gray
+    }
+    func getRingSize(_ index: Int, _ geoSize: Double) -> Double {
+        if index == 0 {
+            return geoSize
+        }
+        if index == 1 {
+            return geoSize * 0.5
+        }
+        if index == 2 {
+            return geoSize * 0.25
+        }
+        return geoSize
+    }
+    
     var body: some View {
         VStack(alignment: .center, spacing: 15) {
 
             GeometryReader { geo in
-                ZStack {
-//                        BudgetRingView(
-//                            progress: budget.needBudgetTotal / budget.needBudgetGoal,
-//                            lineWidth: geo.size.width * 0.1,
-//                            ringColor: Color.theme.green
-//                        )
-//                        .frame(width: geo.size.width)
-//
-//                        BudgetRingView(
-//                            progress: budget.wantsBudgetTotal / budget.wantsBudgeGoal,
-//                            lineWidth: geo.size.width * 0.1,
-//                            ringColor: .green
-//                        )
-//                        .frame(width: geo.size.width - (geo.size.width * 0.25))
-//
-//                        BudgetRingView(
-//                            progress: budget.saveBudgetTotal / budget.saveBudgetGoal,
-//                            lineWidth: geo.size.width * 0.1,
-//                            ringColor: Color.theme.blue
-//                        )
-//                        .frame(width: geo.size.width - (geo.size.width * 0.5))
-    
+                ZStack(alignment: .center) {
+                    ForEach(Array(zip(budget.budgetItems, budget.budgetItems.indices)), id: \.1) { item, index in
+                        BudgetRingView(
+                            progress: item.totalSpend / item.budgetPercentage * budget.incomeItems.map({$0.amount}).reduce(0,+),
+                            lineWidth: geo.size.width * 0.1,
+                            ringColor: getRingColor(index)
+                        )
+                        .frame(width: getRingSize(index, geo.size.width))
+                    }
                 }
-                .frame(width: geo.size.width)
             }
         }
         .frame(width: 250, height: 250, alignment: .center)

@@ -12,10 +12,10 @@ struct BudgetsView: View {
                         CreateBudgetView(
                             budget: budget,
                             function: { [weak budgetVM] budget in
-                                let budgetIndex = budgetVM?.budgets.firstIndex(where: { $0.id == budget.id })
-                                // Replace array item instead of adding
-                                // Check to make sure array isnt emtpy
-                               
+                                if let budgetIndex = budgetVM?.budgets.firstIndex(where: { $0.id == budget.id }) {
+                                    budgetVM?.budgets.remove(at: budgetIndex)
+                                    budgetVM?.budgets.append(budget)
+                                }
                             },
                             isNewBudget: false
                         )

@@ -42,8 +42,6 @@ struct OverviewView: View {
                     VStack(spacing: 25) {
                         ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
                             CustomProgressBar(
-                                startDate: Date(),
-                                endDate: Date().addingTimeInterval(1000),
                                 currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
                                 totalBudget:  budgetVM.getExpectedTotalFromBudgets(type: category),
                                 type: category

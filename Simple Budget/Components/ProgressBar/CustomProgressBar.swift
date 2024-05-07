@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct CustomProgressBar: View {
-    let startDate: Date
-    let endDate: Date
     let currentSpend: Double
     let totalBudget: Double
     let type: BudgetCategory
@@ -46,8 +44,6 @@ struct CustomProgressBar: View {
 struct CustomProgressBar_Previews: PreviewProvider {
     static var previews: some View {
         CustomProgressBar(
-            startDate: Date(),
-            endDate: Date().addingTimeInterval(1000),
             currentSpend: 10,
             totalBudget: 100,
             type: .income

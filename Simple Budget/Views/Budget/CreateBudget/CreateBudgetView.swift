@@ -26,7 +26,7 @@ struct CreateBudgetView: View {
                         .foregroundStyle(newBudget.incomeItems.isEmpty ? Color.theme.red : Color.theme.green)
                     Text("Income")
                     Spacer()
-                    Text(newBudget.totalBudget, format: .currency(code: "USD"))
+                    Text(newBudget.totalIncome, format: .currency(code: "USD"))
                 }
                 NavigationLink {
                     BudgetSetupComponentView(
@@ -52,11 +52,6 @@ struct CreateBudgetView: View {
                     Spacer()
                     Text(newBudget.budgetItems.map({ $0.budgetPercentage }).reduce(0, +), format: .percent.precision(.fractionLength(0)))
                         .foregroundStyle(newBudget.budgetItems.map({ $0.budgetPercentage }).reduce(0, +) > 1 ? Color.theme.red : Color.theme.text)
-                    
-                }
-                HStack {
-                    Text("Reset")
-                    Spacer()
                     Button {
                         for index in newBudget.budgetItems.indices {
                             newBudget.budgetItems[index].budgetPercentage = 0.5
@@ -71,61 +66,46 @@ struct CreateBudgetView: View {
                     } label: {
                         Image(systemName: "arrow.uturn.left.circle.fill")
                     }
+                    
                 }
                 ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
+                    HStack {
+                        Text(budgetItem.budgetCategory.description)
+                            .font(.callout)
+                            .bold()
+                        Divider()
+                        SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
+                        
+                    }
+                }
+            }
+            
+            ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
+                Section("\(budgetItem.budgetCategory.description) Items") {
+                
+                    CustomProgressBar(
+                        currentSpend: budgetItem.totalSpend,
+                        totalBudget: budgetItem.budgetPercentage * newBudget.totalIncome,
+                        type: budgetItem.budgetCategory
+                    )
                     NavigationLink {
                         BudgetSetupComponentView(
                             items: $budgetItem.items,
                             budgetType: budgetItem.budgetCategory,
-                            totalBudgetGoal: newBudget.totalBudget * budgetItem.budgetPercentage,
+                            totalBudgetGoal: newBudget.totalIncome * budgetItem.budgetPercentage,
                             startDate: newBudget.start,
                             endDate: newBudget.end
                         )
                     } label: {
-                        VStack(alignment: .leading, spacing: 5) {
-                       
-                            HStack {
-                                Text(budgetItem.budgetCategory.description)
-                                    .font(.callout)
-                                    .bold()
-                                Divider()
-                                SliderView(value: $budgetItem.budgetPercentage, type: budgetItem.budgetCategory)
-                                
+                        HStack {
+                            Image(systemName: budgetItem.items.isEmpty ? "checkmark.circle.trianglebadge.exclamationmark" : "checkmark.circle.fill")
+                                .foregroundStyle(budgetItem.items.isEmpty ? Color.theme.red : Color.theme.green)
+                            VStack(alignment: .leading) {
+                                Text(budgetItem.items.isEmpty ? "Add items" : "Items: \(budgetItem.items.count)")
+                                    .font(.caption)
                             }
-                            
-                            HStack {
-                                VStack {
-                                    Text("GOAL")
-                                        .bold()
-                                        .foregroundStyle(Color.theme.secondaryText)
-                                        .fontWeight(.bold)
-                                        .font(.caption2)
-                                    
-                                    Text(newBudget.totalBudget * budgetItem.budgetPercentage, format: .currency(code: "USD"))
-                                }
-                                Spacer()
-                                VStack {
-                                    Text("ALLOCATED")
-                                        .bold()
-                                        .foregroundStyle(Color.theme.secondaryText)
-                                        .fontWeight(.bold)
-                                        .font(.caption2)
-                                    Text(budgetItem.totalSpend, format: .currency(code: "USD"))
-                                }
-                                Spacer()
-                                VStack {
-                                   
-                                    Text("AVAILABLE")
-                                        .bold()
-                                        .foregroundStyle(Color.theme.secondaryText)
-                                        .fontWeight(.bold)
-                                        .font(.caption2)
-                                    Text((newBudget.totalBudget * budgetItem.budgetPercentage) - budgetItem.totalSpend, format: .currency(code: "USD"))
-                                }
-                            }
-                            .font(.caption)
                         }
-                        .padding(.bottom)
+                       
                     }
                 }
             }
@@ -133,12 +113,9 @@ struct CreateBudgetView: View {
         .navigationTitle(isNewBudget ? "Setup" : "Edit")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Create") {
-                    // TODO: Create budget here
-//                    vm.budgets.append(newBudget)
+                Button(isNewBudget ? "Create" : "Save") {
                     function(newBudget)
                 }
-//                .disabled(true)
             }
         }
     }

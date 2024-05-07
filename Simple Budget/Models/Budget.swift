@@ -9,6 +9,9 @@ struct Budget: Codable {
     var end: Date = .now.addingTimeInterval(60 * 60 * 24 * 30)
     var startBalance: Double = 0.0
     var incomeItems: [BudgetItem] = []
+    var totalIncome: Double {
+        return incomeItems.map({ $0.amount }).reduce(0, +)
+    }
 
     var budgetItems: [BudgetItems] = [
         BudgetItems(
@@ -28,13 +31,9 @@ struct Budget: Codable {
         )
     ]
     
-    // Computed variables for showing in UI
-    var totalBudget: Double {
-        return incomeItems.map({ $0.amount }).reduce(0, +)
-    }
 }
 
-struct BudgetItems: Codable, Hashable {
+struct BudgetItems: Codable, Hashable, Identifiable {
     var id = UUID()
     let budgetCategory: BudgetCategory
     var budgetPercentage: Double
