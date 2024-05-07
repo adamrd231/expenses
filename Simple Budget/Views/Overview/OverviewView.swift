@@ -9,35 +9,6 @@ struct OverviewView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Budget Info") {
-                    HStack {
-                        Text("Budgets created")
-                        Spacer()
-                        Text(budgetVM.budgets.count, format: .number)
-                    }
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Starting date")
-                                .font(.caption)
-                                .bold()
-                                .foregroundStyle(Color.theme.secondaryText)
-                            let sortedBudgets = budgetVM.budgets.sorted(by: { $0.start > $1.start})
-                            Text(sortedBudgets.first?.start ?? Date(), style: .date)
-                                .font(.callout)
-                        }
-                        Spacer()
-                        VStack(alignment: .leading) {
-                            Text("Ending date")
-                                .font(.caption)
-                                .bold()
-                                .foregroundStyle(Color.theme.secondaryText)
-                            let sortedBudgets = budgetVM.budgets.sorted(by: { $0.end > $1.end})
-                            Text(sortedBudgets.first?.start ?? Date(), style: .date)
-                                .font(.callout)
-                        }
-                    }
-                    .padding(.top, 5)
-                }
                 Section("Overview") {
                     VStack(spacing: 25) {
                         ForEach(BudgetCategory.allCases, id: \.rawValue) { category in

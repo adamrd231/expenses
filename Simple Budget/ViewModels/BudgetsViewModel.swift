@@ -11,7 +11,22 @@ class BudgetsViewModel: ObservableObject {
     
     // TODO: OMG Rename this, this and budgetCategories are too similar and this name sucks
     var budgetNames: [BudgetName] {
-        return []
+        var array:[BudgetName] = []
+        for budget in budgets {
+            budget.incomeItems.map({
+                if !array.contains($0.name) {
+                    array.append($0.name)
+                }
+            })
+            for budgetItem in budget.budgetItems {
+                budgetItem.items.map({
+                    if !array.contains($0.name) {
+                        array.append($0.name)
+                    }
+                })
+            }
+        }
+        return array
     }
     
     init() {
@@ -22,7 +37,7 @@ class BudgetsViewModel: ObservableObject {
     func addSubscribers() {
         $budgets
             .sink { [weak self] (returnedBudgets) in
-                print("Budgets changed \(returnedBudgets)")
+                print("Budgets changed")
                 self?.persist(budgetArray: returnedBudgets)
                 
             }
@@ -58,7 +73,28 @@ class BudgetsViewModel: ObservableObject {
     }
     
     func getExpectedTotalFromBudgets(type: BudgetCategory) -> Double {
-
+        if type == .income {
+            let incomeItems = budgets.map({ $0.incomeItems.map({ $0.amount }).reduce(0, +) }).reduce(0, +)
+            print("Income items: \(incomeItems)")
+//            let items = budgets.map({ $0.incomeItems.map({ $0.amount}).reduce(-, + ) }).reduce(-, + )
+            return incomeItems
+        } else {
+            print("Setting up other budget")
+            let items = budgets.map({
+                $0.budgetItems.map ({
+                    if $0.budgetCategory == type {
+                        print("Success?")
+                        let itemValue = $0.items.map({ $0.amount }).reduce(0, +)
+                        print("itemValue: \(itemValue)")
+                        return itemValue
+                    } else {
+                        print("failed sending back 0")
+                        return 0
+                    }
+                })
+            })
+        }
+        
         return 0
     }
 }

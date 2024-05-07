@@ -74,6 +74,7 @@ struct BudgetSetupComponentView: View {
                     if let value = newItemValue {
                         let newItem = BudgetItem(name: BudgetName(name: newItemName), amount: value)
                         items.append(newItem)
+                        // Persist new update to array
                         focusedField = nil
                         newItemName = ""
                         newItemValue = nil
