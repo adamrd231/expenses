@@ -15,4 +15,6 @@ struct ColorTheme {
     let green = Color("green")
     let red = Color("red")
     let lightBackground = Color("lightBackground")
+    
+    let progressBarBackground = Color("progressBarBackground")
 }

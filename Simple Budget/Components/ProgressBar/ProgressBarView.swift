@@ -18,7 +18,7 @@ struct ProgressBarView: View {
                         .frame(width: geometry.size.width)
                         .foregroundColor(Color.theme.background.opacity(0.85))
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .strokeBorder(Color.theme.background, lineWidth: 5)
+                        .strokeBorder(Color.theme.progressBarBackground, lineWidth: 5)
                         .blur(radius: 3)
 
                 }
@@ -46,10 +46,13 @@ struct ProgressBarView: View {
 
 struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBarView(progress: 0.4)
+        List {
+            Section("Progress Bar") {
+                ProgressBarView(progress: 0.4)
+                ProgressBarView(progress: 0.4)
+            }
+        }
         .preferredColorScheme(.dark)
-        ProgressBarView(progress: 0.4)
-        .preferredColorScheme(.light)
+       
     }
-    
 }

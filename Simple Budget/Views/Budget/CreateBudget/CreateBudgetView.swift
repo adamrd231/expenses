@@ -2,12 +2,9 @@ import SwiftUI
 
 struct CreateBudgetView: View {
     var function: (Budget) -> Void
-
     @State var newBudget: Budget
     let isNewBudget: Bool
-    
     let compareBudget: Budget
-    
     @State var showingAlert = false
     
     @Environment(\.dismiss) var dismiss

@@ -80,22 +80,18 @@ class BudgetsViewModel: ObservableObject {
             return incomeItems
         } else {
             print("Setting up other budget")
-            let items = budgets.map({
-                $0.budgetItems.map ({
-                    if $0.budgetCategory == type {
-                        print("Success?")
-                        let itemValue = $0.items.map({ $0.amount }).reduce(0, +)
-                        print("itemValue: \(itemValue)")
-                        return itemValue
-                    } else {
-                        print("failed sending back 0")
-                        return 0
+            var budgetItemArray:[Double] = []
+            for budget in budgets {
+                for budgetItem in budget.budgetItems {
+                    if budgetItem.budgetCategory == type {
+                        for item in budgetItem.items {
+                            budgetItemArray.append(item.amount)
+                        }
                     }
-                })
-            })
+                }
+            }
+            return budgetItemArray.reduce(0, +)
         }
-        
-        return 0
     }
 }
 
