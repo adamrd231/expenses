@@ -14,7 +14,13 @@ struct TransactionTableviewView: View {
                     HStack {
                         Text(transaction.category.description)
                             .bold()
-                        Text(transaction.category.description)
+                        HStack(spacing: 0) {
+                            Text("(")
+                            Text(transaction.type.name)
+                            Text(")")
+                        }
+                        .font(.caption)
+                       .fontWeight(.light)
                     }
                    
                     Text(transaction.date, style: .date)
@@ -25,7 +31,7 @@ struct TransactionTableviewView: View {
                 Spacer()
             
                 Text(transaction.amount, format: .currency(code: "USD"))
-                    .foregroundStyle(transaction.category == .income ? Color.theme.text : Color.theme.green)
+                    .foregroundStyle(transaction.category == .income ? Color.theme.green : Color.theme.red)
             }
             .padding(5)
             .padding(.horizontal)
@@ -38,6 +44,6 @@ struct TransactionTableviewView: View {
     NavigationLink {
         Text("Placeholder")
     } label: {
-        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Stuff"), description: "The description for things"))
+        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Reeds landing lawn"), description: "The description for things"))
     }
 }

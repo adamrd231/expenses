@@ -12,21 +12,22 @@ class TransactionsViewModel: ObservableObject {
     var filteredTransactions: [Transaction] {
         if searchText.isEmpty {
             if categorySelection == "All" {
-                return transactions
+                return transactions.sorted(by: { $0.date > $1.date })
             } else {
                 let categoryName = BudgetCategory.allCases.first(where: { $0.rawValue == categorySelection })
                 if let unwrappedCategoryName = categoryName {
-                    return transactions.filter({ $0.category == unwrappedCategoryName })
+                    let categories = transactions.filter({ $0.category == unwrappedCategoryName })
+                    return categories.sorted(by: { $0.date > $1.date })
                 } else {
-                    return transactions
+                    return transactions.sorted(by: { $0.date > $1.date })
                 }
             }
         } else {
             let searchTextFilteredTransactions =  transactions.filter({ $0.category.description.contains(searchText ) })
             if categorySelection == "All" {
-                return searchTextFilteredTransactions
+                return searchTextFilteredTransactions.sorted(by: { $0.date > $1.date })
             } else {
-                return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection })
+                return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection }).sorted(by: { $0.date > $1.date })
             }
         }
     }
