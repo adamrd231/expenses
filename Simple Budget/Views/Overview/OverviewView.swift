@@ -19,9 +19,9 @@ struct OverviewView: View {
                             )
                         }
                     }
+                    .padding(.vertical)
                 }
             }
-            
             .navigationTitle("Overview")
         }
     }

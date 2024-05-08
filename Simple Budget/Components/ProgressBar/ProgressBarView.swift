@@ -35,7 +35,10 @@ struct ProgressBarView: View {
                         )
                 }
                 
-                .frame(width: geometry.size.width * progress)
+                .frame(width: progress.isNaN ? 0 : geometry.size.width * progress)
+                .onAppear(perform: {
+                    print("progress: \(progress.description)")
+                })
             }
         }
 //        .fixedSize(horizontal: false, vertical: true)

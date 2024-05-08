@@ -48,6 +48,7 @@ struct BudgetSetupComponentView: View {
                         type: budgetType
                     )
                     .padding(.horizontal)
+                    .frame(maxHeight: 75)
                 }
             }
             
@@ -111,7 +112,7 @@ struct BudgetSetupComponentView: View {
                 [
                     BudgetItem(name: BudgetName(name: "String"), amount: 100)
                 ]),
-            budgetType: .income,
+            budgetType: .needs,
             totalBudgetGoal: 10_000,
             startDate: Date(),
             endDate: Date().addingTimeInterval(10_000)
