@@ -10,20 +10,27 @@ class BudgetsViewModel: ObservableObject {
     // Subscribe to budgets, and manage persistence any time the array changes
     
     // TODO: OMG Rename this, this and budgetCategories are too similar and this name sucks
-    var budgetNames: [BudgetName] {
-        var array:[BudgetName] = []
+    // These are the categories
+    // What I want to return...
+    // dictionary [BudgetType : [BudgetName] ]
+    var budgetNames: [BudgetCategory: [BudgetName]] {
+        var array:[BudgetCategory: [BudgetName]] = [
+            .income: [],
+            .needs: [],
+            .save: [],
+            .wants: []
+            
+        ]
         for budget in budgets {
-            budget.incomeItems.map({
-                if !array.contains($0.name) {
-                    array.append($0.name)
-                }
-            })
+            // Collect income items
+            for budgetItem in budget.incomeItems {
+                array[.income]?.append(budgetItem.name)
+            }
+            // These are the 50 / 30 / 20 budget items
             for budgetItem in budget.budgetItems {
-                budgetItem.items.map({
-                    if !array.contains($0.name) {
-                        array.append($0.name)
-                    }
-                })
+                for item in budgetItem.items {
+                    array[budgetItem.budgetCategory]?.append(item.name)
+                }
             }
         }
         return array
@@ -75,11 +82,8 @@ class BudgetsViewModel: ObservableObject {
     func getExpectedTotalFromBudgets(type: BudgetCategory) -> Double {
         if type == .income {
             let incomeItems = budgets.map({ $0.incomeItems.map({ $0.amount }).reduce(0, +) }).reduce(0, +)
-            print("Income items: \(incomeItems)")
-//            let items = budgets.map({ $0.incomeItems.map({ $0.amount}).reduce(-, + ) }).reduce(-, + )
             return incomeItems
         } else {
-            print("Setting up other budget")
             var budgetItemArray:[Double] = []
             for budget in budgets {
                 for budgetItem in budget.budgetItems {

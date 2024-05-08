@@ -2,13 +2,17 @@ import SwiftUI
 
 struct AddTransactionView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
-    let categories: [BudgetName]
+    let categories: [BudgetCategory: [BudgetName]]
     @State var date = Date()
     @State var amount: Double? = nil
     @State var name = ""
     @State var description = ""
     @State var pickerSelection: BudgetCategory = .income
     @State var typeSelection: BudgetName = BudgetName(name: "Other")
+    var filteredCategories: [BudgetName] {
+        let categories = categories[pickerSelection]
+        return categories ?? []
+    }
     
     @Environment(\.dismiss) var dismiss
     
@@ -44,7 +48,7 @@ struct AddTransactionView: View {
                     }
                     HStack {
                         Picker("Category", selection: $typeSelection) {
-                            ForEach(categories, id: \.id) { category in
+                            ForEach(filteredCategories, id: \.id) { category in
                                 Text(category.name)
                                     .tag(category)
                             }
@@ -86,7 +90,7 @@ struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
         AddTransactionView(
             transactionsVM: TransactionsViewModel(),
-            categories: [BudgetName(name: "First")]
+            categories: [.income: [BudgetName(name: "First")]]
         )
     }
 }

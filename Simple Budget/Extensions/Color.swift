@@ -13,6 +13,7 @@ struct ColorTheme {
     
     let blue = Color("blue")
     let green = Color("green")
+    let green2 = Color("green2")
     let red = Color("red")
     let lightBackground = Color("lightBackground")
     

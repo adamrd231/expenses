@@ -16,30 +16,29 @@ struct ProgressBarView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .frame(width: geometry.size.width)
-                        .foregroundColor(Color.theme.background.opacity(0.85))
+                        .foregroundColor(Color.theme.progressBarBackground)
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .strokeBorder(Color.theme.progressBarBackground, lineWidth: 5)
-                        .blur(radius: 3)
-
                 }
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(lineWidth: 3)
+                        .stroke(lineWidth: 2)
                         .foregroundColor(Color.theme.green)
         
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundStyle(
                             LinearGradient(
-                                colors: [.green, Color.theme.green],
+                                colors: [Color.theme.green2, Color.theme.green],
                                 startPoint: .bottomTrailing,
                                 endPoint: .topLeading
                             )
                         )
                 }
+                
                 .frame(width: geometry.size.width * progress)
             }
         }
-        .fixedSize(horizontal: false, vertical: true)
+//        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
