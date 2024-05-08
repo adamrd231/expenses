@@ -126,7 +126,7 @@ struct CreateBudgetView: View {
             .alert(isPresented: $showingAlert) {
                 Alert(
                     title: Text("Are you sure?"),
-                    message: Text("Save before going back?"),
+                    message: Text("Your information will not be saved?"),
                     primaryButton: .default(Text("Continue"), action: {
                       dismiss()
                     }),

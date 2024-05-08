@@ -32,3 +32,16 @@ struct BudgetName: Codable, Equatable, Hashable {
         return lhs.id == rhs.id && lhs.name == rhs.name
     }
 }
+
+struct BudgetItems: Codable, Hashable, Identifiable {
+    var id = UUID()
+    let budgetCategory: BudgetCategory
+    var budgetPercentage: Double
+    var items: [BudgetItem] = []
+    
+    var totalSpend: Double {
+        return items.map({ $0.amount }).reduce(0, +)
+    }
+}
+
+

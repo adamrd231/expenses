@@ -10,16 +10,25 @@ struct OverviewView: View {
         NavigationStack {
             List {
                 Section("Overview") {
-                    VStack(spacing: 25) {
-                        ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
+                    ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
+                        NavigationLink {
+                            BudgetCategoryOverview(
+                                category: category,
+                                budgetTotal: budgetVM.getExpectedTotalFromBudgets(type: category),
+                                budgetItems: budgetVM.getBudgetItems(category: category),
+                                transactionTotal: transactionVM.getActualTotalFromTransactions(type: category),
+                                transactionItems: transactionVM.transactions.filter({ $0.category == category })
+                            )
+                            
+                        } label: {
                             CustomProgressBar(
                                 currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
                                 totalBudget:  budgetVM.getExpectedTotalFromBudgets(type: category),
                                 type: category
                             )
+                            .padding(.vertical)
                         }
                     }
-                    .padding(.vertical)
                 }
             }
             .navigationTitle("Overview")

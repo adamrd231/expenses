@@ -36,6 +36,29 @@ class BudgetsViewModel: ObservableObject {
         return array
     }
     
+    func getBudgetItems(category: BudgetCategory) -> [BudgetItem] {
+        var array: [BudgetItem] = []
+        if category == .income {
+            for budget in budgets {
+                for item in budget.incomeItems {
+                    array.append(item)
+                }
+                
+            }
+        } else {
+            for budget in budgets {
+                for budgetItem in budget.budgetItems {
+                    if budgetItem.budgetCategory == category {
+                        for item in budgetItem.items {
+                            array.append(item)
+                        }
+                    }
+                }
+            }
+        }
+        return array
+    }
+    
     init() {
         retrieveBudgets()
         addSubscribers()
