@@ -11,7 +11,7 @@ struct DeveloperPreview {
     var budgetVM = BudgetsViewModel()
     var budget = Budget()
     var transactionVM = TransactionsViewModel()
-    var transaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), name: "Yard work", description: "For lawncare and lanscaping")
+    var transaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), description: "For lawncare and lanscaping")
     
     init() {
         
@@ -20,8 +20,8 @@ struct DeveloperPreview {
         budget.incomeItems = []
 
         
-        let newTransaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), name: "Yard work", description: "For lawncare and lanscaping")
-        let secondTransaction = Transaction(data: Date(), amount: 910, category: .income, type: BudgetName(name: "Other Work"), name: "Yard work", description: "For lawncare and lanscaping")
+        let newTransaction = Transaction(data: Date(), amount: 1200, category: .income, type: BudgetName(name: "Work"), description: "For lawncare and lanscaping")
+        let secondTransaction = Transaction(data: Date(), amount: 910, category: .income, type: BudgetName(name: "Other Work"), description: "For lawncare and lanscaping")
         
         transactionVM.transactions.append(newTransaction)
         transactionVM.transactions.append(secondTransaction)

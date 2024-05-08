@@ -11,17 +11,16 @@ struct TransactionTableviewView: View {
             HStack {
                 Text(index, format: .number).font(.caption)
                 VStack(alignment: .leading) {
-                    
-                    Text(transaction.name)
-                        .bold()
-                    
                     HStack {
-                        Text(transaction.date, style: .date)
                         Text(transaction.category.description)
-                        
+                            .bold()
+                        Text(transaction.category.description)
                     }
+                   
+                    Text(transaction.date, style: .date)
                     .font(.caption)
                     .foregroundStyle(Color.theme.secondaryText)
+                    
                 }
                 Spacer()
             
@@ -39,6 +38,6 @@ struct TransactionTableviewView: View {
     NavigationLink {
         Text("Placeholder")
     } label: {
-        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Stuff"), name: "Things", description: "The description for things"))
+        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Stuff"), description: "The description for things"))
     }
 }

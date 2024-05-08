@@ -5,17 +5,36 @@ struct AddTransactionView: View {
     let categories: [BudgetCategory: [BudgetName]]
     @State var date = Date()
     @State var amount: Double? = nil
-    @State var name = ""
     @State var description = ""
-    @State var pickerSelection: BudgetCategory = .income
-    @State var typeSelection: BudgetName = BudgetName(name: "Other")
+    @State var pickerSelection: BudgetCategory?
+    @State var typeSelection: BudgetName?
     var filteredCategories: [BudgetName] {
-        let categories = categories[pickerSelection]
-        return categories ?? []
+        if let picker = pickerSelection {
+            let categories = categories[picker]
+            return categories ?? []
+        } else {
+            return []
+        }
+    }
+    
+    var isDisabled: Bool {
+        if  amount != nil && pickerSelection != nil && typeSelection != nil {
+            return false
+        } else {
+            return true
+        }
     }
     
     @Environment(\.dismiss) var dismiss
     @State var shouldCloseAfterCreation: Bool = true
+    
+    func reset() {
+        date = Date()
+        amount = nil
+        description = ""
+        pickerSelection = nil
+        typeSelection = nil
+    }
     
     var body: some View {
         NavigationStack {
@@ -27,52 +46,64 @@ struct AddTransactionView: View {
                     }
                     HStack {
                         Text("Amount")
+                        if amount == nil {
+                            Text("*")
+                                .foregroundStyle(Color.theme.red)
+                        }
+                       
                         Spacer()
                         TextField("Ex: $500.00", value: $amount, format: .number)
                             .fixedSize()
+                            .multilineTextAlignment(.trailing)
                     }
                     HStack {
-                        Text("Name")
-                        Spacer()
-                        TextField("Ex: Rent", text: $name)
-                            .fixedSize()
-                    }
-                    TextField("Enter description here", text: $description)
-                    
-                    HStack {
-                        Picker("Type", selection: $pickerSelection) {
+                        Text("Type")
+                        if pickerSelection == nil {
+                            Text("*")
+                                .foregroundStyle(Color.theme.red)
+                        }
+                        Picker("", selection: $pickerSelection) {
                             ForEach(BudgetCategory.allCases, id: \.self) { value in
                                 Text(value.description)
-                                    .tag(value)
+                                    .tag(Optional(value))
                             }
                         }
                     }
                     HStack {
-                        Picker("Category", selection: $typeSelection) {
+                        Text("Category")
+                        if typeSelection == nil {
+                            Text("*")
+                                .foregroundStyle(Color.theme.red)
+                        }
+                        Picker("", selection: $typeSelection) {
                             ForEach(filteredCategories, id: \.id) { category in
                                 Text(category.name)
-                                    .tag(category)
+                                    .tag(Optional(category))
                             }
                         }
                     }
+                    TextField("Enter description here", text: $description)
                 }
             }
             
             
             Button {
-                // TODO: Add new transaction here
-                if let unwrappedAmount = amount {
+                if let unwrappedAmount = amount,
+                let unwrappedPicker = pickerSelection,
+                let unwrappedBudgetName = typeSelection {
                     var newTransaction = Transaction(
                         data: date,
                         amount: unwrappedAmount,
-                        category: pickerSelection,
-                        type: typeSelection,
-                        name: name,
+                        category: unwrappedPicker,
+                        type: unwrappedBudgetName,
                         description: description
                     )
                     transactionsVM.transactions.append(newTransaction)
+                    
                     if shouldCloseAfterCreation {
                         dismiss()
+                    } else {
+                        reset()
                     }
                 }
                 
@@ -80,13 +111,15 @@ struct AddTransactionView: View {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(Color.theme.blue)
+                        .foregroundStyle(isDisabled ? Color.theme.background : Color.theme.green)
                     Text("Create")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(isDisabled ? Color.theme.secondaryText : .white)
                         .padding()
                 }
                 .fixedSize(horizontal: false, vertical: true)
-                .padding()
+                .padding(.horizontal)
+                .padding(.bottom)
+                .disabled(isDisabled)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

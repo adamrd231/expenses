@@ -22,14 +22,12 @@ class TransactionsViewModel: ObservableObject {
                 }
             }
         } else {
-            let searchTextFilteredTransactions =  transactions.filter({ $0.name.contains(searchText ) })
+            let searchTextFilteredTransactions =  transactions.filter({ $0.category.description.contains(searchText ) })
             if categorySelection == "All" {
                 return searchTextFilteredTransactions
             } else {
                 return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection })
             }
-           
-            
         }
     }
     

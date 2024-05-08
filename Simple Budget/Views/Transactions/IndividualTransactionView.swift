@@ -34,7 +34,7 @@ struct IndividualTransactionView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle(transaction.name)
+        .navigationTitle(transaction.category.description)
     }
 }
 
