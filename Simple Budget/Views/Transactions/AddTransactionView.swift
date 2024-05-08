@@ -15,9 +15,10 @@ struct AddTransactionView: View {
     }
     
     @Environment(\.dismiss) var dismiss
+    @State var shouldCloseAfterCreation: Bool = true
     
     var body: some View {
-        VStack {
+        NavigationStack {
             List {
                 Section(header: Text("New Transaction")) {
                     HStack {
@@ -56,6 +57,8 @@ struct AddTransactionView: View {
                     }
                 }
             }
+            
+            
             Button {
                 // TODO: Add new transaction here
                 if let unwrappedAmount = amount {
@@ -68,6 +71,9 @@ struct AddTransactionView: View {
                         description: description
                     )
                     transactionsVM.transactions.append(newTransaction)
+                    if shouldCloseAfterCreation {
+                        dismiss()
+                    }
                 }
                 
                
@@ -82,15 +88,33 @@ struct AddTransactionView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding()
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        shouldCloseAfterCreation.toggle()
+                    } label: {
+                        HStack(spacing: 5) {
+                            Image(systemName: shouldCloseAfterCreation ? "checkmark.circle" : "xmark.circle")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text("Auto Close")
+                                
+                        }
+                        .foregroundStyle(shouldCloseAfterCreation ? Color.theme.green : Color.theme.secondaryText)
+                    }
+                }
+            }
         }
     }
 }
 
 struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTransactionView(
-            transactionsVM: TransactionsViewModel(),
-            categories: [.income: [BudgetName(name: "First")]]
-        )
+        NavigationStack {
+            AddTransactionView(
+                transactionsVM: TransactionsViewModel(),
+                categories: [.income: [BudgetName(name: "First")]]
+            )
+        }
     }
 }
