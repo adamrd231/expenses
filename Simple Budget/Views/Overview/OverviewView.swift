@@ -9,7 +9,7 @@ struct OverviewView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Overview") {
+                Section("Dashboard") {
                     ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
                         NavigationLink {
                             BudgetCategoryOverview(
