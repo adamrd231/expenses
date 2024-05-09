@@ -27,7 +27,7 @@ struct BudgetItemsTableView: View {
                         Text("-")
                             .font(.caption)
                             .frame(minWidth: 10)
-                        Text(item.name.name)
+                        Text(item.type.name)
                         Spacer()
                         Text(item.amount, format: .currency(code: "USD"))
                     }
@@ -49,9 +49,9 @@ struct BudgetItemsTableView: View {
     NavigationView {
         BudgetItemsTableView(
             items: .constant([
-                BudgetItem(name: BudgetName(name: "Apple"), amount: 1.20),
-                BudgetItem(name: BudgetName(name: "Pickle"), amount: 3.50),
-                BudgetItem(name: BudgetName(name: "Burger"), amount: 15)
+                BudgetItem(name: BudgetItemType(name: "Apple"), amount: 1.20),
+                BudgetItem(name: BudgetItemType(name: "Pickle"), amount: 3.50),
+                BudgetItem(name: BudgetItemType(name: "Burger"), amount: 15)
             ])
         )
     }

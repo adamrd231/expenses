@@ -2,13 +2,13 @@ import SwiftUI
 
 struct AddTransactionView: View {
     @ObservedObject var transactionsVM: TransactionsViewModel
-    let categories: [BudgetCategory: [BudgetName]]
+    let categories: [BudgetCategory: [BudgetItemType]]
     @State var date = Date()
     @State var amount: Double? = nil
     @State var description = ""
     @State var pickerSelection: BudgetCategory?
-    @State var typeSelection: BudgetName?
-    var filteredCategories: [BudgetName] {
+    @State var typeSelection: BudgetItemType?
+    var filteredCategories: [BudgetItemType] {
         if let picker = pickerSelection {
             let categories = categories[picker]
             return categories ?? []
@@ -146,7 +146,7 @@ struct AddTransactionView_Previews: PreviewProvider {
         NavigationStack {
             AddTransactionView(
                 transactionsVM: TransactionsViewModel(),
-                categories: [.income: [BudgetName(name: "First")]]
+                categories: [.income: [BudgetItemType(name: "First")]]
             )
         }
     }

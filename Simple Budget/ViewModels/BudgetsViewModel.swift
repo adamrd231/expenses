@@ -13,8 +13,8 @@ class BudgetsViewModel: ObservableObject {
     // These are the categories
     // What I want to return...
     // dictionary [BudgetType : [BudgetName] ]
-    var budgetNames: [BudgetCategory: [BudgetName]] {
-        var array:[BudgetCategory: [BudgetName]] = [
+    var budgetNames: [BudgetCategory: [BudgetItemType]] {
+        var array:[BudgetCategory: [BudgetItemType]] = [
             .income: [],
             .needs: [],
             .save: [],
@@ -24,12 +24,12 @@ class BudgetsViewModel: ObservableObject {
         for budget in budgets {
             // Collect income items
             for budgetItem in budget.incomeItems {
-                array[.income]?.append(budgetItem.name)
+                array[.income]?.append(budgetItem.type)
             }
             // These are the 50 / 30 / 20 budget items
             for budgetItem in budget.budgetItems {
                 for item in budgetItem.items {
-                    array[budgetItem.budgetCategory]?.append(item.name)
+                    array[budgetItem.budgetCategory]?.append(item.type)
                 }
             }
         }

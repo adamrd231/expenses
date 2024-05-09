@@ -44,6 +44,6 @@ struct TransactionTableviewView: View {
     NavigationLink {
         Text("Placeholder")
     } label: {
-        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Reeds landing lawn"), description: "The description for things"))
+        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetItemType(name: "Reeds landing lawn"), description: "The description for things"))
     }
 }

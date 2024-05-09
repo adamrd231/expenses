@@ -3,45 +3,25 @@ import Combine
 
 struct BudgetItem: Codable, Hashable {
     var id = UUID()
-    var name: BudgetName
+    var type: BudgetItemType
     var due: Date?
     var amount: Double
     
-    init(name: BudgetName, due: Date? = nil, amount: Double) {
-        self.name = name
+    init(name: BudgetItemType, due: Date? = nil, amount: Double) {
+        self.type = name
         self.due = due
         self.amount = amount
     }
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(name)
+        hasher.combine(type)
         hasher.combine(due)
         hasher.combine(amount)
     }
 }
 
-struct BudgetName: Codable, Equatable, Hashable {
-    var id = UUID()
-    var name: String
-    
-    init(id: UUID = UUID(), name: String) {
-        self.id = id
-        self.name = name
-    }
-    static func == (lhs: BudgetName, rhs: BudgetName) -> Bool {
-        return lhs.id == rhs.id && lhs.name == rhs.name
-    }
-}
 
-struct BudgetItems: Codable, Hashable, Identifiable {
-    var id = UUID()
-    let budgetCategory: BudgetCategory
-    var budgetPercentage: Double
-    var items: [BudgetItem] = []
-    
-    var totalSpend: Double {
-        return items.map({ $0.amount }).reduce(0, +)
-    }
-}
+
+
 
 

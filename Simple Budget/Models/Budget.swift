@@ -1,7 +1,6 @@
 import Foundation
 
 struct Budget: Codable, Equatable {
-
     var id = UUID()
     var name: String = "New Budget"
     var start: Date = .now
@@ -30,6 +29,7 @@ struct Budget: Codable, Equatable {
         )
     ]
     
+    // Equatable function to help detect when user has changed something in the object
     public static func == (lhs: Budget, rhs: Budget) -> Bool {
         return
             lhs.name == rhs.name &&

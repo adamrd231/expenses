@@ -14,7 +14,7 @@ struct BudgetCategoryOverview: View {
     let transactionTotal: Double
     let transactionItems: [Transaction]
     
-    func getBudgetItemNameTotal(itemName: BudgetName) -> Double {
+    func getBudgetItemNameTotal(itemName: BudgetItemType) -> Double {
         let budgetItemsByName = transactionItems.filter({ $0.type == itemName })
         return budgetItemsByName.map({ $0.amount }).reduce(0, +)
     }
@@ -28,9 +28,9 @@ struct BudgetCategoryOverview: View {
             Section("Types") {
                 ForEach(budgetItems, id: \.id) { item in
                     HStack {
-                        Text(item.name.name)
+                        Text(item.type.name)
                         Spacer()
-                        Text(getBudgetItemNameTotal(itemName: item.name), format: .currency(code: "USD"))
+                        Text(getBudgetItemNameTotal(itemName: item.type), format: .currency(code: "USD"))
                         Text("/")
                         Text(item.amount, format: .currency(code: "USD"))
                     }
@@ -42,33 +42,22 @@ struct BudgetCategoryOverview: View {
                 ForEach(transactionItems, id: \.id) { transaction in
                     HStack {
                         VStack(alignment: .leading) {
-                            HStack(alignment: .center) {
-                                Text(transaction.type.name)
-                                Text("(\(transaction.category.description))")
-                                    .font(.caption2)
-                                    .fontWeight(.light)
-                            }
+                            Text(transaction.type.name)
                             Text(transaction.date, style: .date)
                                 .font(.caption2)
                                 .foregroundStyle(Color.theme.secondaryText)
                         }
-                       
                         Spacer()
                         Text(transaction.amount, format: .currency(code: "USD"))
-                            .foregroundStyle(category == .income ? Color.theme.green : Color.theme.red)
                             .font(.subheadline)
                     }
                     .font(.caption)
                 }
             }
-            
-            
         }
         .padding()
         .navigationTitle(category.description)
-
     }
-   
 }
 
 #Preview {
@@ -77,13 +66,13 @@ struct BudgetCategoryOverview: View {
             category: .income,
             budgetTotal: 3000,
             budgetItems: [
-                BudgetItem(name: BudgetName(name: "App work"), amount: 2000),
-                BudgetItem(name: BudgetName(name: "Lawn mowing"), amount: 1000)
+                BudgetItem(name: BudgetItemType(name: "App work"), amount: 2000),
+                BudgetItem(name: BudgetItemType(name: "Lawn mowing"), amount: 1000)
             ],
             transactionTotal: 2000,
             transactionItems: [
-                Transaction(data: Date(), amount: 100, category: .income, type: BudgetName(name: "Reeds landing lawn"), description: ""),
-                Transaction(data: Date(), amount: 100, category: .needs, type: BudgetName(name: "Reeds landing lawn"), description: "")
+                Transaction(data: Date(), amount: 100, category: .income, type: BudgetItemType(name: "Reeds landing lawn"), description: ""),
+                Transaction(data: Date(), amount: 100, category: .needs, type: BudgetItemType(name: "Reeds landing lawn"), description: "")
             ]
         )
     }

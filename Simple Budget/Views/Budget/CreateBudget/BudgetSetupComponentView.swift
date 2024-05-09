@@ -73,7 +73,7 @@ struct BudgetSetupComponentView: View {
          
                 Button {
                     if let value = newItemValue {
-                        let newItem = BudgetItem(name: BudgetName(name: newItemName), amount: value)
+                        let newItem = BudgetItem(name: BudgetItemType(name: newItemName), amount: value)
                         items.append(newItem)
                         // Persist new update to array
                         focusedField = nil
@@ -110,7 +110,7 @@ struct BudgetSetupComponentView: View {
         BudgetSetupComponentView(
             items: .constant(
                 [
-                    BudgetItem(name: BudgetName(name: "String"), amount: 100)
+                    BudgetItem(name: BudgetItemType(name: "String"), amount: 100)
                 ]),
             budgetType: .needs,
             totalBudgetGoal: 10_000,
