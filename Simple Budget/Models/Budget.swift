@@ -7,10 +7,6 @@ struct Budget: Codable, Equatable {
     var end: Date = .now.addingTimeInterval(60 * 60 * 24 * 30)
     var startBalance: Double = 0.0
     var incomeItems: [BudgetItem] = []
-    var totalIncome: Double {
-        return incomeItems.map({ $0.amount }).reduce(0, +)
-    }
-
     var budgetItems: [BudgetItems] = [
         BudgetItems(
             budgetCategory: .needs,
@@ -28,6 +24,11 @@ struct Budget: Codable, Equatable {
             items: []
         )
     ]
+    
+    // MARK: Helper functions 
+    var totalIncome: Double {
+        return incomeItems.map({ $0.amount }).reduce(0, +)
+    }
     
     // Equatable function to help detect when user has changed something in the object
     public static func == (lhs: Budget, rhs: Budget) -> Bool {
