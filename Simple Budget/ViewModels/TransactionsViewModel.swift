@@ -17,8 +17,22 @@ class TransactionsViewModel: ObservableObject {
     
     func addSubscribers() {
         dataManager.$transactions
-            .sink { [weak self] (returnedTransactions) in
-                self?.transactions = returnedTransactions
+            .combineLatest($categorySelection)
+            .sink { [weak self] (returnedTransactions, returnedCategory) in
+                var IllBeBack:[TransactionEntity] = []
+                if returnedCategory != "All" {
+                    let categoryName = BudgetCategory.allCases.first(where: { $0.rawValue == returnedCategory })
+                    if let unwrappedCategoryName = categoryName {
+                        let filteredTransactions = returnedTransactions.filter({ $0.category == unwrappedCategoryName.description })
+                        IllBeBack = filteredTransactions
+                    } else {
+                        IllBeBack = returnedTransactions
+                    }
+                } else {
+                    IllBeBack = returnedTransactions
+                }
+                
+                self?.transactions = IllBeBack
             }
             .store(in: &cancellable)
     }
@@ -31,32 +45,7 @@ class TransactionsViewModel: ObservableObject {
         dataManager.deleteSingle(transaction)
     }
     
-//    var filteredTransactions: [Transaction] {
-//        if searchText.isEmpty {
-//            if categorySelection == "All" {
-//                return transactions.sorted(by: { $0.date > $1.date })
-//            } else {
-//                let categoryName = BudgetCategory.allCases.first(where: { $0.rawValue == categorySelection })
-//                if let unwrappedCategoryName = categoryName {
-//                    let categories = transactions.filter({ $0.category == unwrappedCategoryName })
-//                    return categories.sorted(by: { $0.date > $1.date })
-//                } else {
-//                    return transactions.sorted(by: { $0.date > $1.date })
-//                }
-//            }
-//        } else {
-//            let searchTextFilteredTransactions =  transactions.filter({ $0.category.description.contains(searchText ) })
-//            if categorySelection == "All" {
-//                return searchTextFilteredTransactions.sorted(by: { $0.date > $1.date })
-//            } else {
-//                return searchTextFilteredTransactions.filter({ $0.category == categoryPickerSelection }).sorted(by: { $0.date > $1.date })
-//            }
-//        }
-//    }
-//    
     func getActualTotalFromTransactions(type: BudgetCategory) -> Double {
-        // filter out any budgets not within date range
-        let today = Date()
         let t = transactions.filter({ $0.category == type.description })
         return t.map({ $0.amount }).reduce(0, +)
         
