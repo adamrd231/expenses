@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="Budget" representedClassName="Budget" syncable="YES" codeGenerationType="class">
+    <entity name="BudgetEntity" representedClassName="BudgetEntity" syncable="YES" codeGenerationType="class">
         <attribute name="end" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="start" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="startBalance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="incomeItems" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BudgetItem"/>
     </entity>
-    <entity name="BudgetItem" representedClassName="BudgetItem" parentEntity="Budget" syncable="YES" codeGenerationType="class">
+    <entity name="BudgetItemEntity" representedClassName="BudgetItemEntity" parentEntity="BudgetEntity" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="type" optional="YES" attributeType="Transformable"/>
     </entity>
-    <entity name="BudgetItems" representedClassName="BudgetItems" parentEntity="Budget" syncable="YES" codeGenerationType="class">
+    <entity name="BudgetItemsEntity" representedClassName="BudgetItemsEntity" parentEntity="BudgetEntity" syncable="YES" codeGenerationType="class">
         <attribute name="budgetCategory" optional="YES" attributeType="String"/>
         <attribute name="budgetPercentage" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="items" optional="YES" attributeType="Transformable"/>
     </entity>
-    <entity name="BudgetItemType" representedClassName="BudgetItemType" parentEntity="BudgetItem" syncable="YES" codeGenerationType="class">
+    <entity name="TransactionEntity" representedClassName="TransactionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="details" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
 </model>
