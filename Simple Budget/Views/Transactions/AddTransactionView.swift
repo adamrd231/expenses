@@ -17,14 +17,6 @@ struct AddTransactionView: View {
         }
     }
     
-    var isDisabled: Bool {
-        if  amount != nil && pickerSelection != nil && typeSelection != nil {
-            return false
-        } else {
-            return true
-        }
-    }
-    
     @Environment(\.dismiss) var dismiss
     @State var shouldCloseAfterCreation: Bool = true
     
@@ -91,14 +83,14 @@ struct AddTransactionView: View {
                 if let unwrappedAmount = amount,
                 let unwrappedPicker = pickerSelection,
                 let unwrappedBudgetName = typeSelection {
-                    var newTransaction = Transaction(
+                    let newTransaction = Transaction(
                         data: date,
                         amount: unwrappedAmount,
                         category: unwrappedPicker,
                         type: unwrappedBudgetName,
                         description: description
                     )
-                    transactionsVM.transactions.append(newTransaction)
+                    transactionsVM.addNew(newTransaction)
                     
                     if shouldCloseAfterCreation {
                         dismiss()
@@ -111,15 +103,13 @@ struct AddTransactionView: View {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(isDisabled ? Color.theme.background : Color.theme.green)
+                       
                     Text("Create")
-                        .foregroundStyle(isDisabled ? Color.theme.secondaryText : .white)
                         .padding()
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal)
                 .padding(.bottom)
-                .disabled(isDisabled)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

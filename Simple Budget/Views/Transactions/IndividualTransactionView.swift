@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct IndividualTransactionView: View {
-    @State var transaction: Transaction
+    @State var transaction: TransactionEntity
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("Date").bold()
                 Spacer()
-                Text(transaction.date, format: .dateTime)
+                Text(transaction.date ?? Date(), format: .dateTime)
             }
             HStack {
                 Text("Amount").bold()
@@ -18,12 +18,12 @@ struct IndividualTransactionView: View {
             HStack {
                 Text("Category").bold()
                 Spacer()
-                Text(transaction.type.name)
+                Text(transaction.type ?? "")
             }
             HStack {
                 Text("Type").bold()
                 Spacer()
-                Text(transaction.category.description)
+                Text(transaction.category ?? "")
             }
             VStack(alignment: .leading) {
                 Text("Details").bold()
@@ -34,14 +34,14 @@ struct IndividualTransactionView: View {
             Spacer()
         }
         .padding()
-        .navigationTitle(transaction.category.description)
+        .navigationTitle(transaction.category ?? "")
     }
 }
 
 struct IndividualTransactionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            IndividualTransactionView(transaction: dev.transaction)
+            IndividualTransactionView(transaction: TransactionEntity())
         }
         .navigationTitle("Transaction")
     }

@@ -12,13 +12,13 @@ struct OverviewView: View {
                 Section("Dashboard") {
                     ForEach(BudgetCategory.allCases, id: \.rawValue) { category in
                         NavigationLink {
-                            BudgetCategoryOverview(
-                                category: category,
-                                budgetTotal: budgetVM.getExpectedTotalFromBudgets(type: category),
-                                budgetItems: budgetVM.getBudgetItems(category: category),
-                                transactionTotal: transactionVM.getActualTotalFromTransactions(type: category),
-                                transactionItems: transactionVM.transactions.filter({ $0.category == category })
-                            )
+//                            BudgetCategoryOverview(
+//                                category: category,
+//                                budgetTotal: budgetVM.getExpectedTotalFromBudgets(type: category),
+//                                budgetItems: budgetVM.getBudgetItems(category: category),
+//                                transactionTotal: transactionVM.getActualTotalFromTransactions(type: category),
+//                                transactionItems: transactionVM.transactions.filter({ $0.category == category.description })
+//                            )
                             
                         } label: {
                             CustomProgressBar(

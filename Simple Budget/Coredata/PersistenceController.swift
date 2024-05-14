@@ -20,6 +20,7 @@ class DataManager: ObservableObject {
             if let error = error {
                 print("CoreData Error: \(error)")
             }
+            self.getTransactions()
         })
     }
     
@@ -32,7 +33,7 @@ class DataManager: ObservableObject {
         }
     }
     
-    func addNewTransaction(transaction: Transaction) {
+    func addNew(_ transaction: Transaction) {
         let newTransaction = TransactionEntity(context: container.viewContext)
         newTransaction.id = transaction.id
         newTransaction.amount = transaction.amount
@@ -40,18 +41,16 @@ class DataManager: ObservableObject {
         newTransaction.date = transaction.date
         newTransaction.details = transaction.description
         newTransaction.type = transaction.type.name
-        
+        applyChanges()
     }
     
-    func deleteCartItem(transaction: Transaction) {
-        if let coreDataItem = transactions.first(where: { $0.id == transaction.id }) {
-            container.viewContext.delete(coreDataItem)
-        }
+    func deleteSingle(_ transaction: TransactionEntity) {
+        container.viewContext.delete(transaction)
+        applyChanges()
     }
     
     private func save() {
         do {
-            print("SAVING VIEW CONTEXT")
             try container.viewContext.save()
             
         } catch let error {

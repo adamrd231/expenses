@@ -18,15 +18,18 @@ struct TransactionsView: View {
                 }
                 .pickerStyle(.segmented)
                 
-                ForEach(Array(zip(transactionsVM.filteredTransactions, transactionsVM.filteredTransactions.indices)), id: \.1) { transaction, index in
+                ForEach(transactionsVM.transactions, id: \.id) { transaction in
                     NavigationLink {
                         IndividualTransactionView(transaction: transaction)
                     } label: {
-                        TransactionTableviewView(index: index + 1, transaction: transaction)
+                        TransactionTableviewView(index: 1, transaction: transaction)
                     }
                 }
                 .onDelete(perform: { indexSet in
-                    transactionsVM.transactions.remove(atOffsets: indexSet)
+                    for index in indexSet {
+                        let transaction = transactionsVM.transactions[index]
+                        transactionsVM.dataManager.deleteSingle(transaction)
+                    }
                 })
                 .listRowSeparator(.hidden)
             }

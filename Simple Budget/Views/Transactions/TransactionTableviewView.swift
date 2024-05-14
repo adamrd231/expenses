@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TransactionTableviewView: View {
     let index: Int
-    let transaction: Transaction
+    let transaction: TransactionEntity
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
@@ -12,18 +12,18 @@ struct TransactionTableviewView: View {
                 Text(index, format: .number).font(.caption)
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(transaction.category.description)
+                        Text(transaction.category ?? "")
                             .bold()
                         HStack(spacing: 0) {
                             Text("(")
-                            Text(transaction.type.name)
+                            Text(transaction.type ?? "")
                             Text(")")
                         }
                         .font(.caption)
                        .fontWeight(.light)
                     }
                    
-                    Text(transaction.date, style: .date)
+                    Text(transaction.date ?? Date(), style: .date)
                     .font(.caption)
                     .foregroundStyle(Color.theme.secondaryText)
                     
@@ -31,7 +31,7 @@ struct TransactionTableviewView: View {
                 Spacer()
             
                 Text(transaction.amount, format: .currency(code: "USD"))
-                    .foregroundStyle(transaction.category == .income ? Color.theme.green : Color.theme.red)
+                    .foregroundStyle(transaction.category == "income" ? Color.theme.green : Color.theme.red)
             }
             .padding(5)
             .padding(.horizontal)
@@ -44,6 +44,6 @@ struct TransactionTableviewView: View {
     NavigationLink {
         Text("Placeholder")
     } label: {
-        TransactionTableviewView(index: 1, transaction: Transaction(data: Date(), amount: 100, category: .needs, type: BudgetItemType(name: "Reeds landing lawn"), description: "The description for things"))
+        TransactionTableviewView(index: 1, transaction: TransactionEntity())
     }
 }
