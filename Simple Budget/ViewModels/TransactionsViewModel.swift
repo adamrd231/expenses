@@ -23,7 +23,11 @@ class TransactionsViewModel: ObservableObject {
                 
                 // If no search text entered, no category selected, just return transactions
                 guard returnedCategory != "All" else {
-                    self?.transactions = updatedTransactions
+                    if returnedSearchText == "" {
+                        self?.transactions = updatedTransactions
+                    } else {
+                        self?.transactions = updatedTransactions.filter { $0.type!.lowercased().contains(returnedSearchText.lowercased()) }
+                    }
                     return
                 }
                 
@@ -33,11 +37,15 @@ class TransactionsViewModel: ObservableObject {
                     updatedTransactions = filteredTransactions
                 }
                 
-                // Update transactions on view with filtered
-                self?.transactions = updatedTransactions
+                
+                if returnedSearchText == "" {
+                    self?.transactions = updatedTransactions
+                } else {
+                    self?.transactions = updatedTransactions.filter { $0.type!.lowercased().contains(returnedSearchText.lowercased()) }
+                }
             }
-            .store(in: &cancellable)
-    }
+            .store(in: &cancellable)}
+        
     
     func addNew(_ transaction: Transaction) {
         dataManager.addNew(transaction)
