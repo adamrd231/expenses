@@ -17,22 +17,24 @@ class TransactionsViewModel: ObservableObject {
     
     func addSubscribers() {
         dataManager.$transactions
-            .combineLatest($categorySelection)
-            .sink { [weak self] (returnedTransactions, returnedCategory) in
-                var IllBeBack:[TransactionEntity] = []
-                if returnedCategory != "All" {
-                    let categoryName = BudgetCategory.allCases.first(where: { $0.rawValue == returnedCategory })
-                    if let unwrappedCategoryName = categoryName {
-                        let filteredTransactions = returnedTransactions.filter({ $0.category == unwrappedCategoryName.description })
-                        IllBeBack = filteredTransactions
-                    } else {
-                        IllBeBack = returnedTransactions
-                    }
-                } else {
-                    IllBeBack = returnedTransactions
+            .combineLatest($categorySelection, $searchText)
+            .sink { [weak self] (returnedTransactions, returnedCategory, returnedSearchText) in
+                var updatedTransactions:[TransactionEntity] = returnedTransactions
+                
+                // If no search text entered, no category selected, just return transactions
+                guard returnedCategory != "All" else {
+                    self?.transactions = updatedTransactions
+                    return
                 }
                 
-                self?.transactions = IllBeBack
+                // MARK: Category filtering
+                if let categoryName = BudgetCategory.allCases.first(where: { $0.rawValue == returnedCategory }) {
+                    let filteredTransactions = updatedTransactions.filter({ $0.category == categoryName.description })
+                    updatedTransactions = filteredTransactions
+                }
+                
+                // Update transactions on view with filtered
+                self?.transactions = updatedTransactions
             }
             .store(in: &cancellable)
     }
