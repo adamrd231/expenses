@@ -27,7 +27,7 @@ struct IndividualTransactionView: View {
             }
             VStack(alignment: .leading) {
                 Text("Details").bold()
-                Text(transaction.description)
+                Text(transaction.details ?? "")
             }
             .padding(.top)
             

@@ -31,7 +31,7 @@ struct TransactionTableviewView: View {
                 Spacer()
             
                 Text(transaction.amount, format: .currency(code: "USD"))
-                    .foregroundStyle(transaction.category == "income" ? Color.theme.green : Color.theme.red)
+                    .foregroundStyle(transaction.category == "Income" ? Color.theme.green : Color.theme.secondaryText)
             }
             .padding(5)
             .padding(.horizontal)
