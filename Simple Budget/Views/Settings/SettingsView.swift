@@ -4,21 +4,18 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
+                Section("About the App") {
                     VStack(alignment: .leading) {
-                        Text("Fudget Budget")
+                        Text("Money Moves")
                             .bold()
-                        Text("Thanks for downloading my application, you can currently use fudget budget to setup budgets and track progress, no need to fudge the books.")
+                        Text("Thanks for downloading my app! I designed Money Moves to help users quickly and easily setup a budget, and be able to keep themselves accountable. This is the first version of the app, and plan on adding new features in the future, I would love any feedback or ideas at adam@rdconcepts.design.")
                     }
                 }
- 
-                Section {
-                    VStack(alignment: .leading) {
-                        Text("Link your bank account")
-                            .bold()
-                        Text("I am working on integrating your bank account so you can connect the app to Plaid and autmagically download your transactions, any feedback and questions can be sent to adam@rdconcepts.design.")
-                    }
-                }
+                
+                Section("Future Versions") {
+                    Text("Automatically download transactions from bank account")
+                    Text("Share / manage budgets with others")
+                    Text("Track and manage subscriptions")              }
             }
             .listStyle(.plain)
             .navigationTitle("Settings")
