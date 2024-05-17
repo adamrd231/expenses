@@ -11,7 +11,6 @@ struct CustomProgressBar: View {
         } else {
             currentSpend / totalBudget
         }
-      
     }
     
     var cornerRadius: Double = 25
@@ -24,24 +23,27 @@ struct CustomProgressBar: View {
                 Spacer()
                 Text(totalBudget, format: .currency(code: "USD"))
                     .foregroundStyle(Color.theme.secondaryText)
-                Text("Total")
+                Text("Budget")
                     .foregroundStyle(Color.theme.secondaryText)
             }
             .font(.caption)
             
-            ProgressBarView(progress: progress)
+            ProgressBarView(progress: progress, leftSide: type == .income || type == .save)
             HStack(spacing: 5) {
                 Text(currentSpend, format: .currency(code: "USD"))
                 Text(type == .income || type == .save ? "Earned" : "Spent")
                 Spacer()
-                    
-                if type == .needs || type == .wants {
-                    Text(totalBudget * progress, format: .currency(code: "USD"))
-                } else {
-                    Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                   
+                HStack(spacing: 5) {
+                    if type == .needs || type == .wants {
+                        Text(totalBudget * progress, format: .currency(code: "USD"))
+                    } else {
+                        Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                    }
+                    Text(currentSpend > totalBudget ? "Over" : "Left")
                 }
-              
-                Text("Left")
+                .foregroundStyle(currentSpend > totalBudget ? Color.theme.red : Color.theme.secondaryText)
+                
             }
             .foregroundStyle(Color.theme.secondaryText)
             .font(.caption2)
