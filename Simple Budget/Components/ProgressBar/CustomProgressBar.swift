@@ -6,7 +6,12 @@ struct CustomProgressBar: View {
     let type: BudgetCategory
     
     var progress: Double {
-        currentSpend / totalBudget
+        if type == .needs || type == .wants {
+            1 - (currentSpend / totalBudget)
+        } else {
+            currentSpend / totalBudget
+        }
+      
     }
     
     var cornerRadius: Double = 25
@@ -29,8 +34,13 @@ struct CustomProgressBar: View {
                 Text(currentSpend, format: .currency(code: "USD"))
                 Text(type == .income || type == .save ? "Earned" : "Spent")
                 Spacer()
-
-                Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                    
+                if type == .needs || type == .wants {
+                    Text(totalBudget * progress, format: .currency(code: "USD"))
+                } else {
+                    Text(totalBudget * (1 - progress), format: .currency(code: "USD"))
+                }
+              
                 Text("Left")
             }
             .foregroundStyle(Color.theme.secondaryText)

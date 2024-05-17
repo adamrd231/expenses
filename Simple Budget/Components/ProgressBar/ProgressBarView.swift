@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ProgressBarView: View {
-    let progress: Double
+    @State var progress: Double
+    @State var startPoint: Double = 0
     var cornerRadius: Double = 25
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
@@ -24,7 +26,7 @@ struct ProgressBarView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(lineWidth: 2)
                         .foregroundColor(Color.theme.green)
-        
+                        
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundStyle(
                             LinearGradient(
@@ -33,15 +35,15 @@ struct ProgressBarView: View {
                                 endPoint: .topLeading
                             )
                         )
+                        
                 }
-                
-                .frame(width: progress.isNaN ? 0 : geometry.size.width * progress)
-                .onAppear(perform: {
-                    print("progress: \(progress.description)")
-                })
+                .frame(width: progress.isNaN ? 0 : geometry.size.width * startPoint)
+                .animation(.linear, value: startPoint)
             }
+            .onAppear(perform: {
+                self.startPoint = progress
+            })
         }
-//        .fixedSize(horizontal: false, vertical: true)
     }
 }
 
