@@ -12,10 +12,10 @@ struct BudgetCategoryOverview: View {
     let budgetTotal: Double
     let budgetItems: [BudgetItem]
     let transactionTotal: Double
-    let transactionItems: [Transaction]
+    let transactionItems: [TransactionEntity]
     
     func getBudgetItemNameTotal(itemName: BudgetItemType) -> Double {
-        let budgetItemsByName = transactionItems.filter({ $0.type == itemName })
+        let budgetItemsByName = transactionItems.filter({ $0.type == itemName.name })
         return budgetItemsByName.map({ $0.amount }).reduce(0, +)
     }
     
@@ -42,8 +42,8 @@ struct BudgetCategoryOverview: View {
                 ForEach(transactionItems, id: \.id) { transaction in
                     HStack {
                         VStack(alignment: .leading) {
-                            Text(transaction.type.name)
-                            Text(transaction.date, style: .date)
+                            Text(transaction.type ?? "")
+                            Text(transaction.date ?? Date(), style: .date)
                                 .font(.caption2)
                                 .foregroundStyle(Color.theme.secondaryText)
                         }
@@ -71,8 +71,7 @@ struct BudgetCategoryOverview: View {
             ],
             transactionTotal: 2000,
             transactionItems: [
-                Transaction(data: Date(), amount: 100, category: .income, type: BudgetItemType(name: "Reeds landing lawn"), description: ""),
-                Transaction(data: Date(), amount: 100, category: .needs, type: BudgetItemType(name: "Reeds landing lawn"), description: "")
+                TransactionEntity()
             ]
         )
     }
