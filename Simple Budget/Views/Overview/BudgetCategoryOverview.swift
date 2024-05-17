@@ -55,7 +55,6 @@ struct BudgetCategoryOverview: View {
                 }
             }
         }
-        .padding()
         .navigationTitle(category.description)
     }
 }
