@@ -100,14 +100,24 @@ struct CreateBudgetView: View {
                 }
             }
             
+            
             ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
                 Section("Add \(budgetItem.budgetCategory.description) Items") {
-                
-                    CustomProgressBar(
-                        currentSpend: budgetItem.totalSpend,
-                        totalBudget: budgetItem.budgetPercentage * newBudget.totalIncome,
-                        type: budgetItem.budgetCategory
+                    HStack {
+                        Text("Budget")
+                        Spacer()
+                        Text(budgetItem.budgetPercentage * newBudget.totalIncome, format: .currency(code: "USD"))
+                    }
+                   
+                    ProgressBarView(
+                        progress: budgetItem.totalSpend / (budgetItem.budgetPercentage * newBudget.totalIncome)
                     )
+                    
+//                    CustomProgressBar(
+//                        currentSpend: budgetItem.totalSpend,
+//                        totalBudget: budgetItem.budgetPercentage * newBudget.totalIncome,
+//                        type: budgetItem.budgetCategory
+//                    )
                     NavigationLink {
                         BudgetSetupComponentView(
                             items: $budgetItem.items,

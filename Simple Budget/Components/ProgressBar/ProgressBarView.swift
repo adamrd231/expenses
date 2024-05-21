@@ -10,15 +10,21 @@ import SwiftUI
 struct ProgressBarView: View {
     @State var progress: Double
     @State var startPoint: Double = 0
-    let leftSide: Bool
+    let alignment: Alignment?
     var cornerRadius: Double = 25
     
+    init(progress: Double, alignment: Alignment? = .leading) {
+        self.progress = progress
+        self.alignment = alignment
+    }
+    
     func getProgressWidth(geoWidth: Double) -> Double {
-        print("Startpoint \(startPoint)")
         if progress.isNaN {
             return 0
         } else if startPoint == 0 {
             return 0
+        } else if startPoint >= 1 {
+            return geoWidth
         } else {
             return startPoint * geoWidth
         }
@@ -27,7 +33,7 @@ struct ProgressBarView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack(alignment: leftSide ? .leading : .trailing) {
+            ZStack(alignment: alignment ?? .leading) {
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .frame(width: geometry.size.width)
@@ -43,7 +49,7 @@ struct ProgressBarView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundStyle(
                             LinearGradient(
-                                colors: [progress == 0 ? Color.theme.red : Color.theme.green2, progress == 0 ? Color.theme.red : Color.theme.green],
+                                colors: [progress > 1 ? Color.theme.red : Color.theme.green2, progress > 1 ? Color.theme.red : Color.theme.green],
                                 startPoint: .bottomTrailing,
                                 endPoint: .topLeading
                             )
@@ -67,8 +73,8 @@ struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
         List {
             Section("Progress Bar") {
-                ProgressBarView(progress: 0.4, leftSide: true)
-                ProgressBarView(progress: 0.4, leftSide: false)
+                ProgressBarView(progress: 0.4)
+                ProgressBarView(progress: 0.4)
             }
         }
         .preferredColorScheme(.dark)

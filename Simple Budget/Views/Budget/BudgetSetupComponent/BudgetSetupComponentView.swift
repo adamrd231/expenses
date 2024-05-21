@@ -43,8 +43,7 @@ struct BudgetSetupComponentView: View {
                 
                 if budgetType != .income {
                     ProgressBarView(
-                        progress: items.map({$0.amount}).reduce(0, +) / totalBudgetGoal,
-                        leftSide: true
+                        progress: items.map({$0.amount}).reduce(0, +) / totalBudgetGoal
                     )
                     .padding(.horizontal)
                     .frame(maxHeight: 50)
