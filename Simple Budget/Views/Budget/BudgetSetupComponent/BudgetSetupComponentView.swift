@@ -42,13 +42,19 @@ struct BudgetSetupComponentView: View {
                 .padding(.top)
                 
                 if budgetType != .income {
-                    CustomProgressBar(
-                        currentSpend: items.map({$0.amount}).reduce(0, +),
-                        totalBudget: totalBudgetGoal,
-                        type: budgetType
+                    ProgressBarView(
+                        progress: items.map({$0.amount}).reduce(0, +) / totalBudgetGoal,
+                        leftSide: true
                     )
                     .padding(.horizontal)
-                    .frame(maxHeight: 75)
+                    .frame(maxHeight: 50)
+//                    CustomProgressBar(
+//                        currentSpend: items.map({$0.amount}).reduce(0, +),
+//                        totalBudget: totalBudgetGoal,
+//                        type: budgetType
+//                    )
+
+
                 }
             }
             

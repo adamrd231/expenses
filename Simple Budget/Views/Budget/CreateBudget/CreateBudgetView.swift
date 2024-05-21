@@ -30,8 +30,14 @@ struct CreateBudgetView: View {
                 TextField("Budget Name", text: $newBudget.name)
             }
             Section("Dates") {
-                DateRangeRow(title: "Starting", date: $newBudget.start)
-                DateRangeRow(title: "Ending", date: $newBudget.end)
+                HStack {
+                    Text("Start Date")
+                    DatePicker("", selection: $newBudget.start, displayedComponents: [.date])
+                }
+                HStack {
+                    Text("End Date")
+                    DatePicker("", selection: $newBudget.end, displayedComponents: [.date])
+                }
             }
             
             Section("Add income") {
@@ -95,7 +101,7 @@ struct CreateBudgetView: View {
             }
             
             ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
-                Section("\(budgetItem.budgetCategory.description) Items") {
+                Section("Add \(budgetItem.budgetCategory.description) Items") {
                 
                     CustomProgressBar(
                         currentSpend: budgetItem.totalSpend,
