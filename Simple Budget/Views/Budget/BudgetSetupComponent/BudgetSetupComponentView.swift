@@ -48,13 +48,6 @@ struct BudgetSetupComponentView: View {
                     )
                     .padding(.horizontal)
                     .frame(maxHeight: 50)
-//                    CustomProgressBar(
-//                        currentSpend: items.map({$0.amount}).reduce(0, +),
-//                        totalBudget: totalBudgetGoal,
-//                        type: budgetType
-//                    )
-
-
                 }
             }
             

@@ -150,7 +150,7 @@ struct CreateBudgetView: View {
                 )
             }
         }
-        .navigationTitle(isNewBudget ? "Setup" : "Edit")
+        .navigationTitle(isNewBudget ? "Setup Budget" : "Edit Budget")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(isNewBudget ? "Create" : "Save") {

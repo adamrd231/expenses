@@ -36,11 +36,6 @@ struct BudgetItemsTableView: View {
                     items.remove(atOffsets: indexSet)
                 })
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-            }
         }
     }
 }
