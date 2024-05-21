@@ -25,7 +25,7 @@ struct CreateBudgetView: View {
     }
   
     var body: some View {
-        List {
+        Form {
             Section("Info") {
                 TextField("Budget Name", text: $newBudget.name)
             }
@@ -102,12 +102,11 @@ struct CreateBudgetView: View {
             
             
             ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
-                Section("Add \(budgetItem.budgetCategory.description) Items") {
+                Section("\(budgetItem.budgetCategory.description) Items") {
                     ProgressBarView(
                         currentSpend: budgetItem.totalSpend,
-                        totalIncome: budgetItem.budgetPercentage * newBudget.totalIncome
+                        totalBudget: budgetItem.budgetPercentage * newBudget.totalIncome
                     )
-                    .frame(maxHeight: 25)
                     
                     NavigationLink {
                         BudgetSetupComponentView(
@@ -122,36 +121,22 @@ struct CreateBudgetView: View {
                             Image(systemName: budgetItem.items.isEmpty ? "checkmark.circle.trianglebadge.exclamationmark" : "checkmark.circle.fill")
                                 .foregroundStyle(budgetItem.items.isEmpty ? Color.theme.red : Color.theme.green)
                             VStack(alignment: .leading) {
-                                Text(budgetItem.items.isEmpty ? "Add items" : "Items: \(budgetItem.items.count)")
+                                Text(budgetItem.items.isEmpty ? "Add items" : "Add Items: \(budgetItem.items.count)")
                                     .font(.caption)
                             }
                         }
                        
                     }
                     
-    
+                    ForEach(Array(zip(budgetItem.items, budgetItem.items.indices)), id: \.1) { item, index in
                         HStack {
-                            Text("Total")
+                            Text(index + 1, format: .number)
+                            Text(item.type.name)
                             Spacer()
-                            Text(budgetItem.budgetPercentage * newBudget.totalIncome, format: .currency(code: "USD"))
+                            Text(item.amount, format: .currency(code: "USD"))
                         }
                         .font(.caption)
-                        HStack {
-                            Text("Budgeted")
-                            Spacer()
-                            Text(budgetItem.items.map({ $0.amount}).reduce(0,+), format: .currency(code: "USD"))
-                        }
-                        .font(.caption)
-                        HStack {
-                            Text("Remaining")
-                            Spacer()
-                            Text(budgetItem.budgetPercentage * newBudget.totalIncome - budgetItem.items.map({ $0.amount}).reduce(0,+), format: .currency(code: "USD"))
-                        }
-                        .font(.caption)
-                    
-                    
-       
-                    
+                    }
                 }
             }
             .alert(isPresented: $showingAlert) {

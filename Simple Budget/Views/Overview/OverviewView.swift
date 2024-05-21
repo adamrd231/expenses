@@ -21,12 +21,9 @@ struct OverviewView: View {
                             )
                             
                         } label: {
-                            CustomProgressBar(
-                                currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
-                                totalBudget:  budgetVM.getExpectedTotalFromBudgets(type: category),
-                                type: category
+                            ProgressBarView(currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
+                                totalBudget: budgetVM.getExpectedTotalFromBudgets(type: category)
                             )
-                            .padding(.vertical)
                         }
                     }
                 }
