@@ -28,7 +28,7 @@ struct CustomProgressBar: View {
             }
             .font(.caption)
             
-            ProgressBarView(progress: progress)
+            ProgressBarView(currentSpend: currentSpend, totalBudget: totalBudget)
             HStack(spacing: 5) {
                 Text(currentSpend, format: .currency(code: "USD"))
                 Text(type == .income || type == .save ? "Earned" : "Spent")

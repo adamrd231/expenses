@@ -8,25 +8,27 @@
 import SwiftUI
 
 struct ProgressBarView: View {
-    @State var progress: Double
-    @State var startPoint: Double = 0
+    let currentSpend: Double
+    let totalBudget: Double
+
     let alignment: Alignment?
     var cornerRadius: Double = 25
     
-    init(progress: Double, alignment: Alignment? = .leading) {
-        self.progress = progress
+    init(currentSpend: Double, totalBudget: Double, alignment: Alignment? = .leading) {
+        self.currentSpend = currentSpend
+        self.totalBudget = totalBudget
         self.alignment = alignment
     }
     
     func getProgressWidth(geoWidth: Double) -> Double {
-        if progress.isNaN {
+        if (currentSpend / totalBudget).isNaN {
             return 0
-        } else if startPoint == 0 {
+        } else if (currentSpend / totalBudget) == 0 {
             return 0
-        } else if startPoint >= 1 {
+        } else if (currentSpend / totalBudget) >= 1 {
             return geoWidth
         } else {
-            return startPoint * geoWidth
+            return (currentSpend / totalBudget) * geoWidth
         }
         
     }
@@ -44,12 +46,14 @@ struct ProgressBarView: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(lineWidth: 2)
-                        .foregroundColor(progress == 0 ? Color.theme.red : Color.theme.green)
+                        .foregroundColor((currentSpend / totalBudget) == 0 ? Color.theme.red : Color.theme.green)
                         
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundStyle(
                             LinearGradient(
-                                colors: [progress > 1 ? Color.theme.red : Color.theme.green2, progress > 1 ? Color.theme.red : Color.theme.green],
+                                colors: [
+                                    (currentSpend / totalBudget) > 1 ? Color.theme.red : Color.theme.green2,
+                                    (currentSpend / totalBudget) > 1 ? Color.theme.red : Color.theme.green],
                                 startPoint: .bottomTrailing,
                                 endPoint: .topLeading
                             )
@@ -57,11 +61,8 @@ struct ProgressBarView: View {
                         
                 }
                 .frame(width: getProgressWidth(geoWidth: geometry.size.width))
-                .animation(.linear, value: startPoint)
+                .animation(.linear, value: (currentSpend / totalBudget))
             }
-            .onAppear(perform: {
-                self.startPoint = progress
-            })
         }
     }
 }
@@ -73,8 +74,7 @@ struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
         List {
             Section("Progress Bar") {
-                ProgressBarView(progress: 0.4)
-                ProgressBarView(progress: 0.4)
+                ProgressBarView(currentSpend: 100, totalBudget: 1000)
             }
         }
         .preferredColorScheme(.dark)
