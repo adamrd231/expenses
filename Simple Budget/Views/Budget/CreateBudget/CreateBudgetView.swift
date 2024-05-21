@@ -103,10 +103,7 @@ struct CreateBudgetView: View {
             
             ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
                 Section("\(budgetItem.budgetCategory.description) Items") {
-                    ProgressBarView(
-                        currentSpend: budgetItem.totalSpend,
-                        totalBudget: budgetItem.budgetPercentage * newBudget.totalIncome
-                    )
+                    
                     
                     NavigationLink {
                         BudgetSetupComponentView(
@@ -117,25 +114,35 @@ struct CreateBudgetView: View {
                             endDate: newBudget.end
                         )
                     } label: {
-                        HStack {
-                            Image(systemName: budgetItem.items.isEmpty ? "checkmark.circle.trianglebadge.exclamationmark" : "checkmark.circle.fill")
-                                .foregroundStyle(budgetItem.items.isEmpty ? Color.theme.red : Color.theme.green)
-                            VStack(alignment: .leading) {
-                                Text(budgetItem.items.isEmpty ? "Add items" : "Add Items: \(budgetItem.items.count)")
-                                    .font(.caption)
+                        VStack(alignment: .leading, spacing: 10) {
+                            ProgressBarView(
+                                currentSpend: budgetItem.totalSpend,
+                                totalBudget: budgetItem.budgetPercentage * newBudget.totalIncome
+                            )
+                            
+                            HStack {
+                                Image(systemName: budgetItem.items.isEmpty ? "checkmark.circle.trianglebadge.exclamationmark" : "checkmark.circle.fill")
+                                    .foregroundStyle(budgetItem.items.isEmpty ? Color.theme.red : Color.theme.green)
+                                VStack(alignment: .leading) {
+                                    Text(budgetItem.items.isEmpty ? "Add items" : "Total Items: \(budgetItem.items.count)")
+                                        .font(.caption)
+                                }
+                                .fontWeight(.medium)
+                                .padding(.vertical, 5)
+                            }
+                            if !budgetItem.items.isEmpty {
+                                Divider()
+                            }
+                            ForEach(Array(zip(budgetItem.items, budgetItem.items.indices)), id: \.1) { item, index in
+                                HStack {
+                                    Text(index + 1, format: .number)
+                                    Text(item.type.name)
+                                    Spacer()
+                                    Text(item.amount, format: .currency(code: "USD"))
+                                }
+                                .font(.caption)
                             }
                         }
-                       
-                    }
-                    
-                    ForEach(Array(zip(budgetItem.items, budgetItem.items.indices)), id: \.1) { item, index in
-                        HStack {
-                            Text(index + 1, format: .number)
-                            Text(item.type.name)
-                            Spacer()
-                            Text(item.amount, format: .currency(code: "USD"))
-                        }
-                        .font(.caption)
                     }
                 }
             }
