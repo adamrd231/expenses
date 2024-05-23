@@ -4,15 +4,27 @@ import Combine
 class BudgetsViewModel: ObservableObject {
     @Published var budgets: [Budget] = []
     @Published var budgetModel: Budget = Budget()
-    @Published private var cancellable = Set<AnyCancellable>()
     @Published var budgetCategoryTypes: [TransactionCategory] = []
-    // Load persisted budgets when view model is created
-    // Subscribe to budgets, and manage persistence any time the array changes
+    @Published private var cancellable = Set<AnyCancellable>()
     
-    // TODO: OMG Rename this, this and budgetCategories are too similar and this name sucks
-    // These are the categories
-    // What I want to return...
-    // dictionary [BudgetType : [BudgetName] ]
+    init() {
+        retrieveBudgets()
+        addSubscribers()
+    }
+    
+    func addSubscribers() {
+        $budgets
+            .sink { [weak self] (returnedBudgets) in
+                self?.persist(budgetArray: returnedBudgets)
+                
+            }
+            .store(in: &cancellable)
+    }
+    
+    func getBudgetPercentageTotal() {
+        
+    }
+    
     var budgetNames: [BudgetCategory: [BudgetItemType]] {
         var array:[BudgetCategory: [BudgetItemType]] = [
             .income: [],
@@ -59,23 +71,7 @@ class BudgetsViewModel: ObservableObject {
         return array
     }
     
-    init() {
-        retrieveBudgets()
-        addSubscribers()
-    }
-     
-    func addSubscribers() {
-        $budgets
-            .sink { [weak self] (returnedBudgets) in
-                print("Budgets changed")
-                self?.persist(budgetArray: returnedBudgets)
-                
-            }
-            .store(in: &cancellable)
-    }
-    
     func persist(budgetArray: [Budget]) {
-       
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(budgetArray) {
             UserDefaults.standard.set(encoded, forKey: "user_budgets")
@@ -85,7 +81,6 @@ class BudgetsViewModel: ObservableObject {
     }
     
     func retrieveBudgets() {
-       
         if let budgetsData = UserDefaults.standard.value(forKey: "user_budgets") as? Data {
             let decoder = JSONDecoder()
             if let decoded = try? decoder.decode([Budget].self, from: budgetsData) {

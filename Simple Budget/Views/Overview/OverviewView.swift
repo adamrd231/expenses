@@ -21,9 +21,15 @@ struct OverviewView: View {
                             )
                             
                         } label: {
-                            ProgressBarView(currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
-                                totalBudget: budgetVM.getExpectedTotalFromBudgets(type: category)
-                            )
+                            VStack(alignment: .leading) {
+                                Text(category.description)
+                                    .bold()
+                                ProgressBarView(
+                                    currentSpend: transactionVM.getActualTotalFromTransactions(type: category),
+                                    totalBudget: budgetVM.getExpectedTotalFromBudgets(type: category)
+                                )
+                            }
+                           
                         }
                     }
                 }

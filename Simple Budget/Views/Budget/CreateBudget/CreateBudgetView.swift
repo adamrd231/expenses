@@ -103,8 +103,6 @@ struct CreateBudgetView: View {
             
             ForEach($newBudget.budgetItems, id: \.id) { $budgetItem in
                 Section("\(budgetItem.budgetCategory.description) Items") {
-                    
-                    
                     NavigationLink {
                         BudgetSetupComponentView(
                             items: $budgetItem.items,

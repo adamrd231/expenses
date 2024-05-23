@@ -10,13 +10,20 @@ import SwiftUI
 struct ProgressBarView: View {
     let currentSpend: Double
     let totalBudget: Double
+    let totalBudgetGoal: Double?
 
     let alignment: Alignment?
     var cornerRadius: Double = 10
     
-    init(currentSpend: Double, totalBudget: Double, alignment: Alignment? = .leading) {
+    init(
+        currentSpend: Double,
+        totalBudget: Double,
+        totalBudgetGoal: Double? = nil,
+        alignment: Alignment? = .leading
+    ) {
         self.currentSpend = currentSpend
         self.totalBudget = totalBudget
+        self.totalBudgetGoal = totalBudgetGoal
         self.alignment = alignment
     }
     
@@ -34,7 +41,7 @@ struct ProgressBarView: View {
     }
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(alignment: .trailing, spacing: 5) {
             GeometryReader { geometry in
                 ZStack(alignment: alignment ?? .leading) {
                     RoundedRectangle(cornerRadius: cornerRadius)
@@ -64,9 +71,9 @@ struct ProgressBarView: View {
             }
             .frame(height: 30)
             
-            HStack(spacing: 5) {
-                Spacer()
-                Text("Total:")
+            HStack(spacing: 4) {
+                Text("Total budget:")
+                    .font(.uppercaseSmallCaps(.caption)())
                 Text(totalBudget, format: .currency(code: "USD"))
             }
             .font(.caption)
@@ -82,7 +89,11 @@ struct ProgressBarView_Previews: PreviewProvider {
     static var previews: some View {
         List {
             Section("Progress Bar") {
-                ProgressBarView(currentSpend: 100, totalBudget: 1000)
+                ProgressBarView(
+                    currentSpend: 400,
+                    totalBudget: 500,
+                    totalBudgetGoal: 1000
+                )
             }
         }
         .preferredColorScheme(.dark)
