@@ -1,8 +1,12 @@
 import SwiftUI
 
 struct AddTransactionView: View {
-    @ObservedObject var transactionsVM: TransactionsViewModel
+    // Parameters
+    let addTransaction: (Transaction) -> Void
     let categories: [BudgetCategory: [BudgetItemType]]
+
+    // Variables for creating transactions
+    @State var newTransaction: Transaction = Transaction(data: Date(), description: "")
     @State var date = Date()
     @State var amount: Double? = nil
     @State var description = ""
@@ -29,8 +33,7 @@ struct AddTransactionView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            List {
+            Form {
                 Section(header: Text("New Transaction")) {
                     HStack {
                         Text("Date")
@@ -44,7 +47,7 @@ struct AddTransactionView: View {
                         }
                        
                         Spacer()
-                        TextField("Ex: $500.00", value: $amount, format: .number)
+                        TextField("Ex: $500.00", value: $newTransaction.amount, format: .number)
                             .fixedSize()
                             .multilineTextAlignment(.trailing)
                     }
@@ -54,7 +57,7 @@ struct AddTransactionView: View {
                             Text("*")
                                 .foregroundStyle(Color.theme.red)
                         }
-                        Picker("", selection: $pickerSelection) {
+                        Picker("Make selection", selection: $newTransaction.category) {
                             ForEach(BudgetCategory.allCases, id: \.self) { value in
                                 Text(value.description)
                                     .tag(Optional(value))
@@ -68,6 +71,8 @@ struct AddTransactionView: View {
                                 .foregroundStyle(Color.theme.red)
                         }
                         Picker("", selection: $typeSelection) {
+                            Text("No selection")
+                                .tag(Optional<BudgetItemType>(nil))
                             ForEach(filteredCategories, id: \.id) { category in
                                 Text(category.name)
                                     .tag(Optional(category))
@@ -76,41 +81,19 @@ struct AddTransactionView: View {
                     }
                     TextField("Enter description here", text: $description)
                 }
-            }
-            
-            
-            Button {
-                if let unwrappedAmount = amount,
-                let unwrappedPicker = pickerSelection,
-                let unwrappedBudgetName = typeSelection {
-                    let newTransaction = Transaction(
-                        data: date,
-                        amount: unwrappedAmount,
-                        category: unwrappedPicker,
-                        type: unwrappedBudgetName,
-                        description: description
-                    )
-                    transactionsVM.addNew(newTransaction)
-                    
-                    if shouldCloseAfterCreation {
-                        dismiss()
-                    } else {
-                        reset()
+                Button {
+                    addTransaction(newTransaction)
+                    dismiss()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                        Text("Create")
+                            .foregroundStyle(.white)
                     }
                 }
-                
-               
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                       
-                    Text("Create")
-                        .padding()
-                }
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal)
-                .padding(.bottom)
+                .disabled(newTransaction.amount == nil || newTransaction.category == nil)
             }
+           
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -127,7 +110,7 @@ struct AddTransactionView: View {
                     }
                 }
             }
-        }
+        
     }
 }
 
@@ -135,7 +118,7 @@ struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             AddTransactionView(
-                transactionsVM: TransactionsViewModel(),
+                addTransaction: { _ in },
                 categories: [.income: [BudgetItemType(name: "First")]]
             )
         }

@@ -51,9 +51,10 @@ struct TransactionsView: View {
             // Present sheet for adding new items
             .sheet(isPresented: $isAddingTransaction, content: {
                 AddTransactionView(
-                    transactionsVM: transactionsVM,
+                    addTransaction: transactionsVM.addNew,
                     categories: budgetsVM.budgetNames
                 )
+      
             })
         }
     }

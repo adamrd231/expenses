@@ -36,11 +36,11 @@ class DataManager: ObservableObject {
     func addNew(_ transaction: Transaction) {
         let newTransaction = TransactionEntity(context: container.viewContext)
         newTransaction.id = transaction.id
-        newTransaction.amount = transaction.amount
-        newTransaction.category = transaction.category.description
+        newTransaction.amount = transaction.amount ?? 0
+        newTransaction.category = transaction.category?.description ?? ""
         newTransaction.date = transaction.date
         newTransaction.details = transaction.description
-        newTransaction.type = transaction.type.name
+        newTransaction.type = transaction.type?.name ?? ""
         applyChanges()
     }
     

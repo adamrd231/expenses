@@ -16,7 +16,11 @@ struct TransactionTableviewView: View {
                             .bold()
                         HStack(spacing: 0) {
                             Text("(")
-                            Text(transaction.type ?? "")
+                            if transaction.type == "" {
+                                Text("N/A")
+                            } else {
+                                Text(transaction.type ?? "N/A")
+                            }
                             Text(")")
                         }
                         .font(.caption)
