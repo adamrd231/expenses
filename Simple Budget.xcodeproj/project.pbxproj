@@ -52,6 +52,7 @@
 		66076E222BEC7603003988B0 /* BudgetItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetItemType.swift; sourceTree = "<group>"; };
 		66076E252BEC7933003988B0 /* Budgets.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Budgets.xcdatamodel; sourceTree = "<group>"; };
 		66076E282BEC7D65003988B0 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		66076E352C052894003988B0 /* Simple-Budget-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Simple-Budget-Info.plist"; sourceTree = SOURCE_ROOT; };
 		666BE7AE2BAB87B2002ABF97 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		666BE7B22BACA126002ABF97 /* BudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsView.swift; sourceTree = "<group>"; };
 		666BE7B52BACA2E5002ABF97 /* CreateBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetView.swift; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		CE51FB0F2BA8370D0053AD00 /* Simple Budget */ = {
 			isa = PBXGroup;
 			children = (
+				66076E352C052894003988B0 /* Simple-Budget-Info.plist */,
 				66076E272BEC7D50003988B0 /* Coredata */,
 				644760B32BA8C87D002F1B2D /* App */,
 				6694DF082BB714B600B87CAB /* Extensions */,
@@ -527,6 +529,7 @@
 				DEVELOPMENT_TEAM = 6SFM579B5E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Simple-Budget-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Money Moves";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -559,6 +562,7 @@
 				DEVELOPMENT_TEAM = 6SFM579B5E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Simple-Budget-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Money Moves";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

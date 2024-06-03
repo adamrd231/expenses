@@ -7,13 +7,9 @@ struct AddTransactionView: View {
 
     // Variables for creating transactions
     @State var newTransaction: Transaction = Transaction(data: Date(), description: "")
-    @State var date = Date()
-    @State var amount: Double? = nil
-    @State var description = ""
-    @State var pickerSelection: BudgetCategory?
-    @State var typeSelection: BudgetItemType?
+
     var filteredCategories: [BudgetItemType] {
-        if let picker = pickerSelection {
+        if let picker = newTransaction.category {
             let categories = categories[picker]
             return categories ?? []
         } else {
@@ -25,11 +21,7 @@ struct AddTransactionView: View {
     @State var shouldCloseAfterCreation: Bool = true
     
     func reset() {
-        date = Date()
-        amount = nil
-        description = ""
-        pickerSelection = nil
-        typeSelection = nil
+        newTransaction = Transaction(data: Date(), description: "")
     }
     
     var body: some View {
@@ -37,11 +29,11 @@ struct AddTransactionView: View {
                 Section(header: Text("New Transaction")) {
                     HStack {
                         Text("Date")
-                        DatePicker("", selection: $date, displayedComponents: .date)
+                        DatePicker("", selection: $newTransaction.date, displayedComponents: .date)
                     }
                     HStack {
                         Text("Amount")
-                        if amount == nil {
+                        if newTransaction.amount == nil {
                             Text("*")
                                 .foregroundStyle(Color.theme.red)
                         }
@@ -51,49 +43,41 @@ struct AddTransactionView: View {
                             .fixedSize()
                             .multilineTextAlignment(.trailing)
                     }
-                    HStack {
-                        Text("Type")
-                        if pickerSelection == nil {
-                            Text("*")
-                                .foregroundStyle(Color.theme.red)
-                        }
-                        Picker("Make selection", selection: $newTransaction.category) {
-                            ForEach(BudgetCategory.allCases, id: \.self) { value in
-                                Text(value.description)
-                                    .tag(Optional(value))
-                            }
+     
+                    Picker("Type", selection: $newTransaction.category) {
+                        ForEach(BudgetCategory.allCases, id: \.self) { value in
+                            Text(value.description)
+                                .tag(Optional(value))
                         }
                     }
-                    HStack {
-                        Text("Category")
-                        if typeSelection == nil {
-                            Text("*")
-                                .foregroundStyle(Color.theme.red)
-                        }
-                        Picker("", selection: $typeSelection) {
-                            Text("No selection")
-                                .tag(Optional<BudgetItemType>(nil))
-                            ForEach(filteredCategories, id: \.id) { category in
-                                Text(category.name)
-                                    .tag(Optional(category))
-                            }
+                    
+                    Picker("Category", selection: $newTransaction.type) {
+                        Text("No selection")
+                            .tag(Optional<BudgetItemType>(nil))
+                        ForEach(filteredCategories, id: \.id) { category in
+                            Text(category.name)
+                                .tag(Optional(category))
                         }
                     }
-                    TextField("Enter description here", text: $description)
+                
+                    TextField("Enter description here", text: $newTransaction.description)
                 }
+                
                 Button {
                     addTransaction(newTransaction)
                     dismiss()
                 } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
+                    HStack {
+                        Spacer()
                         Text("Create")
                             .foregroundStyle(.white)
+                            .opacity(newTransaction.amount == nil || newTransaction.category == nil ? 0.66 : 1)
+                        Spacer()
                     }
                 }
+                .listRowBackground(Color.theme.blue)
                 .disabled(newTransaction.amount == nil || newTransaction.category == nil)
             }
-           
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
